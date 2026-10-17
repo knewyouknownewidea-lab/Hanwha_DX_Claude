@@ -1,0 +1,555 @@
+{
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Everllence G50ME-C9.6 Project Guide",
+      "url": "https://www.everllence.com/applications/projectguides/2stroke/content/printed/replaced/G50ME-C9_6.pdf",
+      "locator": "PDF pp.23-26, section 1.06, 199 05 61-7.4; PDF p.3 preface",
+      "used_for": [
+        "crosshead architecture",
+        "four piston ring grooves",
+        "lower liner flange",
+        "bearing shell and cap description"
+      ],
+      "limitation": "Family-level project guide; not as-built Hanwha drawings. Not detailed design data."
+    },
+    {
+      "id": "S2",
+      "title": "MITSUI E&S Marine Propulsion System Program 2024",
+      "url": "https://www.mes.co.jp/assets/uploads/marine-propulsion-syastem-program-2024.pdf",
+      "locator": "PDF page 24 (zero-based page 23), G50ME-C9.6 entry",
+      "used_for": [
+        "bore 500 mm",
+        "stroke 2500 mm"
+      ],
+      "limitation": "Independent licensee family data; no detailed dimensions for Hanwha components."
+    },
+    {
+      "id": "S3",
+      "title": "Everllence G50ME-C9.6 with high-pressure SCR Technical Poster",
+      "url": "https://www.everllence.com/docs/default-source/marine-documents/poster/poster_sl_bw_g50_me-c_9-6_hpscr.pdf?sfvrsn=5db1bfbc_3",
+      "locator": "one-page exterior poster",
+      "used_for": [
+        "vertical engine exterior context only"
+      ],
+      "limitation": "Exterior illustration cannot establish internal part dimensions."
+    },
+    {
+      "id": "S4",
+      "title": "earthtojake/text-to-cad official CAD skill, latest branch",
+      "url": "https://github.com/earthtojake/text-to-cad/tree/latest/skills/cad",
+      "used_for": [
+        "cadgen 0.7.21",
+        "STEP and GLB generation",
+        "snapshot review",
+        "native geometry checks"
+      ]
+    }
+  ],
+  "dimensions": [
+    {
+      "name": "bore",
+      "value": 500,
+      "unit": "mm",
+      "status": "public_family_reference",
+      "parts": [
+        "LINER_01"
+      ],
+      "source": "S2",
+      "note": ""
+    },
+    {
+      "name": "stroke",
+      "value": 2500,
+      "unit": "mm",
+      "status": "public_family_reference",
+      "parts": [
+        "CYLINDER_01"
+      ],
+      "source": "S2",
+      "note": ""
+    },
+    {
+      "name": "crank_radius",
+      "value": 1250,
+      "unit": "mm",
+      "status": "derived_from_public_stroke",
+      "parts": [
+        "CRANK_SECTION_01"
+      ],
+      "source": null,
+      "note": "stroke / 2, ideal inline slider-crank"
+    },
+    {
+      "name": "liner_outer_diameter",
+      "value": 610,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "LINER_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "liner_length",
+      "value": 3300,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "LINER_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "liner_bottom_z",
+      "value": 4500,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "LINER_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "liner_flange_outer_diameter",
+      "value": 700,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "LINER_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "liner_flange_thickness",
+      "value": 100,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "LINER_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "liner_flange_center_z",
+      "value": 4550,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "LINER_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "piston_diameter",
+      "value": 498,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "PISTON_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "piston_height",
+      "value": 400,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "PISTON_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "ring_groove_width",
+      "value": 10,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "PISTON_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "ring_groove_root_diameter",
+      "value": 488,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "PISTON_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "ring_groove_offsets_from_bottom",
+      "value": [
+        240,
+        280,
+        320,
+        360
+      ],
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "PISTON_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "piston_rod_diameter",
+      "value": 160,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "PISTON_ROD_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "piston_rod_shaft_length",
+      "value": 2680,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "PISTON_ROD_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "rod_shaft_bottom_above_pin_center",
+      "value": 200,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "PISTON_ROD_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "piston_bottom_above_crosshead_center",
+      "value": 2880,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "PISTON_01",
+        "PISTON_ROD_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "piston_rod_foot_size_xyz",
+      "value": [
+        180,
+        200,
+        70
+      ],
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "PISTON_ROD_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "piston_rod_foot_center_above_pin",
+      "value": 195,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "PISTON_ROD_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "crosshead_pin_diameter",
+      "value": 360,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CROSSHEAD_PIN_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "crosshead_pin_length",
+      "value": 900,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CROSSHEAD_PIN_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "crosshead_shell_inner_diameter",
+      "value": 362,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CROSSHEAD_BRG_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "crosshead_shell_outer_diameter",
+      "value": 450,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CROSSHEAD_BRG_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "crosshead_shell_axial_length",
+      "value": 520,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CROSSHEAD_BRG_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "conrod_center_distance",
+      "value": 3000,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CONROD_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "conrod_upper_saddle_inner_diameter",
+      "value": 452,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CONROD_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "conrod_upper_saddle_outer_diameter",
+      "value": 580,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CONROD_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "conrod_upper_saddle_axial_length",
+      "value": 560,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CONROD_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "conrod_big_end_inner_diameter",
+      "value": 502,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CONROD_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "conrod_big_end_outer_diameter",
+      "value": 700,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CONROD_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "conrod_big_end_axial_length",
+      "value": 500,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CONROD_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "conrod_beam_size_local_xyz",
+      "value": [
+        260,
+        220,
+        2650
+      ],
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CONROD_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "conrod_beam_local_center_z",
+      "value": 1475,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CONROD_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "crank_pin_diameter",
+      "value": 500,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CRANK_SECTION_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "crank_pin_length",
+      "value": 720,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CRANK_SECTION_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "main_journal_diameter",
+      "value": 600,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CRANK_SECTION_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "main_journal_length",
+      "value": 500,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CRANK_SECTION_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "main_journal_centers_y",
+      "value": [
+        -790,
+        790
+      ],
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CRANK_SECTION_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "crank_web_thickness",
+      "value": 200,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CRANK_SECTION_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "crank_web_centers_y",
+      "value": [
+        -450,
+        450
+      ],
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CRANK_SECTION_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "crank_web_end_radius",
+      "value": 370,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CRANK_SECTION_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "ring_groove_count",
+      "value": 4,
+      "unit": "count",
+      "status": "public_structure_reference",
+      "parts": [
+        "PISTON_01"
+      ],
+      "source": "S1",
+      "note": "Count only verified; sizes and spacing assumed."
+    },
+    {
+      "name": "crank_pose",
+      "value": 30,
+      "unit": "degree",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CYLINDER_01"
+      ],
+      "source": null,
+      "note": ""
+    }
+  ]
+}

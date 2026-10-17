@@ -1,5 +1,15 @@
 # 구매·협력사 AI 분석 플랫폼 (시연판)
 
+## 별도 프로젝트: 3D 엔진·구매 기술협의
+
+기존 v0.1.0 구매 분석 앱은 저장소 루트에 유지됩니다. 새 6기통 CAD·3D 뷰어·기술협의 시스템은 **[engine-dx/](./engine-dx/README.md)** 에 독립적으로 추가했습니다. 두 앱의 실행 환경과 데이터 저장소는 분리되어 있으며 아직 상호 연동되지 않았습니다.
+
+- [새 시스템 시연 주소](https://hanwha-engine-dx-6g50-demo.knewyouknownewidea.chatgpt.site/) — 소유자 로그인 필요
+- [STEP CAD](./engine-dx/cad/STEP/) · [GLB](./engine-dx/cad/GLB/) · [부품 목록](./engine-dx/cad/parts.json)
+- [단계별 검증 결과](./engine-dx/verification/단계별-결과.txt)
+
+---
+
 협력사·구매조달·원가-계약·자재-공급 데이터를 한 화면에서 관리하고, 자연어로 분석을 요청하면 AI가 결과 형식을 추천하고, 사용자가 고른 형식으로 결과를 보여 주는 웹 플랫폼입니다.
 
 **데이터 관리(A) → AI 챗봇 분석 요청(B) → 결과 형식 추천(B) → 사용자 선택 → 결과 시각화(C)**

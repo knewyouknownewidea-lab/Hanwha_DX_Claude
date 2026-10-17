@@ -1,0 +1,1275 @@
+{
+  "model": "6G50ME-C9.6",
+  "version": "DEMO-CAD-2.0",
+  "units": {
+    "CAD": "mm",
+    "GLB": "m"
+  },
+  "parts": [
+    {
+      "id": "ENGINE_CRANKSHAFT",
+      "name_ko": "공통 크랭크축",
+      "group": "운동부",
+      "cylinder": null,
+      "old_id": null,
+      "color": "#506932",
+      "part_instance_id": "ENGINE_CRANKSHAFT",
+      "part_type_id": "ENGINE_CRANKSHAFT",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": [
+        "CRANK_SECTION_01",
+        "CRANK_SECTION_02",
+        "CRANK_SECTION_03",
+        "CRANK_SECTION_04",
+        "CRANK_SECTION_05",
+        "CRANK_SECTION_06"
+      ]
+    },
+    {
+      "id": "CYL_01_LINER",
+      "name_ko": "라이너",
+      "group": "실린더",
+      "cylinder": 1,
+      "old_id": "LINER_01",
+      "color": "#538a33",
+      "part_instance_id": "CYL_01_LINER",
+      "part_type_id": "LINER",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": [
+        "LINER_01"
+      ]
+    },
+    {
+      "id": "CYL_01_PISTON",
+      "name_ko": "피스톤",
+      "group": "운동부",
+      "cylinder": 1,
+      "old_id": "PISTON_01",
+      "color": "#556e34",
+      "part_instance_id": "CYL_01_PISTON",
+      "part_type_id": "PISTON",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": [
+        "PISTON_01"
+      ]
+    },
+    {
+      "id": "CYL_01_PISTON_ROD",
+      "name_ko": "피스톤 로드",
+      "group": "운동부",
+      "cylinder": 1,
+      "old_id": "PISTON_ROD_01",
+      "color": "#577135",
+      "part_instance_id": "CYL_01_PISTON_ROD",
+      "part_type_id": "PISTON_ROD",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": [
+        "PISTON_ROD_01"
+      ]
+    },
+    {
+      "id": "CYL_01_CROSSHEAD_PIN",
+      "name_ko": "크로스헤드 핀",
+      "group": "운동부",
+      "cylinder": 1,
+      "old_id": "CROSSHEAD_PIN_01",
+      "color": "#5a7436",
+      "part_instance_id": "CYL_01_CROSSHEAD_PIN",
+      "part_type_id": "CROSSHEAD_PIN",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": [
+        "CROSSHEAD_PIN_01"
+      ]
+    },
+    {
+      "id": "CYL_01_CROSSHEAD_BRG",
+      "name_ko": "크로스헤드 베어링",
+      "group": "운동부",
+      "cylinder": 1,
+      "old_id": "CROSSHEAD_BRG_01",
+      "color": "#5c7737",
+      "part_instance_id": "CYL_01_CROSSHEAD_BRG",
+      "part_type_id": "CROSSHEAD_BRG",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": [
+        "CROSSHEAD_BRG_01"
+      ]
+    },
+    {
+      "id": "CYL_01_CONROD",
+      "name_ko": "커넥팅로드",
+      "group": "운동부",
+      "cylinder": 1,
+      "old_id": "CONROD_01",
+      "color": "#5e7938",
+      "part_instance_id": "CYL_01_CONROD",
+      "part_type_id": "CONROD",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": [
+        "CONROD_01"
+      ]
+    },
+    {
+      "id": "CYL_01_CROSSHEAD",
+      "name_ko": "크로스헤드 가이드 슈 및 요크",
+      "group": "운동부",
+      "cylinder": 1,
+      "old_id": null,
+      "color": "#617c39",
+      "part_instance_id": "CYL_01_CROSSHEAD",
+      "part_type_id": "CROSSHEAD",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_02_LINER",
+      "name_ko": "라이너",
+      "group": "실린더",
+      "cylinder": 2,
+      "old_id": "LINER_02",
+      "color": "#50863a",
+      "part_instance_id": "CYL_02_LINER",
+      "part_type_id": "LINER",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": [
+        "LINER_02"
+      ]
+    },
+    {
+      "id": "CYL_02_PISTON",
+      "name_ko": "피스톤",
+      "group": "운동부",
+      "cylinder": 2,
+      "old_id": "PISTON_02",
+      "color": "#536a3b",
+      "part_instance_id": "CYL_02_PISTON",
+      "part_type_id": "PISTON",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": [
+        "PISTON_02"
+      ]
+    },
+    {
+      "id": "CYL_02_PISTON_ROD",
+      "name_ko": "피스톤 로드",
+      "group": "운동부",
+      "cylinder": 2,
+      "old_id": "PISTON_ROD_02",
+      "color": "#556d3c",
+      "part_instance_id": "CYL_02_PISTON_ROD",
+      "part_type_id": "PISTON_ROD",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": [
+        "PISTON_ROD_02"
+      ]
+    },
+    {
+      "id": "CYL_02_CROSSHEAD_PIN",
+      "name_ko": "크로스헤드 핀",
+      "group": "운동부",
+      "cylinder": 2,
+      "old_id": "CROSSHEAD_PIN_02",
+      "color": "#576f3d",
+      "part_instance_id": "CYL_02_CROSSHEAD_PIN",
+      "part_type_id": "CROSSHEAD_PIN",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": [
+        "CROSSHEAD_PIN_02"
+      ]
+    },
+    {
+      "id": "CYL_02_CROSSHEAD_BRG",
+      "name_ko": "크로스헤드 베어링",
+      "group": "운동부",
+      "cylinder": 2,
+      "old_id": "CROSSHEAD_BRG_02",
+      "color": "#5a723e",
+      "part_instance_id": "CYL_02_CROSSHEAD_BRG",
+      "part_type_id": "CROSSHEAD_BRG",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": [
+        "CROSSHEAD_BRG_02"
+      ]
+    },
+    {
+      "id": "CYL_02_CONROD",
+      "name_ko": "커넥팅로드",
+      "group": "운동부",
+      "cylinder": 2,
+      "old_id": "CONROD_02",
+      "color": "#5c753f",
+      "part_instance_id": "CYL_02_CONROD",
+      "part_type_id": "CONROD",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": [
+        "CONROD_02"
+      ]
+    },
+    {
+      "id": "CYL_02_CROSSHEAD",
+      "name_ko": "크로스헤드 가이드 슈 및 요크",
+      "group": "운동부",
+      "cylinder": 2,
+      "old_id": null,
+      "color": "#5e7740",
+      "part_instance_id": "CYL_02_CROSSHEAD",
+      "part_type_id": "CROSSHEAD",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_03_LINER",
+      "name_ko": "라이너",
+      "group": "실린더",
+      "cylinder": 3,
+      "old_id": "LINER_03",
+      "color": "#61a041",
+      "part_instance_id": "CYL_03_LINER",
+      "part_type_id": "LINER",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": [
+        "LINER_03"
+      ]
+    },
+    {
+      "id": "CYL_03_PISTON",
+      "name_ko": "피스톤",
+      "group": "운동부",
+      "cylinder": 3,
+      "old_id": "PISTON_03",
+      "color": "#506542",
+      "part_instance_id": "CYL_03_PISTON",
+      "part_type_id": "PISTON",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": [
+        "PISTON_03"
+      ]
+    },
+    {
+      "id": "CYL_03_PISTON_ROD",
+      "name_ko": "피스톤 로드",
+      "group": "운동부",
+      "cylinder": 3,
+      "old_id": "PISTON_ROD_03",
+      "color": "#536843",
+      "part_instance_id": "CYL_03_PISTON_ROD",
+      "part_type_id": "PISTON_ROD",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": [
+        "PISTON_ROD_03"
+      ]
+    },
+    {
+      "id": "CYL_03_CROSSHEAD_PIN",
+      "name_ko": "크로스헤드 핀",
+      "group": "운동부",
+      "cylinder": 3,
+      "old_id": "CROSSHEAD_PIN_03",
+      "color": "#556b44",
+      "part_instance_id": "CYL_03_CROSSHEAD_PIN",
+      "part_type_id": "CROSSHEAD_PIN",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": [
+        "CROSSHEAD_PIN_03"
+      ]
+    },
+    {
+      "id": "CYL_03_CROSSHEAD_BRG",
+      "name_ko": "크로스헤드 베어링",
+      "group": "운동부",
+      "cylinder": 3,
+      "old_id": "CROSSHEAD_BRG_03",
+      "color": "#576d45",
+      "part_instance_id": "CYL_03_CROSSHEAD_BRG",
+      "part_type_id": "CROSSHEAD_BRG",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": [
+        "CROSSHEAD_BRG_03"
+      ]
+    },
+    {
+      "id": "CYL_03_CONROD",
+      "name_ko": "커넥팅로드",
+      "group": "운동부",
+      "cylinder": 3,
+      "old_id": "CONROD_03",
+      "color": "#5a7046",
+      "part_instance_id": "CYL_03_CONROD",
+      "part_type_id": "CONROD",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": [
+        "CONROD_03"
+      ]
+    },
+    {
+      "id": "CYL_03_CROSSHEAD",
+      "name_ko": "크로스헤드 가이드 슈 및 요크",
+      "group": "운동부",
+      "cylinder": 3,
+      "old_id": null,
+      "color": "#5c7347",
+      "part_instance_id": "CYL_03_CROSSHEAD",
+      "part_type_id": "CROSSHEAD",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_04_LINER",
+      "name_ko": "라이너",
+      "group": "실린더",
+      "cylinder": 4,
+      "old_id": "LINER_04",
+      "color": "#5e9d48",
+      "part_instance_id": "CYL_04_LINER",
+      "part_type_id": "LINER",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": [
+        "LINER_04"
+      ]
+    },
+    {
+      "id": "CYL_04_PISTON",
+      "name_ko": "피스톤",
+      "group": "운동부",
+      "cylinder": 4,
+      "old_id": "PISTON_04",
+      "color": "#617849",
+      "part_instance_id": "CYL_04_PISTON",
+      "part_type_id": "PISTON",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": [
+        "PISTON_04"
+      ]
+    },
+    {
+      "id": "CYL_04_PISTON_ROD",
+      "name_ko": "피스톤 로드",
+      "group": "운동부",
+      "cylinder": 4,
+      "old_id": "PISTON_ROD_04",
+      "color": "#50644a",
+      "part_instance_id": "CYL_04_PISTON_ROD",
+      "part_type_id": "PISTON_ROD",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": [
+        "PISTON_ROD_04"
+      ]
+    },
+    {
+      "id": "CYL_04_CROSSHEAD_PIN",
+      "name_ko": "크로스헤드 핀",
+      "group": "운동부",
+      "cylinder": 4,
+      "old_id": "CROSSHEAD_PIN_04",
+      "color": "#53664b",
+      "part_instance_id": "CYL_04_CROSSHEAD_PIN",
+      "part_type_id": "CROSSHEAD_PIN",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": [
+        "CROSSHEAD_PIN_04"
+      ]
+    },
+    {
+      "id": "CYL_04_CROSSHEAD_BRG",
+      "name_ko": "크로스헤드 베어링",
+      "group": "운동부",
+      "cylinder": 4,
+      "old_id": "CROSSHEAD_BRG_04",
+      "color": "#55694c",
+      "part_instance_id": "CYL_04_CROSSHEAD_BRG",
+      "part_type_id": "CROSSHEAD_BRG",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": [
+        "CROSSHEAD_BRG_04"
+      ]
+    },
+    {
+      "id": "CYL_04_CONROD",
+      "name_ko": "커넥팅로드",
+      "group": "운동부",
+      "cylinder": 4,
+      "old_id": "CONROD_04",
+      "color": "#576b4d",
+      "part_instance_id": "CYL_04_CONROD",
+      "part_type_id": "CONROD",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": [
+        "CONROD_04"
+      ]
+    },
+    {
+      "id": "CYL_04_CROSSHEAD",
+      "name_ko": "크로스헤드 가이드 슈 및 요크",
+      "group": "운동부",
+      "cylinder": 4,
+      "old_id": null,
+      "color": "#5a6e4e",
+      "part_instance_id": "CYL_04_CROSSHEAD",
+      "part_type_id": "CROSSHEAD",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_05_LINER",
+      "name_ko": "라이너",
+      "group": "실린더",
+      "cylinder": 5,
+      "old_id": "LINER_05",
+      "color": "#5c994f",
+      "part_instance_id": "CYL_05_LINER",
+      "part_type_id": "LINER",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": [
+        "LINER_05"
+      ]
+    },
+    {
+      "id": "CYL_05_PISTON",
+      "name_ko": "피스톤",
+      "group": "운동부",
+      "cylinder": 5,
+      "old_id": "PISTON_05",
+      "color": "#5e7350",
+      "part_instance_id": "CYL_05_PISTON",
+      "part_type_id": "PISTON",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": [
+        "PISTON_05"
+      ]
+    },
+    {
+      "id": "CYL_05_PISTON_ROD",
+      "name_ko": "피스톤 로드",
+      "group": "운동부",
+      "cylinder": 5,
+      "old_id": "PISTON_ROD_05",
+      "color": "#617651",
+      "part_instance_id": "CYL_05_PISTON_ROD",
+      "part_type_id": "PISTON_ROD",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": [
+        "PISTON_ROD_05"
+      ]
+    },
+    {
+      "id": "CYL_05_CROSSHEAD_PIN",
+      "name_ko": "크로스헤드 핀",
+      "group": "운동부",
+      "cylinder": 5,
+      "old_id": "CROSSHEAD_PIN_05",
+      "color": "#506252",
+      "part_instance_id": "CYL_05_CROSSHEAD_PIN",
+      "part_type_id": "CROSSHEAD_PIN",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": [
+        "CROSSHEAD_PIN_05"
+      ]
+    },
+    {
+      "id": "CYL_05_CROSSHEAD_BRG",
+      "name_ko": "크로스헤드 베어링",
+      "group": "운동부",
+      "cylinder": 5,
+      "old_id": "CROSSHEAD_BRG_05",
+      "color": "#536453",
+      "part_instance_id": "CYL_05_CROSSHEAD_BRG",
+      "part_type_id": "CROSSHEAD_BRG",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": [
+        "CROSSHEAD_BRG_05"
+      ]
+    },
+    {
+      "id": "CYL_05_CONROD",
+      "name_ko": "커넥팅로드",
+      "group": "운동부",
+      "cylinder": 5,
+      "old_id": "CONROD_05",
+      "color": "#556754",
+      "part_instance_id": "CYL_05_CONROD",
+      "part_type_id": "CONROD",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": [
+        "CONROD_05"
+      ]
+    },
+    {
+      "id": "CYL_05_CROSSHEAD",
+      "name_ko": "크로스헤드 가이드 슈 및 요크",
+      "group": "운동부",
+      "cylinder": 5,
+      "old_id": null,
+      "color": "#576955",
+      "part_instance_id": "CYL_05_CROSSHEAD",
+      "part_type_id": "CROSSHEAD",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_06_LINER",
+      "name_ko": "라이너",
+      "group": "실린더",
+      "cylinder": 6,
+      "old_id": "LINER_06",
+      "color": "#5a9556",
+      "part_instance_id": "CYL_06_LINER",
+      "part_type_id": "LINER",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": [
+        "LINER_06"
+      ]
+    },
+    {
+      "id": "CYL_06_PISTON",
+      "name_ko": "피스톤",
+      "group": "운동부",
+      "cylinder": 6,
+      "old_id": "PISTON_06",
+      "color": "#5c6e57",
+      "part_instance_id": "CYL_06_PISTON",
+      "part_type_id": "PISTON",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": [
+        "PISTON_06"
+      ]
+    },
+    {
+      "id": "CYL_06_PISTON_ROD",
+      "name_ko": "피스톤 로드",
+      "group": "운동부",
+      "cylinder": 6,
+      "old_id": "PISTON_ROD_06",
+      "color": "#5e7158",
+      "part_instance_id": "CYL_06_PISTON_ROD",
+      "part_type_id": "PISTON_ROD",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": [
+        "PISTON_ROD_06"
+      ]
+    },
+    {
+      "id": "CYL_06_CROSSHEAD_PIN",
+      "name_ko": "크로스헤드 핀",
+      "group": "운동부",
+      "cylinder": 6,
+      "old_id": "CROSSHEAD_PIN_06",
+      "color": "#617459",
+      "part_instance_id": "CYL_06_CROSSHEAD_PIN",
+      "part_type_id": "CROSSHEAD_PIN",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": [
+        "CROSSHEAD_PIN_06"
+      ]
+    },
+    {
+      "id": "CYL_06_CROSSHEAD_BRG",
+      "name_ko": "크로스헤드 베어링",
+      "group": "운동부",
+      "cylinder": 6,
+      "old_id": "CROSSHEAD_BRG_06",
+      "color": "#50605a",
+      "part_instance_id": "CYL_06_CROSSHEAD_BRG",
+      "part_type_id": "CROSSHEAD_BRG",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": [
+        "CROSSHEAD_BRG_06"
+      ]
+    },
+    {
+      "id": "CYL_06_CONROD",
+      "name_ko": "커넥팅로드",
+      "group": "운동부",
+      "cylinder": 6,
+      "old_id": "CONROD_06",
+      "color": "#53625b",
+      "part_instance_id": "CYL_06_CONROD",
+      "part_type_id": "CONROD",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": [
+        "CONROD_06"
+      ]
+    },
+    {
+      "id": "CYL_06_CROSSHEAD",
+      "name_ko": "크로스헤드 가이드 슈 및 요크",
+      "group": "운동부",
+      "cylinder": 6,
+      "old_id": null,
+      "color": "#55655c",
+      "part_instance_id": "CYL_06_CROSSHEAD",
+      "part_type_id": "CROSSHEAD",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "ENGINE_BEDPLATE",
+      "name_ko": "베드플레이트",
+      "group": "구조물",
+      "cylinder": null,
+      "old_id": null,
+      "color": "#57915d",
+      "part_instance_id": "ENGINE_BEDPLATE",
+      "part_type_id": "ENGINE_BEDPLATE",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "ENGINE_FRAME",
+      "name_ko": "하부 프레임",
+      "group": "구조물",
+      "cylinder": null,
+      "old_id": null,
+      "color": "#5a955e",
+      "part_instance_id": "ENGINE_FRAME",
+      "part_type_id": "ENGINE_FRAME",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "ENGINE_MAIN_BEARING_01",
+      "name_ko": "주베어링 및 지지대",
+      "group": "하부",
+      "cylinder": null,
+      "old_id": null,
+      "color": "#5c745f",
+      "part_instance_id": "ENGINE_MAIN_BEARING_01",
+      "part_type_id": "ENGINE_MAIN_BEARING_01",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "ENGINE_MAIN_BEARING_02",
+      "name_ko": "주베어링 및 지지대",
+      "group": "하부",
+      "cylinder": null,
+      "old_id": null,
+      "color": "#5e7660",
+      "part_instance_id": "ENGINE_MAIN_BEARING_02",
+      "part_type_id": "ENGINE_MAIN_BEARING_02",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "ENGINE_MAIN_BEARING_03",
+      "name_ko": "주베어링 및 지지대",
+      "group": "하부",
+      "cylinder": null,
+      "old_id": null,
+      "color": "#617961",
+      "part_instance_id": "ENGINE_MAIN_BEARING_03",
+      "part_type_id": "ENGINE_MAIN_BEARING_03",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "ENGINE_MAIN_BEARING_04",
+      "name_ko": "주베어링 및 지지대",
+      "group": "하부",
+      "cylinder": null,
+      "old_id": null,
+      "color": "#506562",
+      "part_instance_id": "ENGINE_MAIN_BEARING_04",
+      "part_type_id": "ENGINE_MAIN_BEARING_04",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "ENGINE_MAIN_BEARING_05",
+      "name_ko": "주베어링 및 지지대",
+      "group": "하부",
+      "cylinder": null,
+      "old_id": null,
+      "color": "#536763",
+      "part_instance_id": "ENGINE_MAIN_BEARING_05",
+      "part_type_id": "ENGINE_MAIN_BEARING_05",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "ENGINE_MAIN_BEARING_06",
+      "name_ko": "주베어링 및 지지대",
+      "group": "하부",
+      "cylinder": null,
+      "old_id": null,
+      "color": "#556a64",
+      "part_instance_id": "ENGINE_MAIN_BEARING_06",
+      "part_type_id": "ENGINE_MAIN_BEARING_06",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "ENGINE_MAIN_BEARING_07",
+      "name_ko": "주베어링 및 지지대",
+      "group": "하부",
+      "cylinder": null,
+      "old_id": null,
+      "color": "#576c65",
+      "part_instance_id": "ENGINE_MAIN_BEARING_07",
+      "part_type_id": "ENGINE_MAIN_BEARING_07",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "ENGINE_CYLINDER_FRAME",
+      "name_ko": "실린더 프레임",
+      "group": "구조물",
+      "cylinder": null,
+      "old_id": null,
+      "color": "#5a9566",
+      "part_instance_id": "ENGINE_CYLINDER_FRAME",
+      "part_type_id": "ENGINE_CYLINDER_FRAME",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_01_COOLING_JACKET",
+      "name_ko": "냉각 재킷",
+      "group": "실린더",
+      "cylinder": 1,
+      "old_id": null,
+      "color": "#5c9967",
+      "part_instance_id": "CYL_01_COOLING_JACKET",
+      "part_type_id": "COOLING_JACKET",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_01_COVER",
+      "name_ko": "실린더 커버",
+      "group": "상부",
+      "cylinder": 1,
+      "old_id": null,
+      "color": "#5e9d68",
+      "part_instance_id": "CYL_01_COVER",
+      "part_type_id": "COVER",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_01_EXHAUST_VALVE",
+      "name_ko": "배기밸브",
+      "group": "상부",
+      "cylinder": 1,
+      "old_id": null,
+      "color": "#61a069",
+      "part_instance_id": "CYL_01_EXHAUST_VALVE",
+      "part_type_id": "EXHAUST_VALVE",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_01_FUEL_INJECTOR_01",
+      "name_ko": "연료분사장치 외형",
+      "group": "상부",
+      "cylinder": 1,
+      "old_id": null,
+      "color": "#50866a",
+      "part_instance_id": "CYL_01_FUEL_INJECTOR_01",
+      "part_type_id": "FUEL_INJECTOR_01",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_01_FUEL_INJECTOR_02",
+      "name_ko": "연료분사장치 외형",
+      "group": "상부",
+      "cylinder": 1,
+      "old_id": null,
+      "color": "#538a6b",
+      "part_instance_id": "CYL_01_FUEL_INJECTOR_02",
+      "part_type_id": "FUEL_INJECTOR_02",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_01_FUEL_INJECTOR_03",
+      "name_ko": "연료분사장치 외형",
+      "group": "상부",
+      "cylinder": 1,
+      "old_id": null,
+      "color": "#558e6c",
+      "part_instance_id": "CYL_01_FUEL_INJECTOR_03",
+      "part_type_id": "FUEL_INJECTOR_03",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_02_COOLING_JACKET",
+      "name_ko": "냉각 재킷",
+      "group": "실린더",
+      "cylinder": 2,
+      "old_id": null,
+      "color": "#57916d",
+      "part_instance_id": "CYL_02_COOLING_JACKET",
+      "part_type_id": "COOLING_JACKET",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_02_COVER",
+      "name_ko": "실린더 커버",
+      "group": "상부",
+      "cylinder": 2,
+      "old_id": null,
+      "color": "#5a956e",
+      "part_instance_id": "CYL_02_COVER",
+      "part_type_id": "COVER",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_02_EXHAUST_VALVE",
+      "name_ko": "배기밸브",
+      "group": "상부",
+      "cylinder": 2,
+      "old_id": null,
+      "color": "#5c996f",
+      "part_instance_id": "CYL_02_EXHAUST_VALVE",
+      "part_type_id": "EXHAUST_VALVE",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_02_FUEL_INJECTOR_01",
+      "name_ko": "연료분사장치 외형",
+      "group": "상부",
+      "cylinder": 2,
+      "old_id": null,
+      "color": "#5e9d70",
+      "part_instance_id": "CYL_02_FUEL_INJECTOR_01",
+      "part_type_id": "FUEL_INJECTOR_01",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_02_FUEL_INJECTOR_02",
+      "name_ko": "연료분사장치 외형",
+      "group": "상부",
+      "cylinder": 2,
+      "old_id": null,
+      "color": "#61a071",
+      "part_instance_id": "CYL_02_FUEL_INJECTOR_02",
+      "part_type_id": "FUEL_INJECTOR_02",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_02_FUEL_INJECTOR_03",
+      "name_ko": "연료분사장치 외형",
+      "group": "상부",
+      "cylinder": 2,
+      "old_id": null,
+      "color": "#508672",
+      "part_instance_id": "CYL_02_FUEL_INJECTOR_03",
+      "part_type_id": "FUEL_INJECTOR_03",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_03_COOLING_JACKET",
+      "name_ko": "냉각 재킷",
+      "group": "실린더",
+      "cylinder": 3,
+      "old_id": null,
+      "color": "#538873",
+      "part_instance_id": "CYL_03_COOLING_JACKET",
+      "part_type_id": "COOLING_JACKET",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_03_COVER",
+      "name_ko": "실린더 커버",
+      "group": "상부",
+      "cylinder": 3,
+      "old_id": null,
+      "color": "#558e74",
+      "part_instance_id": "CYL_03_COVER",
+      "part_type_id": "COVER",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_03_EXHAUST_VALVE",
+      "name_ko": "배기밸브",
+      "group": "상부",
+      "cylinder": 3,
+      "old_id": null,
+      "color": "#579175",
+      "part_instance_id": "CYL_03_EXHAUST_VALVE",
+      "part_type_id": "EXHAUST_VALVE",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_03_FUEL_INJECTOR_01",
+      "name_ko": "연료분사장치 외형",
+      "group": "상부",
+      "cylinder": 3,
+      "old_id": null,
+      "color": "#5a9576",
+      "part_instance_id": "CYL_03_FUEL_INJECTOR_01",
+      "part_type_id": "FUEL_INJECTOR_01",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_03_FUEL_INJECTOR_02",
+      "name_ko": "연료분사장치 외형",
+      "group": "상부",
+      "cylinder": 3,
+      "old_id": null,
+      "color": "#5c9977",
+      "part_instance_id": "CYL_03_FUEL_INJECTOR_02",
+      "part_type_id": "FUEL_INJECTOR_02",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_03_FUEL_INJECTOR_03",
+      "name_ko": "연료분사장치 외형",
+      "group": "상부",
+      "cylinder": 3,
+      "old_id": null,
+      "color": "#5e9d78",
+      "part_instance_id": "CYL_03_FUEL_INJECTOR_03",
+      "part_type_id": "FUEL_INJECTOR_03",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_04_COOLING_JACKET",
+      "name_ko": "냉각 재킷",
+      "group": "실린더",
+      "cylinder": 4,
+      "old_id": null,
+      "color": "#619c79",
+      "part_instance_id": "CYL_04_COOLING_JACKET",
+      "part_type_id": "COOLING_JACKET",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_04_COVER",
+      "name_ko": "실린더 커버",
+      "group": "상부",
+      "cylinder": 4,
+      "old_id": null,
+      "color": "#50867a",
+      "part_instance_id": "CYL_04_COVER",
+      "part_type_id": "COVER",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_04_EXHAUST_VALVE",
+      "name_ko": "배기밸브",
+      "group": "상부",
+      "cylinder": 4,
+      "old_id": null,
+      "color": "#53897b",
+      "part_instance_id": "CYL_04_EXHAUST_VALVE",
+      "part_type_id": "EXHAUST_VALVE",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_04_FUEL_INJECTOR_01",
+      "name_ko": "연료분사장치 외형",
+      "group": "상부",
+      "cylinder": 4,
+      "old_id": null,
+      "color": "#558d7c",
+      "part_instance_id": "CYL_04_FUEL_INJECTOR_01",
+      "part_type_id": "FUEL_INJECTOR_01",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_04_FUEL_INJECTOR_02",
+      "name_ko": "연료분사장치 외형",
+      "group": "상부",
+      "cylinder": 4,
+      "old_id": null,
+      "color": "#57907d",
+      "part_instance_id": "CYL_04_FUEL_INJECTOR_02",
+      "part_type_id": "FUEL_INJECTOR_02",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_04_FUEL_INJECTOR_03",
+      "name_ko": "연료분사장치 외형",
+      "group": "상부",
+      "cylinder": 4,
+      "old_id": null,
+      "color": "#5a947e",
+      "part_instance_id": "CYL_04_FUEL_INJECTOR_03",
+      "part_type_id": "FUEL_INJECTOR_03",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_05_COOLING_JACKET",
+      "name_ko": "냉각 재킷",
+      "group": "실린더",
+      "cylinder": 5,
+      "old_id": null,
+      "color": "#5c947f",
+      "part_instance_id": "CYL_05_COOLING_JACKET",
+      "part_type_id": "COOLING_JACKET",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_05_COVER",
+      "name_ko": "실린더 커버",
+      "group": "상부",
+      "cylinder": 5,
+      "old_id": null,
+      "color": "#5e9b80",
+      "part_instance_id": "CYL_05_COVER",
+      "part_type_id": "COVER",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_05_EXHAUST_VALVE",
+      "name_ko": "배기밸브",
+      "group": "상부",
+      "cylinder": 5,
+      "old_id": null,
+      "color": "#619e81",
+      "part_instance_id": "CYL_05_EXHAUST_VALVE",
+      "part_type_id": "EXHAUST_VALVE",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_05_FUEL_INJECTOR_01",
+      "name_ko": "연료분사장치 외형",
+      "group": "상부",
+      "cylinder": 5,
+      "old_id": null,
+      "color": "#508482",
+      "part_instance_id": "CYL_05_FUEL_INJECTOR_01",
+      "part_type_id": "FUEL_INJECTOR_01",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_05_FUEL_INJECTOR_02",
+      "name_ko": "연료분사장치 외형",
+      "group": "상부",
+      "cylinder": 5,
+      "old_id": null,
+      "color": "#538783",
+      "part_instance_id": "CYL_05_FUEL_INJECTOR_02",
+      "part_type_id": "FUEL_INJECTOR_02",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_05_FUEL_INJECTOR_03",
+      "name_ko": "연료분사장치 외형",
+      "group": "상부",
+      "cylinder": 5,
+      "old_id": null,
+      "color": "#558b84",
+      "part_instance_id": "CYL_05_FUEL_INJECTOR_03",
+      "part_type_id": "FUEL_INJECTOR_03",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_06_COOLING_JACKET",
+      "name_ko": "냉각 재킷",
+      "group": "실린더",
+      "cylinder": 6,
+      "old_id": null,
+      "color": "#578b85",
+      "part_instance_id": "CYL_06_COOLING_JACKET",
+      "part_type_id": "COOLING_JACKET",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_06_COVER",
+      "name_ko": "실린더 커버",
+      "group": "상부",
+      "cylinder": 6,
+      "old_id": null,
+      "color": "#5a9286",
+      "part_instance_id": "CYL_06_COVER",
+      "part_type_id": "COVER",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_06_EXHAUST_VALVE",
+      "name_ko": "배기밸브",
+      "group": "상부",
+      "cylinder": 6,
+      "old_id": null,
+      "color": "#5c9687",
+      "part_instance_id": "CYL_06_EXHAUST_VALVE",
+      "part_type_id": "EXHAUST_VALVE",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_06_FUEL_INJECTOR_01",
+      "name_ko": "연료분사장치 외형",
+      "group": "상부",
+      "cylinder": 6,
+      "old_id": null,
+      "color": "#5e9988",
+      "part_instance_id": "CYL_06_FUEL_INJECTOR_01",
+      "part_type_id": "FUEL_INJECTOR_01",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_06_FUEL_INJECTOR_02",
+      "name_ko": "연료분사장치 외형",
+      "group": "상부",
+      "cylinder": 6,
+      "old_id": null,
+      "color": "#619c89",
+      "part_instance_id": "CYL_06_FUEL_INJECTOR_02",
+      "part_type_id": "FUEL_INJECTOR_02",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "CYL_06_FUEL_INJECTOR_03",
+      "name_ko": "연료분사장치 외형",
+      "group": "상부",
+      "cylinder": 6,
+      "old_id": null,
+      "color": "#50828a",
+      "part_instance_id": "CYL_06_FUEL_INJECTOR_03",
+      "part_type_id": "FUEL_INJECTOR_03",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "ENGINE_EXHAUST_RECEIVER",
+      "name_ko": "공통 배기 리시버",
+      "group": "보조장치",
+      "cylinder": null,
+      "old_id": null,
+      "color": "#538a8b",
+      "part_instance_id": "ENGINE_EXHAUST_RECEIVER",
+      "part_type_id": "ENGINE_EXHAUST_RECEIVER",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "ENGINE_SCAVENGE_RECEIVER",
+      "name_ko": "소기 공기 리시버",
+      "group": "보조장치",
+      "cylinder": null,
+      "old_id": null,
+      "color": "#558e8c",
+      "part_instance_id": "ENGINE_SCAVENGE_RECEIVER",
+      "part_type_id": "ENGINE_SCAVENGE_RECEIVER",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "ENGINE_TURBOCHARGER",
+      "name_ko": "터보차저 외형",
+      "group": "보조장치",
+      "cylinder": null,
+      "old_id": null,
+      "color": "#57918d",
+      "part_instance_id": "ENGINE_TURBOCHARGER",
+      "part_type_id": "ENGINE_TURBOCHARGER",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "ENGINE_GALLERY_LOWER",
+      "name_ko": "유지보수 갤러리 LOWER",
+      "group": "외부설비",
+      "cylinder": null,
+      "old_id": null,
+      "color": "#5a958e",
+      "part_instance_id": "ENGINE_GALLERY_LOWER",
+      "part_type_id": "ENGINE_GALLERY_LOWER",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    },
+    {
+      "id": "ENGINE_GALLERY_UPPER",
+      "name_ko": "유지보수 갤러리 UPPER",
+      "group": "외부설비",
+      "cylinder": null,
+      "old_id": null,
+      "color": "#5c998f",
+      "part_instance_id": "ENGINE_GALLERY_UPPER",
+      "part_type_id": "ENGINE_GALLERY_UPPER",
+      "geometry_status": "시연용 단순화",
+      "legacy_ids": []
+    }
+  ],
+  "public_dimensions": {
+    "bore_mm": 500,
+    "stroke_mm": 2500
+  },
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Everllence G50ME-C9.6 Project Guide",
+      "url": "https://www.everllence.com/applications/projectguides/2stroke/content/printed/replaced/G50ME-C9_6.pdf",
+      "locator": "PDF pp.23-26, section 1.06, 199 05 61-7.4; PDF p.3 preface",
+      "used_for": [
+        "crosshead architecture",
+        "four piston ring grooves",
+        "lower liner flange",
+        "bearing shell and cap description"
+      ],
+      "limitation": "Family-level project guide; not as-built Hanwha drawings. Not detailed design data."
+    },
+    {
+      "id": "S2",
+      "title": "MITSUI E&S Marine Propulsion System Program 2024",
+      "url": "https://www.mes.co.jp/assets/uploads/marine-propulsion-syastem-program-2024.pdf",
+      "locator": "PDF page 24 (zero-based page 23), G50ME-C9.6 entry",
+      "used_for": [
+        "bore 500 mm",
+        "stroke 2500 mm"
+      ],
+      "limitation": "Independent licensee family data; no detailed dimensions for Hanwha components."
+    },
+    {
+      "id": "S3",
+      "title": "Everllence G50ME-C9.6 with high-pressure SCR Technical Poster",
+      "url": "https://www.everllence.com/docs/default-source/marine-documents/poster/poster_sl_bw_g50_me-c_9-6_hpscr.pdf?sfvrsn=5db1bfbc_3",
+      "locator": "one-page exterior poster",
+      "used_for": [
+        "vertical engine exterior context only"
+      ],
+      "limitation": "Exterior illustration cannot establish internal part dimensions."
+    },
+    {
+      "id": "S4",
+      "title": "earthtojake/text-to-cad official CAD skill, latest branch",
+      "url": "https://github.com/earthtojake/text-to-cad/tree/latest/skills/cad",
+      "used_for": [
+        "cadgen 0.7.21",
+        "STEP and GLB generation",
+        "snapshot review",
+        "native geometry checks"
+      ]
+    }
+  ],
+  "assumptions": [
+    "Cylinder pitch 1080 mm; phases [30,150,270,90,210,330] not confirmed firing order.",
+    "Reuse demonstration conrod length 3000 mm; guide force table lists family L=2500 mm but not applied to preserve reviewed prototype.",
+    "All added frame, cover, bearing support, receiver, turbocharger and gallery dimensions are demonstration assumptions.",
+    "Bearings 303 mm bore radius around 300 mm journals; virtual clearance, not manufacturing tolerance.",
+    "No claim of exact manufacturer CAD, no ERP/MES/PLM integration."
+  ]
+}

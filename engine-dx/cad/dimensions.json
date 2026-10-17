@@ -1,0 +1,2827 @@
+{
+  "units": "mm; CAD Z vertical/Y crankshaft; GLB converted to m with viewer Y vertical",
+  "warning": "Only bore/stroke are public family references. All other model dimensions are schematic assumptions or derived values. Bounds describe generated geometry, not measured engine dimensions.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Everllence G50ME-C9.6 Project Guide",
+      "url": "https://www.everllence.com/applications/projectguides/2stroke/content/printed/replaced/G50ME-C9_6.pdf",
+      "locator": "PDF pp.23-26, section 1.06, 199 05 61-7.4; PDF p.3 preface",
+      "used_for": [
+        "crosshead architecture",
+        "four piston ring grooves",
+        "lower liner flange",
+        "bearing shell and cap description"
+      ],
+      "limitation": "Family-level project guide; not as-built Hanwha drawings. Not detailed design data."
+    },
+    {
+      "id": "S2",
+      "title": "MITSUI E&S Marine Propulsion System Program 2024",
+      "url": "https://www.mes.co.jp/assets/uploads/marine-propulsion-syastem-program-2024.pdf",
+      "locator": "PDF page 24 (zero-based page 23), G50ME-C9.6 entry",
+      "used_for": [
+        "bore 500 mm",
+        "stroke 2500 mm"
+      ],
+      "limitation": "Independent licensee family data; no detailed dimensions for Hanwha components."
+    },
+    {
+      "id": "S3",
+      "title": "Everllence G50ME-C9.6 with high-pressure SCR Technical Poster",
+      "url": "https://www.everllence.com/docs/default-source/marine-documents/poster/poster_sl_bw_g50_me-c_9-6_hpscr.pdf?sfvrsn=5db1bfbc_3",
+      "locator": "one-page exterior poster",
+      "used_for": [
+        "vertical engine exterior context only"
+      ],
+      "limitation": "Exterior illustration cannot establish internal part dimensions."
+    },
+    {
+      "id": "S4",
+      "title": "earthtojake/text-to-cad official CAD skill, latest branch",
+      "url": "https://github.com/earthtojake/text-to-cad/tree/latest/skills/cad",
+      "used_for": [
+        "cadgen 0.7.21",
+        "STEP and GLB generation",
+        "snapshot review",
+        "native geometry checks"
+      ]
+    }
+  ],
+  "baseline_dimensions": [
+    {
+      "name": "bore",
+      "value": 500,
+      "unit": "mm",
+      "status": "public_family_reference",
+      "parts": [
+        "LINER_01"
+      ],
+      "source": "S2",
+      "note": ""
+    },
+    {
+      "name": "stroke",
+      "value": 2500,
+      "unit": "mm",
+      "status": "public_family_reference",
+      "parts": [
+        "CYLINDER_01"
+      ],
+      "source": "S2",
+      "note": ""
+    },
+    {
+      "name": "crank_radius",
+      "value": 1250,
+      "unit": "mm",
+      "status": "derived_from_public_stroke",
+      "parts": [
+        "CRANK_SECTION_01"
+      ],
+      "source": null,
+      "note": "stroke / 2, ideal inline slider-crank"
+    },
+    {
+      "name": "liner_outer_diameter",
+      "value": 610,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "LINER_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "liner_length",
+      "value": 3300,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "LINER_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "liner_bottom_z",
+      "value": 4500,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "LINER_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "liner_flange_outer_diameter",
+      "value": 700,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "LINER_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "liner_flange_thickness",
+      "value": 100,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "LINER_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "liner_flange_center_z",
+      "value": 4550,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "LINER_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "piston_diameter",
+      "value": 498,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "PISTON_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "piston_height",
+      "value": 400,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "PISTON_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "ring_groove_width",
+      "value": 10,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "PISTON_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "ring_groove_root_diameter",
+      "value": 488,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "PISTON_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "ring_groove_offsets_from_bottom",
+      "value": [
+        240,
+        280,
+        320,
+        360
+      ],
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "PISTON_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "piston_rod_diameter",
+      "value": 160,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "PISTON_ROD_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "piston_rod_shaft_length",
+      "value": 2680,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "PISTON_ROD_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "rod_shaft_bottom_above_pin_center",
+      "value": 200,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "PISTON_ROD_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "piston_bottom_above_crosshead_center",
+      "value": 2880,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "PISTON_01",
+        "PISTON_ROD_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "piston_rod_foot_size_xyz",
+      "value": [
+        180,
+        200,
+        70
+      ],
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "PISTON_ROD_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "piston_rod_foot_center_above_pin",
+      "value": 195,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "PISTON_ROD_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "crosshead_pin_diameter",
+      "value": 360,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CROSSHEAD_PIN_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "crosshead_pin_length",
+      "value": 900,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CROSSHEAD_PIN_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "crosshead_shell_inner_diameter",
+      "value": 362,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CROSSHEAD_BRG_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "crosshead_shell_outer_diameter",
+      "value": 450,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CROSSHEAD_BRG_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "crosshead_shell_axial_length",
+      "value": 520,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CROSSHEAD_BRG_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "conrod_center_distance",
+      "value": 3000,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CONROD_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "conrod_upper_saddle_inner_diameter",
+      "value": 452,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CONROD_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "conrod_upper_saddle_outer_diameter",
+      "value": 580,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CONROD_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "conrod_upper_saddle_axial_length",
+      "value": 560,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CONROD_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "conrod_big_end_inner_diameter",
+      "value": 502,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CONROD_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "conrod_big_end_outer_diameter",
+      "value": 700,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CONROD_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "conrod_big_end_axial_length",
+      "value": 500,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CONROD_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "conrod_beam_size_local_xyz",
+      "value": [
+        260,
+        220,
+        2650
+      ],
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CONROD_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "conrod_beam_local_center_z",
+      "value": 1475,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CONROD_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "crank_pin_diameter",
+      "value": 500,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CRANK_SECTION_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "crank_pin_length",
+      "value": 720,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CRANK_SECTION_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "main_journal_diameter",
+      "value": 600,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CRANK_SECTION_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "main_journal_length",
+      "value": 500,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CRANK_SECTION_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "main_journal_centers_y",
+      "value": [
+        -790,
+        790
+      ],
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CRANK_SECTION_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "crank_web_thickness",
+      "value": 200,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CRANK_SECTION_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "crank_web_centers_y",
+      "value": [
+        -450,
+        450
+      ],
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CRANK_SECTION_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "crank_web_end_radius",
+      "value": 370,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CRANK_SECTION_01"
+      ],
+      "source": null,
+      "note": ""
+    },
+    {
+      "name": "ring_groove_count",
+      "value": 4,
+      "unit": "count",
+      "status": "public_structure_reference",
+      "parts": [
+        "PISTON_01"
+      ],
+      "source": "S1",
+      "note": "Count only verified; sizes and spacing assumed."
+    },
+    {
+      "name": "crank_pose",
+      "value": 30,
+      "unit": "degree",
+      "status": "demonstration_assumption",
+      "parts": [
+        "CYLINDER_01"
+      ],
+      "source": null,
+      "note": ""
+    }
+  ],
+  "added_and_explicit_assumptions": [
+    {
+      "name": "cylinder_pitch",
+      "value": 1080,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "crank_angles",
+      "value": [
+        30,
+        150,
+        270,
+        90,
+        210,
+        330
+      ],
+      "unit": "degree",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "conrod_centres",
+      "value": 3000,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "crosshead_shoe",
+      "value": [
+        500,
+        40,
+        430
+      ],
+      "unit": "mm XYZ",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "crosshead_bridge",
+      "value": [
+        500,
+        980,
+        40
+      ],
+      "unit": "mm XYZ",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "crosshead_bridge_clearance",
+      "value": [
+        200,
+        240,
+        100
+      ],
+      "unit": "mm XYZ",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "bedplate",
+      "value": [
+        3900,
+        7200,
+        350
+      ],
+      "unit": "mm XYZ",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "lower_frame_outer",
+      "value": [
+        3600,
+        7000,
+        6050
+      ],
+      "unit": "mm XYZ",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "lower_frame_inner",
+      "value": [
+        3300,
+        6800,
+        6060
+      ],
+      "unit": "mm XYZ",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "inspection_window",
+      "value": [
+        4000,
+        820,
+        1700
+      ],
+      "unit": "mm XYZ cutter",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "frame_brackets",
+      "value": [
+        1070,
+        120,
+        100
+      ],
+      "unit": "mm XYZ",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "main_bearing_outer_radius",
+      "value": 430,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "main_bearing_inner_radius",
+      "value": 303,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "main_bearing_length",
+      "value": 170,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "main_bearing_pedestal",
+      "value": [
+        900,
+        170,
+        1330
+      ],
+      "unit": "mm XYZ",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "main_bearing_y",
+      "value": [
+        -3240,
+        -2160,
+        -1080,
+        0,
+        1080,
+        2160,
+        3240
+      ],
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "cylinder_frame",
+      "value": [
+        1200,
+        6600,
+        3500
+      ],
+      "unit": "mm XYZ",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "cylinder_frame_bore_radius",
+      "value": 425,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "cooling_jacket_outer_radius",
+      "value": 420,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "cooling_jacket_inner_radius",
+      "value": 306,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "cooling_jacket_height",
+      "value": 3145,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "cover_radius",
+      "value": 430,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "cover_height",
+      "value": 180,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "cover_center_z",
+      "value": 7900,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "exhaust_valve_stem_radius_height",
+      "value": [
+        100,
+        400
+      ],
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "exhaust_valve_housing_radius_height",
+      "value": [
+        160,
+        200
+      ],
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "injectors_per_cylinder",
+      "value": 3,
+      "unit": "count assumption",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "injector_radius_height",
+      "value": [
+        40,
+        350
+      ],
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "injector_radial_offset",
+      "value": 240,
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "exhaust_receiver_outer_inner_radius_length",
+      "value": [
+        250,
+        220,
+        7000
+      ],
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "exhaust_receiver_center",
+      "value": [
+        1300,
+        0,
+        8600
+      ],
+      "unit": "mm XYZ",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "scavenge_receiver_outer_inner_radius_length",
+      "value": [
+        450,
+        410,
+        7000
+      ],
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "scavenge_receiver_center",
+      "value": [
+        -1400,
+        0,
+        4900
+      ],
+      "unit": "mm XYZ",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "turbo_housing_radius_length",
+      "value": [
+        500,
+        600
+      ],
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "turbo_shaft_housing_radius_length",
+      "value": [
+        350,
+        850
+      ],
+      "unit": "mm",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "turbo_center",
+      "value": [
+        1300,
+        3925,
+        8600
+      ],
+      "unit": "mm XYZ",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "gallery_deck",
+      "value": [
+        900,
+        7000,
+        60
+      ],
+      "unit": "mm XYZ",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "gallery_levels",
+      "value": [
+        4300,
+        7800
+      ],
+      "unit": "mm Z",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "gallery_post",
+      "value": [
+        35,
+        35,
+        1100
+      ],
+      "unit": "mm XYZ",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    },
+    {
+      "name": "gallery_rail",
+      "value": [
+        35,
+        6900,
+        35
+      ],
+      "unit": "mm XYZ",
+      "status": "demonstration_assumption",
+      "source": "cad/src/full_geometry.py or motion.py"
+    }
+  ],
+  "conrod_discrepancy": "Guide section 17.05 family force table L=2500 mm. Reviewed prototype retained at assumed L=3000 mm; not manufacturer CAD.",
+  "parts": [
+    {
+      "id": "ENGINE_CRANKSHAFT",
+      "volume_mm3": 3317507903.351591,
+      "min_mm": [
+        -1620,
+        -3240,
+        -1452.531754731
+      ],
+      "max_mm": [
+        1620,
+        3240,
+        1452.531754731
+      ],
+      "size_mm": [
+        3240,
+        6480,
+        2905.063509462
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_01_LINER",
+      "volume_mm3": 325720326.3241959,
+      "min_mm": [
+        -350,
+        -3050,
+        4500
+      ],
+      "max_mm": [
+        350,
+        -2350,
+        7800
+      ],
+      "size_mm": [
+        700,
+        700,
+        3300
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_01_PISTON",
+      "volume_mm3": 77602993.41044436,
+      "min_mm": [
+        -249,
+        -2949,
+        6896.705403307
+      ],
+      "max_mm": [
+        249,
+        -2451,
+        7296.705403307
+      ],
+      "size_mm": [
+        498,
+        498,
+        400
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_01_PISTON_ROD",
+      "volume_mm3": 55356482.027479105,
+      "min_mm": [
+        -90,
+        -2800,
+        4176.705403307
+      ],
+      "max_mm": [
+        90,
+        -2600,
+        6896.705403307
+      ],
+      "size_mm": [
+        180,
+        200,
+        2720
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_01_CROSSHEAD_PIN",
+      "volume_mm3": 91608841.77867839,
+      "min_mm": [
+        -180,
+        -3150,
+        3836.705403307
+      ],
+      "max_mm": [
+        180,
+        -2250,
+        4196.705403307
+      ],
+      "size_mm": [
+        360,
+        900,
+        360
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_01_CROSSHEAD_BRG",
+      "volume_mm3": 14591566.902569946,
+      "min_mm": [
+        -220.06302364324563,
+        -2960,
+        3791.705403307
+      ],
+      "max_mm": [
+        224.9999999999999,
+        -2440,
+        4063.580403306919
+      ],
+      "size_mm": [
+        445.0630236432455,
+        520,
+        271.87499999991905
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_01_CONROD",
+      "volume_mm3": 258546235.66211396,
+      "min_mm": [
+        -283.63678602798814,
+        -2980,
+        732.5317547310001
+      ],
+      "max_mm": [
+        975,
+        -2420,
+        4077.1220699741684
+      ],
+      "size_mm": [
+        1258.6367860279881,
+        560,
+        3344.5903152431683
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_01_CROSSHEAD",
+      "volume_mm3": 34479999.999999985,
+      "min_mm": [
+        -250,
+        -3190,
+        3801.705403307
+      ],
+      "max_mm": [
+        250,
+        -2210,
+        4261.705403307
+      ],
+      "size_mm": [
+        500,
+        980,
+        460
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_02_LINER",
+      "volume_mm3": 325720326.3241957,
+      "min_mm": [
+        -350,
+        -1970,
+        4500
+      ],
+      "max_mm": [
+        350,
+        -1270,
+        7800
+      ],
+      "size_mm": [
+        700,
+        700,
+        3300
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_02_PISTON",
+      "volume_mm3": 77602993.41044436,
+      "min_mm": [
+        -249,
+        -1869,
+        4731.641893846
+      ],
+      "max_mm": [
+        249,
+        -1371,
+        5131.641893846
+      ],
+      "size_mm": [
+        498,
+        498,
+        400
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_02_PISTON_ROD",
+      "volume_mm3": 55356482.02747912,
+      "min_mm": [
+        -90,
+        -1720,
+        2011.6418938459976
+      ],
+      "max_mm": [
+        90,
+        -1520,
+        4731.641893846
+      ],
+      "size_mm": [
+        180,
+        200,
+        2720.0000000000027
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_02_CROSSHEAD_PIN",
+      "volume_mm3": 91608841.77867839,
+      "min_mm": [
+        -180,
+        -2070,
+        1671.641893846
+      ],
+      "max_mm": [
+        180,
+        -1170,
+        2031.641893846
+      ],
+      "size_mm": [
+        360,
+        900,
+        360
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_02_CROSSHEAD_BRG",
+      "volume_mm3": 14591566.902569938,
+      "min_mm": [
+        -220.06302364324563,
+        -1880,
+        1626.641893846
+      ],
+      "max_mm": [
+        224.9999999999999,
+        -1360,
+        1898.5168938459185
+      ],
+      "size_mm": [
+        445.0630236432455,
+        520,
+        271.8749999999186
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_02_CONROD",
+      "volume_mm3": 258546235.66211396,
+      "min_mm": [
+        -283.63678602798814,
+        -1900,
+        -1432.531754731
+      ],
+      "max_mm": [
+        975,
+        -1340,
+        1912.0585605121685
+      ],
+      "size_mm": [
+        1258.6367860279881,
+        560,
+        3344.5903152431683
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_02_CROSSHEAD",
+      "volume_mm3": 34480000.000000015,
+      "min_mm": [
+        -250,
+        -2110,
+        1636.641893846
+      ],
+      "max_mm": [
+        250,
+        -1130,
+        2096.641893846
+      ],
+      "size_mm": [
+        500,
+        980,
+        460.0000000000002
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_03_LINER",
+      "volume_mm3": 325720326.3241957,
+      "min_mm": [
+        -350,
+        -890,
+        4500
+      ],
+      "max_mm": [
+        350,
+        -190,
+        7800
+      ],
+      "size_mm": [
+        700,
+        700,
+        3300
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_03_PISTON",
+      "volume_mm3": 77602993.41044438,
+      "min_mm": [
+        -249,
+        -789,
+        5607.178028659
+      ],
+      "max_mm": [
+        249,
+        -291,
+        6007.178028659
+      ],
+      "size_mm": [
+        498,
+        498,
+        400
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_03_PISTON_ROD",
+      "volume_mm3": 55356482.027479105,
+      "min_mm": [
+        -90,
+        -640,
+        2887.178028659
+      ],
+      "max_mm": [
+        90,
+        -440,
+        5607.178028659
+      ],
+      "size_mm": [
+        180,
+        200,
+        2720
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_03_CROSSHEAD_PIN",
+      "volume_mm3": 91608841.77867837,
+      "min_mm": [
+        -180,
+        -990,
+        2547.178028659
+      ],
+      "max_mm": [
+        180,
+        -90,
+        2907.178028659
+      ],
+      "size_mm": [
+        360,
+        900,
+        360
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_03_CROSSHEAD_BRG",
+      "volume_mm3": 14591566.902569938,
+      "min_mm": [
+        -225,
+        -800,
+        2502.178028659
+      ],
+      "max_mm": [
+        204.53835214937916,
+        -280,
+        2820.9280286590883
+      ],
+      "size_mm": [
+        429.5383521493792,
+        520,
+        318.7500000000882
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_03_CONROD",
+      "volume_mm3": 258546235.6621139,
+      "min_mm": [
+        -1600,
+        -820,
+        -350.0000000000003
+      ],
+      "max_mm": [
+        263.62720943815566,
+        -260,
+        2848.011361991835
+      ],
+      "size_mm": [
+        1863.6272094381557,
+        560,
+        3198.0113619918357
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_03_CROSSHEAD",
+      "volume_mm3": 34479999.99999999,
+      "min_mm": [
+        -250,
+        -1030,
+        2512.178028659
+      ],
+      "max_mm": [
+        250,
+        -50,
+        2972.178028659
+      ],
+      "size_mm": [
+        500,
+        980,
+        460
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_04_LINER",
+      "volume_mm3": 325720326.3241958,
+      "min_mm": [
+        -350,
+        190,
+        4500
+      ],
+      "max_mm": [
+        350,
+        890,
+        7800
+      ],
+      "size_mm": [
+        700,
+        700,
+        3300
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_04_PISTON",
+      "volume_mm3": 77602993.41044438,
+      "min_mm": [
+        -249,
+        291,
+        5607.178028659
+      ],
+      "max_mm": [
+        249,
+        789,
+        6007.178028659
+      ],
+      "size_mm": [
+        498,
+        498,
+        400
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_04_PISTON_ROD",
+      "volume_mm3": 55356482.02747911,
+      "min_mm": [
+        -90,
+        440,
+        2887.178028659
+      ],
+      "max_mm": [
+        90,
+        640,
+        5607.178028659
+      ],
+      "size_mm": [
+        180,
+        200,
+        2720
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_04_CROSSHEAD_PIN",
+      "volume_mm3": 91608841.77867837,
+      "min_mm": [
+        -180,
+        90,
+        2547.178028659
+      ],
+      "max_mm": [
+        180,
+        990,
+        2907.178028659
+      ],
+      "size_mm": [
+        360,
+        900,
+        360
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_04_CROSSHEAD_BRG",
+      "volume_mm3": 14591566.902569938,
+      "min_mm": [
+        -204.53835214937914,
+        280,
+        2502.178028659
+      ],
+      "max_mm": [
+        225,
+        800,
+        2820.928028659089
+      ],
+      "size_mm": [
+        429.53835214937914,
+        520,
+        318.7500000000887
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_04_CONROD",
+      "volume_mm3": 258546235.66211393,
+      "min_mm": [
+        -263.62720943815566,
+        260,
+        -349.99999999999994
+      ],
+      "max_mm": [
+        1600,
+        820,
+        2848.0113619918357
+      ],
+      "size_mm": [
+        1863.6272094381557,
+        560,
+        3198.0113619918357
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_04_CROSSHEAD",
+      "volume_mm3": 34479999.99999999,
+      "min_mm": [
+        -250,
+        50,
+        2512.178028659
+      ],
+      "max_mm": [
+        250,
+        1030,
+        2972.178028659
+      ],
+      "size_mm": [
+        500,
+        980,
+        460
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_05_LINER",
+      "volume_mm3": 325720326.3241957,
+      "min_mm": [
+        -350,
+        1270,
+        4500
+      ],
+      "max_mm": [
+        350,
+        1970,
+        7800
+      ],
+      "size_mm": [
+        700,
+        700,
+        3300
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_05_PISTON",
+      "volume_mm3": 77602993.41044436,
+      "min_mm": [
+        -249,
+        1371,
+        4731.641893846
+      ],
+      "max_mm": [
+        249,
+        1869,
+        5131.641893846
+      ],
+      "size_mm": [
+        498,
+        498,
+        400
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_05_PISTON_ROD",
+      "volume_mm3": 55356482.02747912,
+      "min_mm": [
+        -90,
+        1520,
+        2011.6418938459976
+      ],
+      "max_mm": [
+        90,
+        1720,
+        4731.641893846
+      ],
+      "size_mm": [
+        180,
+        200,
+        2720.0000000000027
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_05_CROSSHEAD_PIN",
+      "volume_mm3": 91608841.77867839,
+      "min_mm": [
+        -180,
+        1170,
+        1671.641893846
+      ],
+      "max_mm": [
+        180,
+        2070,
+        2031.641893846
+      ],
+      "size_mm": [
+        360,
+        900,
+        360
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_05_CROSSHEAD_BRG",
+      "volume_mm3": 14591566.902569931,
+      "min_mm": [
+        -225,
+        1360,
+        1626.641893846
+      ],
+      "max_mm": [
+        220.0630236432455,
+        1880,
+        1898.5168938459187
+      ],
+      "size_mm": [
+        445.0630236432455,
+        520,
+        271.8749999999188
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_05_CONROD",
+      "volume_mm3": 258546235.66211388,
+      "min_mm": [
+        -975,
+        1340,
+        -1432.531754731
+      ],
+      "max_mm": [
+        283.63678602798814,
+        1900,
+        1912.0585605121682
+      ],
+      "size_mm": [
+        1258.6367860279881,
+        560,
+        3344.5903152431683
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_05_CROSSHEAD",
+      "volume_mm3": 34480000.000000015,
+      "min_mm": [
+        -250,
+        1130,
+        1636.641893846
+      ],
+      "max_mm": [
+        250,
+        2110,
+        2096.641893846
+      ],
+      "size_mm": [
+        500,
+        980,
+        460.0000000000002
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_06_LINER",
+      "volume_mm3": 325720326.3241959,
+      "min_mm": [
+        -350,
+        2350,
+        4500
+      ],
+      "max_mm": [
+        350,
+        3050,
+        7800
+      ],
+      "size_mm": [
+        700,
+        700,
+        3300
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_06_PISTON",
+      "volume_mm3": 77602993.41044436,
+      "min_mm": [
+        -249,
+        2451,
+        6896.705403307
+      ],
+      "max_mm": [
+        249,
+        2949,
+        7296.705403307
+      ],
+      "size_mm": [
+        498,
+        498,
+        400
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_06_PISTON_ROD",
+      "volume_mm3": 55356482.027479105,
+      "min_mm": [
+        -90,
+        2600,
+        4176.705403307
+      ],
+      "max_mm": [
+        90,
+        2800,
+        6896.705403307
+      ],
+      "size_mm": [
+        180,
+        200,
+        2720
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_06_CROSSHEAD_PIN",
+      "volume_mm3": 91608841.77867839,
+      "min_mm": [
+        -180,
+        2250,
+        3836.705403307
+      ],
+      "max_mm": [
+        180,
+        3150,
+        4196.705403307
+      ],
+      "size_mm": [
+        360,
+        900,
+        360
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_06_CROSSHEAD_BRG",
+      "volume_mm3": 14591566.902569946,
+      "min_mm": [
+        -224.9999999999999,
+        2440,
+        3791.705403307
+      ],
+      "max_mm": [
+        220.0630236432456,
+        2960,
+        4063.5804033069185
+      ],
+      "size_mm": [
+        445.0630236432455,
+        520,
+        271.8749999999186
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_06_CONROD",
+      "volume_mm3": 258546235.66211388,
+      "min_mm": [
+        -975,
+        2420,
+        732.5317547310001
+      ],
+      "max_mm": [
+        283.63678602798814,
+        2980,
+        4077.1220699741684
+      ],
+      "size_mm": [
+        1258.6367860279881,
+        560,
+        3344.5903152431683
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_06_CROSSHEAD",
+      "volume_mm3": 34479999.999999985,
+      "min_mm": [
+        -250,
+        2210,
+        3801.705403307
+      ],
+      "max_mm": [
+        250,
+        3190,
+        4261.705403307
+      ],
+      "size_mm": [
+        500,
+        980,
+        460
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "ENGINE_BEDPLATE",
+      "volume_mm3": 9828000000,
+      "min_mm": [
+        -1950,
+        -3600,
+        -2100
+      ],
+      "max_mm": [
+        1950,
+        3600,
+        -1750
+      ],
+      "size_mm": [
+        3900,
+        7200,
+        350
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "ENGINE_FRAME",
+      "volume_mm3": 14339999999.999992,
+      "min_mm": [
+        -1800,
+        -3500,
+        -1750
+      ],
+      "max_mm": [
+        1800,
+        3500,
+        4300
+      ],
+      "size_mm": [
+        3600,
+        7000,
+        6050
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "ENGINE_MAIN_BEARING_01",
+      "volume_mm3": 228139122.9189124,
+      "min_mm": [
+        -450,
+        -3325,
+        -1750
+      ],
+      "max_mm": [
+        450,
+        -3155,
+        5.265981236333619e-14
+      ],
+      "size_mm": [
+        900,
+        170,
+        1750
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "ENGINE_MAIN_BEARING_02",
+      "volume_mm3": 228139122.9189124,
+      "min_mm": [
+        -450,
+        -2245,
+        -1750
+      ],
+      "max_mm": [
+        450,
+        -2075,
+        5.265981236333619e-14
+      ],
+      "size_mm": [
+        900,
+        170,
+        1750
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "ENGINE_MAIN_BEARING_03",
+      "volume_mm3": 228139122.9189124,
+      "min_mm": [
+        -450,
+        -1165,
+        -1750
+      ],
+      "max_mm": [
+        450,
+        -995,
+        5.265981236333619e-14
+      ],
+      "size_mm": [
+        900,
+        170,
+        1750
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "ENGINE_MAIN_BEARING_04",
+      "volume_mm3": 228139122.9189124,
+      "min_mm": [
+        -450,
+        -85,
+        -1750
+      ],
+      "max_mm": [
+        450,
+        85,
+        5.265981236333619e-14
+      ],
+      "size_mm": [
+        900,
+        170,
+        1750
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "ENGINE_MAIN_BEARING_05",
+      "volume_mm3": 228139122.9189124,
+      "min_mm": [
+        -450,
+        995,
+        -1750
+      ],
+      "max_mm": [
+        450,
+        1165,
+        5.265981236333619e-14
+      ],
+      "size_mm": [
+        900,
+        170,
+        1750
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "ENGINE_MAIN_BEARING_06",
+      "volume_mm3": 228139122.9189124,
+      "min_mm": [
+        -450,
+        2075,
+        -1750
+      ],
+      "max_mm": [
+        450,
+        2245,
+        5.265981236333619e-14
+      ],
+      "size_mm": [
+        900,
+        170,
+        1750
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "ENGINE_MAIN_BEARING_07",
+      "volume_mm3": 228139122.9189124,
+      "min_mm": [
+        -450,
+        3155,
+        -1750
+      ],
+      "max_mm": [
+        450,
+        3325,
+        5.265981236333619e-14
+      ],
+      "size_mm": [
+        900,
+        170,
+        1750
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "ENGINE_CYLINDER_FRAME",
+      "volume_mm3": 15803546365.852016,
+      "min_mm": [
+        -600,
+        -3300,
+        4300
+      ],
+      "max_mm": [
+        600,
+        3300,
+        7800
+      ],
+      "size_mm": [
+        1200,
+        6600,
+        3500
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_01_COOLING_JACKET",
+      "volume_mm3": 817733885.4304823,
+      "min_mm": [
+        -420,
+        -3120,
+        4605
+      ],
+      "max_mm": [
+        420,
+        -2280,
+        7750
+      ],
+      "size_mm": [
+        840,
+        840,
+        3145
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_01_COVER",
+      "volume_mm3": 104558486.69677548,
+      "min_mm": [
+        -430,
+        -3130,
+        7810
+      ],
+      "max_mm": [
+        430,
+        -2270,
+        7990
+      ],
+      "size_mm": [
+        860,
+        860,
+        180
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_01_EXHAUST_VALVE",
+      "volume_mm3": 28651325.00073888,
+      "min_mm": [
+        -160,
+        -2860,
+        7990
+      ],
+      "max_mm": [
+        160,
+        -2540,
+        8590
+      ],
+      "size_mm": [
+        320,
+        320,
+        600
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_01_FUEL_INJECTOR_01",
+      "volume_mm3": 1759291.886010286,
+      "min_mm": [
+        200,
+        -2740,
+        7990
+      ],
+      "max_mm": [
+        280,
+        -2660,
+        8340
+      ],
+      "size_mm": [
+        80,
+        80,
+        350
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_01_FUEL_INJECTOR_02",
+      "volume_mm3": 1759291.8860102862,
+      "min_mm": [
+        -160,
+        -2532.153903092,
+        7990
+      ],
+      "max_mm": [
+        -80,
+        -2452.153903092,
+        8340
+      ],
+      "size_mm": [
+        80,
+        80,
+        350
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_01_FUEL_INJECTOR_03",
+      "volume_mm3": 1759291.8860102862,
+      "min_mm": [
+        -160,
+        -2947.846096908,
+        7990
+      ],
+      "max_mm": [
+        -80,
+        -2867.846096908,
+        8340
+      ],
+      "size_mm": [
+        80,
+        80,
+        350
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_02_COOLING_JACKET",
+      "volume_mm3": 817733885.4304825,
+      "min_mm": [
+        -420,
+        -2040,
+        4605
+      ],
+      "max_mm": [
+        420,
+        -1200,
+        7750
+      ],
+      "size_mm": [
+        840,
+        840,
+        3145
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_02_COVER",
+      "volume_mm3": 104558486.69677548,
+      "min_mm": [
+        -430,
+        -2050,
+        7810
+      ],
+      "max_mm": [
+        430,
+        -1190,
+        7990
+      ],
+      "size_mm": [
+        860,
+        860,
+        180
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_02_EXHAUST_VALVE",
+      "volume_mm3": 28651325.000738885,
+      "min_mm": [
+        -160,
+        -1780,
+        7990
+      ],
+      "max_mm": [
+        160,
+        -1460,
+        8590
+      ],
+      "size_mm": [
+        320,
+        320,
+        600
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_02_FUEL_INJECTOR_01",
+      "volume_mm3": 1759291.8860102838,
+      "min_mm": [
+        200,
+        -1660,
+        7990
+      ],
+      "max_mm": [
+        280,
+        -1580,
+        8340
+      ],
+      "size_mm": [
+        80,
+        80,
+        350
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_02_FUEL_INJECTOR_02",
+      "volume_mm3": 1759291.8860102838,
+      "min_mm": [
+        -160,
+        -1452.153903092,
+        7990
+      ],
+      "max_mm": [
+        -80,
+        -1372.153903092,
+        8340
+      ],
+      "size_mm": [
+        80,
+        80,
+        350
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_02_FUEL_INJECTOR_03",
+      "volume_mm3": 1759291.886010284,
+      "min_mm": [
+        -160,
+        -1867.846096908,
+        7990
+      ],
+      "max_mm": [
+        -80,
+        -1787.846096908,
+        8340
+      ],
+      "size_mm": [
+        80,
+        80,
+        350
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_03_COOLING_JACKET",
+      "volume_mm3": 817733885.4304825,
+      "min_mm": [
+        -420,
+        -960,
+        4605
+      ],
+      "max_mm": [
+        420,
+        -120,
+        7750
+      ],
+      "size_mm": [
+        840,
+        840,
+        3145
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_03_COVER",
+      "volume_mm3": 104558486.69677548,
+      "min_mm": [
+        -430,
+        -970,
+        7810
+      ],
+      "max_mm": [
+        430,
+        -110,
+        7990
+      ],
+      "size_mm": [
+        860,
+        860,
+        180
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_03_EXHAUST_VALVE",
+      "volume_mm3": 28651325.00073888,
+      "min_mm": [
+        -160,
+        -700,
+        7990
+      ],
+      "max_mm": [
+        160,
+        -380,
+        8590
+      ],
+      "size_mm": [
+        320,
+        320,
+        600
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_03_FUEL_INJECTOR_01",
+      "volume_mm3": 1759291.8860102843,
+      "min_mm": [
+        200,
+        -580,
+        7990
+      ],
+      "max_mm": [
+        280,
+        -500,
+        8340
+      ],
+      "size_mm": [
+        80,
+        80,
+        350
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_03_FUEL_INJECTOR_02",
+      "volume_mm3": 1759291.8860102843,
+      "min_mm": [
+        -160,
+        -372.1539030917,
+        7990
+      ],
+      "max_mm": [
+        -80,
+        -292.1539030917,
+        8340
+      ],
+      "size_mm": [
+        80,
+        80,
+        350
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_03_FUEL_INJECTOR_03",
+      "volume_mm3": 1759291.8860102843,
+      "min_mm": [
+        -160,
+        -787.8460969082,
+        7990
+      ],
+      "max_mm": [
+        -80,
+        -707.8460969082,
+        8340
+      ],
+      "size_mm": [
+        80,
+        80,
+        350
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_04_COOLING_JACKET",
+      "volume_mm3": 817733885.4304825,
+      "min_mm": [
+        -420,
+        120,
+        4605
+      ],
+      "max_mm": [
+        420,
+        960,
+        7750
+      ],
+      "size_mm": [
+        840,
+        840,
+        3145
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_04_COVER",
+      "volume_mm3": 104558486.6967755,
+      "min_mm": [
+        -430,
+        110,
+        7810
+      ],
+      "max_mm": [
+        430,
+        970,
+        7990
+      ],
+      "size_mm": [
+        860,
+        860,
+        180
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_04_EXHAUST_VALVE",
+      "volume_mm3": 28651325.00073888,
+      "min_mm": [
+        -160,
+        380,
+        7990
+      ],
+      "max_mm": [
+        160,
+        700,
+        8590
+      ],
+      "size_mm": [
+        320,
+        320,
+        600
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_04_FUEL_INJECTOR_01",
+      "volume_mm3": 1759291.8860102838,
+      "min_mm": [
+        200,
+        500,
+        7990
+      ],
+      "max_mm": [
+        280,
+        580,
+        8340
+      ],
+      "size_mm": [
+        80,
+        80,
+        350
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_04_FUEL_INJECTOR_02",
+      "volume_mm3": 1759291.8860102843,
+      "min_mm": [
+        -160,
+        707.84609690826,
+        7990
+      ],
+      "max_mm": [
+        -80,
+        787.84609690826,
+        8340
+      ],
+      "size_mm": [
+        80,
+        80,
+        350
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_04_FUEL_INJECTOR_03",
+      "volume_mm3": 1759291.8860102843,
+      "min_mm": [
+        -160,
+        292.15390309173,
+        7990
+      ],
+      "max_mm": [
+        -80,
+        372.15390309173,
+        8340
+      ],
+      "size_mm": [
+        80,
+        80,
+        350
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_05_COOLING_JACKET",
+      "volume_mm3": 817733885.4304825,
+      "min_mm": [
+        -420,
+        1200,
+        4605
+      ],
+      "max_mm": [
+        420,
+        2040,
+        7750
+      ],
+      "size_mm": [
+        840,
+        840,
+        3145
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_05_COVER",
+      "volume_mm3": 104558486.69677548,
+      "min_mm": [
+        -430,
+        1190,
+        7810
+      ],
+      "max_mm": [
+        430,
+        2050,
+        7990
+      ],
+      "size_mm": [
+        860,
+        860,
+        180
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_05_EXHAUST_VALVE",
+      "volume_mm3": 28651325.000738885,
+      "min_mm": [
+        -160,
+        1460,
+        7990
+      ],
+      "max_mm": [
+        160,
+        1780,
+        8590
+      ],
+      "size_mm": [
+        320,
+        320,
+        600
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_05_FUEL_INJECTOR_01",
+      "volume_mm3": 1759291.8860102838,
+      "min_mm": [
+        200,
+        1580,
+        7990
+      ],
+      "max_mm": [
+        280,
+        1660,
+        8340
+      ],
+      "size_mm": [
+        80,
+        80,
+        350
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_05_FUEL_INJECTOR_02",
+      "volume_mm3": 1759291.8860102838,
+      "min_mm": [
+        -160,
+        1787.846096908,
+        7990
+      ],
+      "max_mm": [
+        -80,
+        1867.846096908,
+        8340
+      ],
+      "size_mm": [
+        80,
+        80,
+        350
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_05_FUEL_INJECTOR_03",
+      "volume_mm3": 1759291.886010284,
+      "min_mm": [
+        -160,
+        1372.153903092,
+        7990
+      ],
+      "max_mm": [
+        -80,
+        1452.153903092,
+        8340
+      ],
+      "size_mm": [
+        80,
+        80,
+        350
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_06_COOLING_JACKET",
+      "volume_mm3": 817733885.4304823,
+      "min_mm": [
+        -420,
+        2280,
+        4605
+      ],
+      "max_mm": [
+        420,
+        3120,
+        7750
+      ],
+      "size_mm": [
+        840,
+        840,
+        3145
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_06_COVER",
+      "volume_mm3": 104558486.69677548,
+      "min_mm": [
+        -430,
+        2270,
+        7810
+      ],
+      "max_mm": [
+        430,
+        3130,
+        7990
+      ],
+      "size_mm": [
+        860,
+        860,
+        180
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_06_EXHAUST_VALVE",
+      "volume_mm3": 28651325.00073888,
+      "min_mm": [
+        -160,
+        2540,
+        7990
+      ],
+      "max_mm": [
+        160,
+        2860,
+        8590
+      ],
+      "size_mm": [
+        320,
+        320,
+        600
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_06_FUEL_INJECTOR_01",
+      "volume_mm3": 1759291.886010286,
+      "min_mm": [
+        200,
+        2660,
+        7990
+      ],
+      "max_mm": [
+        280,
+        2740,
+        8340
+      ],
+      "size_mm": [
+        80,
+        80,
+        350
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_06_FUEL_INJECTOR_02",
+      "volume_mm3": 1759291.8860102862,
+      "min_mm": [
+        -160,
+        2867.846096908,
+        7990
+      ],
+      "max_mm": [
+        -80,
+        2947.846096908,
+        8340
+      ],
+      "size_mm": [
+        80,
+        80,
+        350
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "CYL_06_FUEL_INJECTOR_03",
+      "volume_mm3": 1759291.8860102862,
+      "min_mm": [
+        -160,
+        2452.153903092,
+        7990
+      ],
+      "max_mm": [
+        -80,
+        2532.153903092,
+        8340
+      ],
+      "size_mm": [
+        80,
+        80,
+        350
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "ENGINE_EXHAUST_RECEIVER",
+      "volume_mm3": 310075194.9093189,
+      "min_mm": [
+        1050,
+        -3500,
+        8350
+      ],
+      "max_mm": [
+        1550,
+        3500,
+        8850
+      ],
+      "size_mm": [
+        500,
+        7000,
+        500
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "ENGINE_SCAVENGE_RECEIVER",
+      "volume_mm3": 756495510.9844384,
+      "min_mm": [
+        -1850,
+        -3500,
+        4450
+      ],
+      "max_mm": [
+        -950,
+        3500,
+        5350
+      ],
+      "size_mm": [
+        900,
+        7000,
+        900
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "ENGINE_TURBOCHARGER",
+      "volume_mm3": 567450173.0546604,
+      "min_mm": [
+        800,
+        3500,
+        8100
+      ],
+      "max_mm": [
+        1800,
+        4350,
+        9100
+      ],
+      "size_mm": [
+        1000,
+        850,
+        1000
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "ENGINE_GALLERY_LOWER",
+      "volume_mm3": 407951249.99999976,
+      "min_mm": [
+        1800,
+        -3500,
+        4300
+      ],
+      "max_mm": [
+        2700,
+        3500,
+        5460
+      ],
+      "size_mm": [
+        900,
+        7000,
+        1160
+      ],
+      "status": "generated_demo_geometry_bounds"
+    },
+    {
+      "id": "ENGINE_GALLERY_UPPER",
+      "volume_mm3": 407951249.99999976,
+      "min_mm": [
+        1800,
+        -3500,
+        7800
+      ],
+      "max_mm": [
+        2700,
+        3500,
+        8960
+      ],
+      "size_mm": [
+        900,
+        7000,
+        1160
+      ],
+      "status": "generated_demo_geometry_bounds"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "environment": "Local Vinext + persistent D1 SQLite + R3F WebGL, in-app browser",
+  "passed": true,
+  "checks": [
+    "Actual mesh click selects ENGINE_FRAME and TC-DEMO-008",
+    "CYL_01_LINER and CYL_02_LINER histories are separate",
+    "Created local inquiry TC-b39d458f-2800-407e-b4dd-88407785859d",
+    "Buyer assignment and status saved",
+    "Design review submitted",
+    "Reload restored demo session and persisted review",
+    "Supplier A sees only six own inquiries including local QA; internal reviews/actions/audit absent",
+    "Cutaway/outer model switching",
+    "Explode slider 20%, ghost and isolation toggles",
+    "94 mapped objects ready"
+  ],
+  "note": "Local QA adds 1 fictional inquiry; hosted initial seed is 10. Automated backend tests cover final reply and purchase completion."
+}
