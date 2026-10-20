@@ -1,0 +1,65 @@
+{
+  "baselineCommit": "82e1fee191ad32a4745c8b5d9a85168d205a50f1",
+  "uiStyles": [
+    {
+      "path": "app/workspace.css",
+      "unchanged": true
+    },
+    {
+      "path": "app/mobile-fixes.css",
+      "unchanged": true
+    },
+    {
+      "path": "app/desktop-fit.css",
+      "unchanged": true
+    }
+  ],
+  "modelSources": [
+    {
+      "path": "lib/engine-model/models/bedplate.js",
+      "unchanged": true
+    },
+    {
+      "path": "lib/engine-model/models/context-parts.js",
+      "unchanged": true
+    },
+    {
+      "path": "lib/engine-model/models/cylinder-cover.js",
+      "unchanged": true
+    },
+    {
+      "path": "lib/engine-model/models/cylinder-frame.js",
+      "unchanged": true
+    },
+    {
+      "path": "lib/engine-model/models/cylinder-liner.js",
+      "unchanged": true
+    },
+    {
+      "path": "lib/engine-model/models/exhaust-valve-assembly.js",
+      "unchanged": true
+    },
+    {
+      "path": "lib/engine-model/models/frame-box.js",
+      "unchanged": true
+    },
+    {
+      "path": "lib/engine-model/models/hydraulic-pipe.js",
+      "unchanged": true
+    },
+    {
+      "path": "lib/engine-model/models/main-bearing-support.js",
+      "unchanged": true
+    },
+    {
+      "path": "lib/engine-model/models/model-utils.js",
+      "unchanged": true
+    },
+    {
+      "path": "lib/engine-model/engine-scene.js",
+      "unchanged": true
+    }
+  ],
+  "main01Sha256": "7470ae35b8989711b2138823e88fa08d0f22f8507a7d5e9f9c9837bf91f6ebf9",
+  "previousDockUiOrDataImported": false
+}

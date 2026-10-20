@@ -1,0 +1,250 @@
+{
+  "passed": true,
+  "browser": "headless Edge",
+  "version": "145.0.3800.82",
+  "url": "http://127.0.0.1:5179",
+  "desktopViewport": {
+    "width": 1365,
+    "height": 1000
+  },
+  "checks": [
+    {
+      "name": "inventory UI preserves orange Hanwha branding, MAIN navigation and two panels",
+      "passed": true,
+      "evidence": {
+        "orange": "rgb(237, 106, 36)",
+        "leftPanel": {
+          "x": 108,
+          "y": 271,
+          "width": 707.578125,
+          "height": 700
+        },
+        "rightPanel": {
+          "x": 831.578125,
+          "y": 271,
+          "width": 505.40625,
+          "height": 700
+        },
+        "screenshot": "integrated-initial.png"
+      }
+    },
+    {
+      "name": "initial mode has 64 G95 concept objects and no fabricated stock or suppliers",
+      "passed": true,
+      "evidence": {
+        "dataKind": "unregistered",
+        "count": 64,
+        "statuses": [
+          "unknown"
+        ]
+      }
+    },
+    {
+      "name": "part selector and ID search route into matching purchase details",
+      "passed": true,
+      "evidence": {
+        "selected": "CYL01_LINER",
+        "unit": "DEMO-6A"
+      }
+    },
+    {
+      "name": "every principal component, valve child and support context is independently selectable",
+      "passed": true,
+      "evidence": {
+        "selectedIndependently": [
+          "CYL01_LINER",
+          "CYL01_COVER",
+          "CYL01_EXHVALVE",
+          "CYL01_EXHVALVE_HOUSING",
+          "CYL01_EXHVALVE_SPINDLE",
+          "CYL01_EXHVALVE_SEAT",
+          "CYL01_HYDPIPE_01",
+          "CYL01_FRAME",
+          "ENGINE_FRAMEBOX",
+          "ENGINE_BEDPLATE",
+          "ENGINE_MBS_01",
+          "ENGINE_SHELL_01"
+        ]
+      }
+    },
+    {
+      "name": "demo inventory keeps variant details, SAMPLE evaluation and unit allocation separate",
+      "passed": true,
+      "evidence": {
+        "typeTotal": 13,
+        "unitAvailable": 1,
+        "unitAllocated": 1,
+        "sampleOnTimePct": 96.4,
+        "screenshot": "integrated-demo.png"
+      }
+    },
+    {
+      "name": "supplier row highlights only exact current-unit part IDs and preserves their statuses",
+      "passed": true,
+      "evidence": {
+        "highlighted": [
+          "CYL01_LINER",
+          "CYL02_LINER",
+          "CYL04_LINER",
+          "CYL06_LINER"
+        ],
+        "sameTypeUnselected": "CYL03_LINER",
+        "screenshot": "integrated-supplier.png"
+      }
+    },
+    {
+      "name": "slow continuous pulse changes brightness without disappearance and stop freezes it",
+      "passed": true,
+      "evidence": {
+        "samples": [
+          0.284586411454628,
+          0.30266021620839983,
+          0.3813264113346217,
+          0.438098710025403,
+          0.4789925048845464,
+          0.46949343616020345,
+          0.4094373942011855
+        ],
+        "frozen": 0.34,
+        "opacity": 1
+      }
+    },
+    {
+      "name": "review yellow, shortage red and assembly-child colour inheritance retain independent part materials",
+      "passed": true,
+      "evidence": {
+        "green": "#319c70",
+        "yellow": "#dbaa35",
+        "assemblyInheritedRed": "#da5b57",
+        "childDataStatus": "unknown"
+      }
+    },
+    {
+      "name": "reduced-motion control freezes pulse and respects browser motion preference",
+      "passed": true,
+      "evidence": {
+        "manual": true,
+        "mediaQuery": true
+      }
+    },
+    {
+      "name": "actual canvas ray click selects a liner behind faded surroundings and updates details",
+      "passed": true,
+      "evidence": {
+        "x": 1.5589617739708696E-16,
+        "y": -0.1621628265772086,
+        "clientX": 461.78906250000006,
+        "clientY": 647.2767340934156,
+        "pick": "CYL01_LINER"
+      }
+    },
+    {
+      "name": "hide group, isolate, surrounding translucency and reset control actual mesh visibility",
+      "passed": true,
+      "evidence": {
+        "resetRestores": [
+          "CYL01_LINER",
+          "CYL01_COVER"
+        ]
+      }
+    },
+    {
+      "name": "section and exploded views keep MBS and shell locations and distinct valve hierarchy",
+      "passed": true,
+      "evidence": {
+        "integratedSupportCount": 14,
+        "clippingMeshPartCount": 58,
+        "screenshot": "integrated-section.png"
+      }
+    },
+    {
+      "name": "7-cylinder unit rebuild has 74 unique G95 IDs and does not leak other-unit supply",
+      "passed": true,
+      "evidence": {
+        "count": 74,
+        "supplierA": [
+          "CYL02_LINER"
+        ],
+        "currentUnit": "DEMO-7B"
+      }
+    },
+    {
+      "name": "BOM download exports explicit purchasing rows without assembly-child or MBS duplication",
+      "passed": true,
+      "evidence": {
+        "filename": "bom-DEMO-7B.json",
+        "purchasePositions": 30
+      }
+    },
+    {
+      "name": "GLB download preserves part IDs and excludes replaced G50 legacy objects",
+      "passed": true,
+      "evidence": {
+        "filename": "engine-7.glb",
+        "preservedIds": 74
+      }
+    },
+    {
+      "name": "MAIN 01 route is HTTP 200 with original source bytes preserved",
+      "passed": true,
+      "evidence": {
+        "status": 200,
+        "sha256": "7470ae35b8989711b2138823e88fa08d0f22f8507a7d5e9f9c9837bf91f6ebf9",
+        "bytes": 490743
+      }
+    },
+    {
+      "name": "invalid and disguised demo JSON imports reject atomically",
+      "passed": true,
+      "evidence": {
+        "previousModeRetained": "demo",
+        "previousUnitRetained": "DEMO-7B"
+      }
+    },
+    {
+      "name": "provided JSON connects explicit fixture item while preserving unknown stock and evaluations",
+      "passed": true,
+      "evidence": {
+        "item": "QA-ITEM-001",
+        "stock": "미등록",
+        "fixtureOnly": true
+      }
+    },
+    {
+      "name": "source information explains concept geometry, sample data and actual purchase limitations",
+      "passed": true,
+      "evidence": {
+        "sourceLinks": 7
+      }
+    },
+    {
+      "name": "390px mobile retains controls and prevents horizontal overflow",
+      "passed": true,
+      "evidence": {
+        "viewport": 390,
+        "html": 390,
+        "body": 390,
+        "screenshot": "integrated-mobile.png"
+      }
+    },
+    {
+      "name": "runtime completes without JavaScript errors or failed asset requests",
+      "passed": true,
+      "evidence": {
+        "consoleErrors": 0,
+        "failedRequests": 0
+      }
+    }
+  ],
+  "consoleErrors": [],
+  "failedRequests": [],
+  "guidedVideo": {
+    "available": true,
+    "file": "integrated-demo.webm",
+    "durationMs": 15715,
+    "capturedFrames": 36,
+    "method": "Actual application viewport screenshot frames encoded with browser MediaRecorder; capture cadence is reported separately, no external ffmpeg.",
+    "averageCapturedFps": 2.29
+  },
+  "limitation": "Headless WebGL software rendering. Import fixture is QA-only input, not actual commercial/ERP data. Manufacturing dimensions and external purchase facts are not validated."
+}
