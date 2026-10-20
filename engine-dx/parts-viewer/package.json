@@ -1,0 +1,16 @@
+{
+  "name": "marine-engine-procurement",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {"node": ">=22"},
+  "description": "선박 저속엔진 구매 부품의 구조 설명용 3D 뷰어",
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "test:browser": "node tests/browser.mjs",
+    "build": "node scripts/build.mjs",
+    "export": "node scripts/export-models.mjs"
+  },
+  "dependencies": { "three": "0.180.0" }
+}

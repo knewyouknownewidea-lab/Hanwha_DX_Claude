@@ -58,3 +58,4 @@ __pycache__/
 *.pyc
 *.tsbuildinfo
 *.log
+public/parts-viewer/
