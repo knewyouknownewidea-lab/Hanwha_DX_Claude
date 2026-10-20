@@ -1,0 +1,1304 @@
+{
+  "schema_version": "2.0",
+  "assembly_id": "ENGINE_6G50MEC96_PROTO",
+  "target_engine": "Hanwha-Everllence B&W 6G50ME-C9.6",
+  "status": "six-cylinder schematic moving-parts prototype",
+  "scope": "7 component roles x 6 cylinders. No frame, cylinder covers, bedplate or auxiliaries.",
+  "cad_tree_structure": "42 flat part occurrences for native per-part explode; cylinder parents here are logical metadata groups.",
+  "units": {
+    "STEP": "mm",
+    "GLB": "m"
+  },
+  "coordinates": {
+    "CAD": "Z vertical, Y crankshaft axis",
+    "CAD_to_GLTF": "[x,y,z] mm -> [x,z,-y]/1000 m"
+  },
+  "cylinders": [
+    {
+      "id": "CYLINDER_01",
+      "index": 1,
+      "parent": "ENGINE_6G50MEC96_PROTO",
+      "centerline_y_mm": -2700.0,
+      "assumed_phase_deg": 30,
+      "crank_pin_center_mm": [
+        624.9999999999999,
+        -2700.0,
+        1082.5317547305483
+      ],
+      "crosshead_center_mm": [
+        0,
+        -2700.0,
+        4016.7054033069235
+      ],
+      "children": [
+        "LINER_01",
+        "PISTON_01",
+        "PISTON_ROD_01",
+        "CROSSHEAD_PIN_01",
+        "CROSSHEAD_BRG_01",
+        "CONROD_01",
+        "CRANK_SECTION_01"
+      ]
+    },
+    {
+      "id": "CYLINDER_02",
+      "index": 2,
+      "parent": "ENGINE_6G50MEC96_PROTO",
+      "centerline_y_mm": -1620.0,
+      "assumed_phase_deg": 150,
+      "crank_pin_center_mm": [
+        624.9999999999999,
+        -1620.0,
+        -1082.5317547305483
+      ],
+      "crosshead_center_mm": [
+        0,
+        -1620.0,
+        1851.641893845827
+      ],
+      "children": [
+        "LINER_02",
+        "PISTON_02",
+        "PISTON_ROD_02",
+        "CROSSHEAD_PIN_02",
+        "CROSSHEAD_BRG_02",
+        "CONROD_02",
+        "CRANK_SECTION_02"
+      ]
+    },
+    {
+      "id": "CYLINDER_03",
+      "index": 3,
+      "parent": "ENGINE_6G50MEC96_PROTO",
+      "centerline_y_mm": -540.0,
+      "assumed_phase_deg": 270,
+      "crank_pin_center_mm": [
+        -1250.0,
+        -540.0,
+        -2.2962127484012873e-13
+      ],
+      "crosshead_center_mm": [
+        0,
+        -540.0,
+        2727.1780286589283
+      ],
+      "children": [
+        "LINER_03",
+        "PISTON_03",
+        "PISTON_ROD_03",
+        "CROSSHEAD_PIN_03",
+        "CROSSHEAD_BRG_03",
+        "CONROD_03",
+        "CRANK_SECTION_03"
+      ]
+    },
+    {
+      "id": "CYLINDER_04",
+      "index": 4,
+      "parent": "ENGINE_6G50MEC96_PROTO",
+      "centerline_y_mm": 540.0,
+      "assumed_phase_deg": 90,
+      "crank_pin_center_mm": [
+        1250.0,
+        540.0,
+        7.654042494670958e-14
+      ],
+      "crosshead_center_mm": [
+        0,
+        540.0,
+        2727.1780286589287
+      ],
+      "children": [
+        "LINER_04",
+        "PISTON_04",
+        "PISTON_ROD_04",
+        "CROSSHEAD_PIN_04",
+        "CROSSHEAD_BRG_04",
+        "CONROD_04",
+        "CRANK_SECTION_04"
+      ]
+    },
+    {
+      "id": "CYLINDER_05",
+      "index": 5,
+      "parent": "ENGINE_6G50MEC96_PROTO",
+      "centerline_y_mm": 1620.0,
+      "assumed_phase_deg": 210,
+      "crank_pin_center_mm": [
+        -625.0000000000001,
+        1620.0,
+        -1082.5317547305483
+      ],
+      "crosshead_center_mm": [
+        0,
+        1620.0,
+        1851.641893845827
+      ],
+      "children": [
+        "LINER_05",
+        "PISTON_05",
+        "PISTON_ROD_05",
+        "CROSSHEAD_PIN_05",
+        "CROSSHEAD_BRG_05",
+        "CONROD_05",
+        "CRANK_SECTION_05"
+      ]
+    },
+    {
+      "id": "CYLINDER_06",
+      "index": 6,
+      "parent": "ENGINE_6G50MEC96_PROTO",
+      "centerline_y_mm": 2700.0,
+      "assumed_phase_deg": 330,
+      "crank_pin_center_mm": [
+        -625.0000000000006,
+        2700.0,
+        1082.531754730548
+      ],
+      "crosshead_center_mm": [
+        0,
+        2700.0,
+        4016.7054033069235
+      ],
+      "children": [
+        "LINER_06",
+        "PISTON_06",
+        "PISTON_ROD_06",
+        "CROSSHEAD_PIN_06",
+        "CROSSHEAD_BRG_06",
+        "CONROD_06",
+        "CRANK_SECTION_06"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "id": "LINER_01",
+      "parent": "CYLINDER_01",
+      "cylinder_index": 1,
+      "name_ko": "실린더 라이너",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_01/LINER_01",
+      "step_selector": "#LINER_01",
+      "glb_node_name": "LINER_01",
+      "glb_node_indices": {
+        "engine_06": 6,
+        "engine_06_cutaway": 6,
+        "engine_06_exploded": 6
+      },
+      "color_srgb": "#69a99c",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "PISTON_01",
+      "parent": "CYLINDER_01",
+      "cylinder_index": 1,
+      "name_ko": "피스톤",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_01/PISTON_01",
+      "step_selector": "#PISTON_01",
+      "glb_node_name": "PISTON_01",
+      "glb_node_indices": {
+        "engine_06": 36,
+        "engine_06_cutaway": 36,
+        "engine_06_exploded": 36
+      },
+      "color_srgb": "#e9a84b",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "PISTON_ROD_01",
+      "parent": "CYLINDER_01",
+      "cylinder_index": 1,
+      "name_ko": "피스톤 로드",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_01/PISTON_ROD_01",
+      "step_selector": "#PISTON_ROD_01",
+      "glb_node_name": "PISTON_ROD_01",
+      "glb_node_indices": {
+        "engine_06": 24,
+        "engine_06_cutaway": 24,
+        "engine_06_exploded": 24
+      },
+      "color_srgb": "#c7ced8",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "CROSSHEAD_PIN_01",
+      "parent": "CYLINDER_01",
+      "cylinder_index": 1,
+      "name_ko": "크로스헤드 핀",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_01/CROSSHEAD_PIN_01",
+      "step_selector": "#CROSSHEAD_PIN_01",
+      "glb_node_name": "CROSSHEAD_PIN_01",
+      "glb_node_indices": {
+        "engine_06": 10,
+        "engine_06_cutaway": 10,
+        "engine_06_exploded": 10
+      },
+      "color_srgb": "#7499c7",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "CROSSHEAD_BRG_01",
+      "parent": "CYLINDER_01",
+      "cylinder_index": 1,
+      "name_ko": "크로스헤드 베어링",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_01/CROSSHEAD_BRG_01",
+      "step_selector": "#CROSSHEAD_BRG_01",
+      "glb_node_name": "CROSSHEAD_BRG_01",
+      "glb_node_indices": {
+        "engine_06": 29,
+        "engine_06_cutaway": 29,
+        "engine_06_exploded": 29
+      },
+      "color_srgb": "#d6b46d",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "CONROD_01",
+      "parent": "CYLINDER_01",
+      "cylinder_index": 1,
+      "name_ko": "커넥팅로드",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_01/CONROD_01",
+      "step_selector": "#CONROD_01",
+      "glb_node_name": "CONROD_01",
+      "glb_node_indices": {
+        "engine_06": 14,
+        "engine_06_cutaway": 14,
+        "engine_06_exploded": 14
+      },
+      "color_srgb": "#7994ad",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "CRANK_SECTION_01",
+      "parent": "CYLINDER_01",
+      "cylinder_index": 1,
+      "name_ko": "크랭크축 구간",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_01/CRANK_SECTION_01",
+      "step_selector": "#CRANK_SECTION_01",
+      "glb_node_name": "CRANK_SECTION_01",
+      "glb_node_indices": {
+        "engine_06": 0,
+        "engine_06_cutaway": 0,
+        "engine_06_exploded": 0
+      },
+      "color_srgb": "#596779",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "LINER_02",
+      "parent": "CYLINDER_02",
+      "cylinder_index": 2,
+      "name_ko": "실린더 라이너",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_02/LINER_02",
+      "step_selector": "#LINER_02",
+      "glb_node_name": "LINER_02",
+      "glb_node_indices": {
+        "engine_06": 7,
+        "engine_06_cutaway": 7,
+        "engine_06_exploded": 7
+      },
+      "color_srgb": "#6cac9f",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "PISTON_02",
+      "parent": "CYLINDER_02",
+      "cylinder_index": 2,
+      "name_ko": "피스톤",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_02/PISTON_02",
+      "step_selector": "#PISTON_02",
+      "glb_node_name": "PISTON_02",
+      "glb_node_indices": {
+        "engine_06": 37,
+        "engine_06_cutaway": 37,
+        "engine_06_exploded": 37
+      },
+      "color_srgb": "#ecab4e",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "PISTON_ROD_02",
+      "parent": "CYLINDER_02",
+      "cylinder_index": 2,
+      "name_ko": "피스톤 로드",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_02/PISTON_ROD_02",
+      "step_selector": "#PISTON_ROD_02",
+      "glb_node_name": "PISTON_ROD_02",
+      "glb_node_indices": {
+        "engine_06": 25,
+        "engine_06_cutaway": 25,
+        "engine_06_exploded": 25
+      },
+      "color_srgb": "#cad1db",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "CROSSHEAD_PIN_02",
+      "parent": "CYLINDER_02",
+      "cylinder_index": 2,
+      "name_ko": "크로스헤드 핀",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_02/CROSSHEAD_PIN_02",
+      "step_selector": "#CROSSHEAD_PIN_02",
+      "glb_node_name": "CROSSHEAD_PIN_02",
+      "glb_node_indices": {
+        "engine_06": 12,
+        "engine_06_cutaway": 12,
+        "engine_06_exploded": 12
+      },
+      "color_srgb": "#779cca",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "CROSSHEAD_BRG_02",
+      "parent": "CYLINDER_02",
+      "cylinder_index": 2,
+      "name_ko": "크로스헤드 베어링",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_02/CROSSHEAD_BRG_02",
+      "step_selector": "#CROSSHEAD_BRG_02",
+      "glb_node_name": "CROSSHEAD_BRG_02",
+      "glb_node_indices": {
+        "engine_06": 31,
+        "engine_06_cutaway": 31,
+        "engine_06_exploded": 31
+      },
+      "color_srgb": "#d9b770",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "CONROD_02",
+      "parent": "CYLINDER_02",
+      "cylinder_index": 2,
+      "name_ko": "커넥팅로드",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_02/CONROD_02",
+      "step_selector": "#CONROD_02",
+      "glb_node_name": "CONROD_02",
+      "glb_node_indices": {
+        "engine_06": 16,
+        "engine_06_cutaway": 16,
+        "engine_06_exploded": 16
+      },
+      "color_srgb": "#7c97b0",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "CRANK_SECTION_02",
+      "parent": "CYLINDER_02",
+      "cylinder_index": 2,
+      "name_ko": "크랭크축 구간",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_02/CRANK_SECTION_02",
+      "step_selector": "#CRANK_SECTION_02",
+      "glb_node_name": "CRANK_SECTION_02",
+      "glb_node_indices": {
+        "engine_06": 1,
+        "engine_06_cutaway": 1,
+        "engine_06_exploded": 1
+      },
+      "color_srgb": "#5c6a7c",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "LINER_03",
+      "parent": "CYLINDER_03",
+      "cylinder_index": 3,
+      "name_ko": "실린더 라이너",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_03/LINER_03",
+      "step_selector": "#LINER_03",
+      "glb_node_name": "LINER_03",
+      "glb_node_indices": {
+        "engine_06": 8,
+        "engine_06_cutaway": 8,
+        "engine_06_exploded": 8
+      },
+      "color_srgb": "#6fafa2",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "PISTON_03",
+      "parent": "CYLINDER_03",
+      "cylinder_index": 3,
+      "name_ko": "피스톤",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_03/PISTON_03",
+      "step_selector": "#PISTON_03",
+      "glb_node_name": "PISTON_03",
+      "glb_node_indices": {
+        "engine_06": 38,
+        "engine_06_cutaway": 38,
+        "engine_06_exploded": 38
+      },
+      "color_srgb": "#efae51",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "PISTON_ROD_03",
+      "parent": "CYLINDER_03",
+      "cylinder_index": 3,
+      "name_ko": "피스톤 로드",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_03/PISTON_ROD_03",
+      "step_selector": "#PISTON_ROD_03",
+      "glb_node_name": "PISTON_ROD_03",
+      "glb_node_indices": {
+        "engine_06": 26,
+        "engine_06_cutaway": 26,
+        "engine_06_exploded": 26
+      },
+      "color_srgb": "#cdd4de",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "CROSSHEAD_PIN_03",
+      "parent": "CYLINDER_03",
+      "cylinder_index": 3,
+      "name_ko": "크로스헤드 핀",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_03/CROSSHEAD_PIN_03",
+      "step_selector": "#CROSSHEAD_PIN_03",
+      "glb_node_name": "CROSSHEAD_PIN_03",
+      "glb_node_indices": {
+        "engine_06": 15,
+        "engine_06_cutaway": 15,
+        "engine_06_exploded": 15
+      },
+      "color_srgb": "#7a9fcd",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "CROSSHEAD_BRG_03",
+      "parent": "CYLINDER_03",
+      "cylinder_index": 3,
+      "name_ko": "크로스헤드 베어링",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_03/CROSSHEAD_BRG_03",
+      "step_selector": "#CROSSHEAD_BRG_03",
+      "glb_node_name": "CROSSHEAD_BRG_03",
+      "glb_node_indices": {
+        "engine_06": 32,
+        "engine_06_cutaway": 32,
+        "engine_06_exploded": 32
+      },
+      "color_srgb": "#dcba73",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "CONROD_03",
+      "parent": "CYLINDER_03",
+      "cylinder_index": 3,
+      "name_ko": "커넥팅로드",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_03/CONROD_03",
+      "step_selector": "#CONROD_03",
+      "glb_node_name": "CONROD_03",
+      "glb_node_indices": {
+        "engine_06": 18,
+        "engine_06_cutaway": 18,
+        "engine_06_exploded": 18
+      },
+      "color_srgb": "#7f9ab3",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "CRANK_SECTION_03",
+      "parent": "CYLINDER_03",
+      "cylinder_index": 3,
+      "name_ko": "크랭크축 구간",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_03/CRANK_SECTION_03",
+      "step_selector": "#CRANK_SECTION_03",
+      "glb_node_name": "CRANK_SECTION_03",
+      "glb_node_indices": {
+        "engine_06": 2,
+        "engine_06_cutaway": 2,
+        "engine_06_exploded": 2
+      },
+      "color_srgb": "#5f6d7f",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "LINER_04",
+      "parent": "CYLINDER_04",
+      "cylinder_index": 4,
+      "name_ko": "실린더 라이너",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_04/LINER_04",
+      "step_selector": "#LINER_04",
+      "glb_node_name": "LINER_04",
+      "glb_node_indices": {
+        "engine_06": 9,
+        "engine_06_cutaway": 9,
+        "engine_06_exploded": 9
+      },
+      "color_srgb": "#72b2a5",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "PISTON_04",
+      "parent": "CYLINDER_04",
+      "cylinder_index": 4,
+      "name_ko": "피스톤",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_04/PISTON_04",
+      "step_selector": "#PISTON_04",
+      "glb_node_name": "PISTON_04",
+      "glb_node_indices": {
+        "engine_06": 39,
+        "engine_06_cutaway": 39,
+        "engine_06_exploded": 39
+      },
+      "color_srgb": "#f2b154",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "PISTON_ROD_04",
+      "parent": "CYLINDER_04",
+      "cylinder_index": 4,
+      "name_ko": "피스톤 로드",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_04/PISTON_ROD_04",
+      "step_selector": "#PISTON_ROD_04",
+      "glb_node_name": "PISTON_ROD_04",
+      "glb_node_indices": {
+        "engine_06": 27,
+        "engine_06_cutaway": 27,
+        "engine_06_exploded": 27
+      },
+      "color_srgb": "#d0d7e1",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "CROSSHEAD_PIN_04",
+      "parent": "CYLINDER_04",
+      "cylinder_index": 4,
+      "name_ko": "크로스헤드 핀",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_04/CROSSHEAD_PIN_04",
+      "step_selector": "#CROSSHEAD_PIN_04",
+      "glb_node_name": "CROSSHEAD_PIN_04",
+      "glb_node_indices": {
+        "engine_06": 17,
+        "engine_06_cutaway": 17,
+        "engine_06_exploded": 17
+      },
+      "color_srgb": "#7da2d0",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "CROSSHEAD_BRG_04",
+      "parent": "CYLINDER_04",
+      "cylinder_index": 4,
+      "name_ko": "크로스헤드 베어링",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_04/CROSSHEAD_BRG_04",
+      "step_selector": "#CROSSHEAD_BRG_04",
+      "glb_node_name": "CROSSHEAD_BRG_04",
+      "glb_node_indices": {
+        "engine_06": 33,
+        "engine_06_cutaway": 33,
+        "engine_06_exploded": 33
+      },
+      "color_srgb": "#dfbd76",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "CONROD_04",
+      "parent": "CYLINDER_04",
+      "cylinder_index": 4,
+      "name_ko": "커넥팅로드",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_04/CONROD_04",
+      "step_selector": "#CONROD_04",
+      "glb_node_name": "CONROD_04",
+      "glb_node_indices": {
+        "engine_06": 20,
+        "engine_06_cutaway": 20,
+        "engine_06_exploded": 20
+      },
+      "color_srgb": "#829db6",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "CRANK_SECTION_04",
+      "parent": "CYLINDER_04",
+      "cylinder_index": 4,
+      "name_ko": "크랭크축 구간",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_04/CRANK_SECTION_04",
+      "step_selector": "#CRANK_SECTION_04",
+      "glb_node_name": "CRANK_SECTION_04",
+      "glb_node_indices": {
+        "engine_06": 3,
+        "engine_06_cutaway": 3,
+        "engine_06_exploded": 3
+      },
+      "color_srgb": "#627082",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "LINER_05",
+      "parent": "CYLINDER_05",
+      "cylinder_index": 5,
+      "name_ko": "실린더 라이너",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_05/LINER_05",
+      "step_selector": "#LINER_05",
+      "glb_node_name": "LINER_05",
+      "glb_node_indices": {
+        "engine_06": 11,
+        "engine_06_cutaway": 11,
+        "engine_06_exploded": 11
+      },
+      "color_srgb": "#75b5a8",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "PISTON_05",
+      "parent": "CYLINDER_05",
+      "cylinder_index": 5,
+      "name_ko": "피스톤",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_05/PISTON_05",
+      "step_selector": "#PISTON_05",
+      "glb_node_name": "PISTON_05",
+      "glb_node_indices": {
+        "engine_06": 40,
+        "engine_06_cutaway": 40,
+        "engine_06_exploded": 40
+      },
+      "color_srgb": "#f5b457",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "PISTON_ROD_05",
+      "parent": "CYLINDER_05",
+      "cylinder_index": 5,
+      "name_ko": "피스톤 로드",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_05/PISTON_ROD_05",
+      "step_selector": "#PISTON_ROD_05",
+      "glb_node_name": "PISTON_ROD_05",
+      "glb_node_indices": {
+        "engine_06": 28,
+        "engine_06_cutaway": 28,
+        "engine_06_exploded": 28
+      },
+      "color_srgb": "#d3dae4",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "CROSSHEAD_PIN_05",
+      "parent": "CYLINDER_05",
+      "cylinder_index": 5,
+      "name_ko": "크로스헤드 핀",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_05/CROSSHEAD_PIN_05",
+      "step_selector": "#CROSSHEAD_PIN_05",
+      "glb_node_name": "CROSSHEAD_PIN_05",
+      "glb_node_indices": {
+        "engine_06": 19,
+        "engine_06_cutaway": 19,
+        "engine_06_exploded": 19
+      },
+      "color_srgb": "#80a5d3",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "CROSSHEAD_BRG_05",
+      "parent": "CYLINDER_05",
+      "cylinder_index": 5,
+      "name_ko": "크로스헤드 베어링",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_05/CROSSHEAD_BRG_05",
+      "step_selector": "#CROSSHEAD_BRG_05",
+      "glb_node_name": "CROSSHEAD_BRG_05",
+      "glb_node_indices": {
+        "engine_06": 34,
+        "engine_06_cutaway": 34,
+        "engine_06_exploded": 34
+      },
+      "color_srgb": "#e2c079",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "CONROD_05",
+      "parent": "CYLINDER_05",
+      "cylinder_index": 5,
+      "name_ko": "커넥팅로드",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_05/CONROD_05",
+      "step_selector": "#CONROD_05",
+      "glb_node_name": "CONROD_05",
+      "glb_node_indices": {
+        "engine_06": 22,
+        "engine_06_cutaway": 22,
+        "engine_06_exploded": 22
+      },
+      "color_srgb": "#85a0b9",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "CRANK_SECTION_05",
+      "parent": "CYLINDER_05",
+      "cylinder_index": 5,
+      "name_ko": "크랭크축 구간",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_05/CRANK_SECTION_05",
+      "step_selector": "#CRANK_SECTION_05",
+      "glb_node_name": "CRANK_SECTION_05",
+      "glb_node_indices": {
+        "engine_06": 4,
+        "engine_06_cutaway": 4,
+        "engine_06_exploded": 4
+      },
+      "color_srgb": "#657385",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "LINER_06",
+      "parent": "CYLINDER_06",
+      "cylinder_index": 6,
+      "name_ko": "실린더 라이너",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_06/LINER_06",
+      "step_selector": "#LINER_06",
+      "glb_node_name": "LINER_06",
+      "glb_node_indices": {
+        "engine_06": 13,
+        "engine_06_cutaway": 13,
+        "engine_06_exploded": 13
+      },
+      "color_srgb": "#78b8ab",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "PISTON_06",
+      "parent": "CYLINDER_06",
+      "cylinder_index": 6,
+      "name_ko": "피스톤",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_06/PISTON_06",
+      "step_selector": "#PISTON_06",
+      "glb_node_name": "PISTON_06",
+      "glb_node_indices": {
+        "engine_06": 41,
+        "engine_06_cutaway": 41,
+        "engine_06_exploded": 41
+      },
+      "color_srgb": "#f8b75a",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "PISTON_ROD_06",
+      "parent": "CYLINDER_06",
+      "cylinder_index": 6,
+      "name_ko": "피스톤 로드",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_06/PISTON_ROD_06",
+      "step_selector": "#PISTON_ROD_06",
+      "glb_node_name": "PISTON_ROD_06",
+      "glb_node_indices": {
+        "engine_06": 30,
+        "engine_06_cutaway": 30,
+        "engine_06_exploded": 30
+      },
+      "color_srgb": "#d6dde7",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "CROSSHEAD_PIN_06",
+      "parent": "CYLINDER_06",
+      "cylinder_index": 6,
+      "name_ko": "크로스헤드 핀",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_06/CROSSHEAD_PIN_06",
+      "step_selector": "#CROSSHEAD_PIN_06",
+      "glb_node_name": "CROSSHEAD_PIN_06",
+      "glb_node_indices": {
+        "engine_06": 21,
+        "engine_06_cutaway": 21,
+        "engine_06_exploded": 21
+      },
+      "color_srgb": "#83a8d6",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "CROSSHEAD_BRG_06",
+      "parent": "CYLINDER_06",
+      "cylinder_index": 6,
+      "name_ko": "크로스헤드 베어링",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_06/CROSSHEAD_BRG_06",
+      "step_selector": "#CROSSHEAD_BRG_06",
+      "glb_node_name": "CROSSHEAD_BRG_06",
+      "glb_node_indices": {
+        "engine_06": 35,
+        "engine_06_cutaway": 35,
+        "engine_06_exploded": 35
+      },
+      "color_srgb": "#e5c37c",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "CONROD_06",
+      "parent": "CYLINDER_06",
+      "cylinder_index": 6,
+      "name_ko": "커넥팅로드",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_06/CONROD_06",
+      "step_selector": "#CONROD_06",
+      "glb_node_name": "CONROD_06",
+      "glb_node_indices": {
+        "engine_06": 23,
+        "engine_06_cutaway": 23,
+        "engine_06_exploded": 23
+      },
+      "color_srgb": "#88a3bc",
+      "geometry_status": "schematic_demo"
+    },
+    {
+      "id": "CRANK_SECTION_06",
+      "parent": "CYLINDER_06",
+      "cylinder_index": 6,
+      "name_ko": "크랭크축 구간",
+      "global_key": "HANWHA_6G50MEC96_PROTO/CYLINDER_06/CRANK_SECTION_06",
+      "step_selector": "#CRANK_SECTION_06",
+      "glb_node_name": "CRANK_SECTION_06",
+      "glb_node_indices": {
+        "engine_06": 5,
+        "engine_06_cutaway": 5,
+        "engine_06_exploded": 5
+      },
+      "color_srgb": "#687688",
+      "geometry_status": "schematic_demo"
+    }
+  ],
+  "relationships": [
+    {
+      "a": "LINER_01",
+      "b": "PISTON_01",
+      "type": "coaxial_slider"
+    },
+    {
+      "a": "PISTON_01",
+      "b": "PISTON_ROD_01",
+      "type": "rigid_contact"
+    },
+    {
+      "a": "PISTON_ROD_01",
+      "b": "CROSSHEAD_PIN_01",
+      "type": "rigid_saddle_contact"
+    },
+    {
+      "a": "CROSSHEAD_PIN_01",
+      "b": "CROSSHEAD_BRG_01",
+      "type": "revolute_interface"
+    },
+    {
+      "a": "CROSSHEAD_BRG_01",
+      "b": "CONROD_01",
+      "type": "shell_seat"
+    },
+    {
+      "a": "CONROD_01",
+      "b": "CRANK_SECTION_01",
+      "type": "crankpin_revolute"
+    },
+    {
+      "a": "LINER_02",
+      "b": "PISTON_02",
+      "type": "coaxial_slider"
+    },
+    {
+      "a": "PISTON_02",
+      "b": "PISTON_ROD_02",
+      "type": "rigid_contact"
+    },
+    {
+      "a": "PISTON_ROD_02",
+      "b": "CROSSHEAD_PIN_02",
+      "type": "rigid_saddle_contact"
+    },
+    {
+      "a": "CROSSHEAD_PIN_02",
+      "b": "CROSSHEAD_BRG_02",
+      "type": "revolute_interface"
+    },
+    {
+      "a": "CROSSHEAD_BRG_02",
+      "b": "CONROD_02",
+      "type": "shell_seat"
+    },
+    {
+      "a": "CONROD_02",
+      "b": "CRANK_SECTION_02",
+      "type": "crankpin_revolute"
+    },
+    {
+      "a": "LINER_03",
+      "b": "PISTON_03",
+      "type": "coaxial_slider"
+    },
+    {
+      "a": "PISTON_03",
+      "b": "PISTON_ROD_03",
+      "type": "rigid_contact"
+    },
+    {
+      "a": "PISTON_ROD_03",
+      "b": "CROSSHEAD_PIN_03",
+      "type": "rigid_saddle_contact"
+    },
+    {
+      "a": "CROSSHEAD_PIN_03",
+      "b": "CROSSHEAD_BRG_03",
+      "type": "revolute_interface"
+    },
+    {
+      "a": "CROSSHEAD_BRG_03",
+      "b": "CONROD_03",
+      "type": "shell_seat"
+    },
+    {
+      "a": "CONROD_03",
+      "b": "CRANK_SECTION_03",
+      "type": "crankpin_revolute"
+    },
+    {
+      "a": "LINER_04",
+      "b": "PISTON_04",
+      "type": "coaxial_slider"
+    },
+    {
+      "a": "PISTON_04",
+      "b": "PISTON_ROD_04",
+      "type": "rigid_contact"
+    },
+    {
+      "a": "PISTON_ROD_04",
+      "b": "CROSSHEAD_PIN_04",
+      "type": "rigid_saddle_contact"
+    },
+    {
+      "a": "CROSSHEAD_PIN_04",
+      "b": "CROSSHEAD_BRG_04",
+      "type": "revolute_interface"
+    },
+    {
+      "a": "CROSSHEAD_BRG_04",
+      "b": "CONROD_04",
+      "type": "shell_seat"
+    },
+    {
+      "a": "CONROD_04",
+      "b": "CRANK_SECTION_04",
+      "type": "crankpin_revolute"
+    },
+    {
+      "a": "LINER_05",
+      "b": "PISTON_05",
+      "type": "coaxial_slider"
+    },
+    {
+      "a": "PISTON_05",
+      "b": "PISTON_ROD_05",
+      "type": "rigid_contact"
+    },
+    {
+      "a": "PISTON_ROD_05",
+      "b": "CROSSHEAD_PIN_05",
+      "type": "rigid_saddle_contact"
+    },
+    {
+      "a": "CROSSHEAD_PIN_05",
+      "b": "CROSSHEAD_BRG_05",
+      "type": "revolute_interface"
+    },
+    {
+      "a": "CROSSHEAD_BRG_05",
+      "b": "CONROD_05",
+      "type": "shell_seat"
+    },
+    {
+      "a": "CONROD_05",
+      "b": "CRANK_SECTION_05",
+      "type": "crankpin_revolute"
+    },
+    {
+      "a": "LINER_06",
+      "b": "PISTON_06",
+      "type": "coaxial_slider"
+    },
+    {
+      "a": "PISTON_06",
+      "b": "PISTON_ROD_06",
+      "type": "rigid_contact"
+    },
+    {
+      "a": "PISTON_ROD_06",
+      "b": "CROSSHEAD_PIN_06",
+      "type": "rigid_saddle_contact"
+    },
+    {
+      "a": "CROSSHEAD_PIN_06",
+      "b": "CROSSHEAD_BRG_06",
+      "type": "revolute_interface"
+    },
+    {
+      "a": "CROSSHEAD_BRG_06",
+      "b": "CONROD_06",
+      "type": "shell_seat"
+    },
+    {
+      "a": "CONROD_06",
+      "b": "CRANK_SECTION_06",
+      "type": "crankpin_revolute"
+    },
+    {
+      "a": "CRANK_SECTION_01",
+      "b": "CRANK_SECTION_02",
+      "type": "shared_main_journal_midplane",
+      "axis": "Y",
+      "note": "Selectable sections meet with no volumetric overlap."
+    },
+    {
+      "a": "CRANK_SECTION_02",
+      "b": "CRANK_SECTION_03",
+      "type": "shared_main_journal_midplane",
+      "axis": "Y",
+      "note": "Selectable sections meet with no volumetric overlap."
+    },
+    {
+      "a": "CRANK_SECTION_03",
+      "b": "CRANK_SECTION_04",
+      "type": "shared_main_journal_midplane",
+      "axis": "Y",
+      "note": "Selectable sections meet with no volumetric overlap."
+    },
+    {
+      "a": "CRANK_SECTION_04",
+      "b": "CRANK_SECTION_05",
+      "type": "shared_main_journal_midplane",
+      "axis": "Y",
+      "note": "Selectable sections meet with no volumetric overlap."
+    },
+    {
+      "a": "CRANK_SECTION_05",
+      "b": "CRANK_SECTION_06",
+      "type": "shared_main_journal_midplane",
+      "axis": "Y",
+      "note": "Selectable sections meet with no volumetric overlap."
+    }
+  ],
+  "representations": {
+    "engine_06": {
+      "step": "STEP/engine_06.step",
+      "glb": "GLB/engine_06.glb",
+      "nodes": {
+        "CRANK_SECTION_01": 0,
+        "CRANK_SECTION_02": 1,
+        "CRANK_SECTION_03": 2,
+        "CRANK_SECTION_04": 3,
+        "CRANK_SECTION_05": 4,
+        "CRANK_SECTION_06": 5,
+        "LINER_01": 6,
+        "LINER_02": 7,
+        "LINER_03": 8,
+        "LINER_04": 9,
+        "CROSSHEAD_PIN_01": 10,
+        "LINER_05": 11,
+        "CROSSHEAD_PIN_02": 12,
+        "LINER_06": 13,
+        "CONROD_01": 14,
+        "CROSSHEAD_PIN_03": 15,
+        "CONROD_02": 16,
+        "CROSSHEAD_PIN_04": 17,
+        "CONROD_03": 18,
+        "CROSSHEAD_PIN_05": 19,
+        "CONROD_04": 20,
+        "CROSSHEAD_PIN_06": 21,
+        "CONROD_05": 22,
+        "CONROD_06": 23,
+        "PISTON_ROD_01": 24,
+        "PISTON_ROD_02": 25,
+        "PISTON_ROD_03": 26,
+        "PISTON_ROD_04": 27,
+        "PISTON_ROD_05": 28,
+        "CROSSHEAD_BRG_01": 29,
+        "PISTON_ROD_06": 30,
+        "CROSSHEAD_BRG_02": 31,
+        "CROSSHEAD_BRG_03": 32,
+        "CROSSHEAD_BRG_04": 33,
+        "CROSSHEAD_BRG_05": 34,
+        "CROSSHEAD_BRG_06": 35,
+        "PISTON_01": 36,
+        "PISTON_02": 37,
+        "PISTON_03": 38,
+        "PISTON_04": 39,
+        "PISTON_05": 40,
+        "PISTON_06": 41
+      }
+    },
+    "engine_06_cutaway": {
+      "step": "STEP/engine_06_cutaway.step",
+      "glb": "GLB/engine_06_cutaway.glb",
+      "nodes": {
+        "CRANK_SECTION_01": 0,
+        "CRANK_SECTION_02": 1,
+        "CRANK_SECTION_03": 2,
+        "CRANK_SECTION_04": 3,
+        "CRANK_SECTION_05": 4,
+        "CRANK_SECTION_06": 5,
+        "LINER_01": 6,
+        "LINER_02": 7,
+        "LINER_03": 8,
+        "LINER_04": 9,
+        "CROSSHEAD_PIN_01": 10,
+        "LINER_05": 11,
+        "CROSSHEAD_PIN_02": 12,
+        "LINER_06": 13,
+        "CONROD_01": 14,
+        "CROSSHEAD_PIN_03": 15,
+        "CONROD_02": 16,
+        "CROSSHEAD_PIN_04": 17,
+        "CONROD_03": 18,
+        "CROSSHEAD_PIN_05": 19,
+        "CONROD_04": 20,
+        "CROSSHEAD_PIN_06": 21,
+        "CONROD_05": 22,
+        "CONROD_06": 23,
+        "PISTON_ROD_01": 24,
+        "PISTON_ROD_02": 25,
+        "PISTON_ROD_03": 26,
+        "PISTON_ROD_04": 27,
+        "PISTON_ROD_05": 28,
+        "CROSSHEAD_BRG_01": 29,
+        "PISTON_ROD_06": 30,
+        "CROSSHEAD_BRG_02": 31,
+        "CROSSHEAD_BRG_03": 32,
+        "CROSSHEAD_BRG_04": 33,
+        "CROSSHEAD_BRG_05": 34,
+        "CROSSHEAD_BRG_06": 35,
+        "PISTON_01": 36,
+        "PISTON_02": 37,
+        "PISTON_03": 38,
+        "PISTON_04": 39,
+        "PISTON_05": 40,
+        "PISTON_06": 41
+      }
+    },
+    "engine_06_exploded": {
+      "step": "STEP/engine_06_exploded.step",
+      "glb": "GLB/engine_06_exploded.glb",
+      "nodes": {
+        "CRANK_SECTION_01": 0,
+        "CRANK_SECTION_02": 1,
+        "CRANK_SECTION_03": 2,
+        "CRANK_SECTION_04": 3,
+        "CRANK_SECTION_05": 4,
+        "CRANK_SECTION_06": 5,
+        "LINER_01": 6,
+        "LINER_02": 7,
+        "LINER_03": 8,
+        "LINER_04": 9,
+        "CROSSHEAD_PIN_01": 10,
+        "LINER_05": 11,
+        "CROSSHEAD_PIN_02": 12,
+        "LINER_06": 13,
+        "CONROD_01": 14,
+        "CROSSHEAD_PIN_03": 15,
+        "CONROD_02": 16,
+        "CROSSHEAD_PIN_04": 17,
+        "CONROD_03": 18,
+        "CROSSHEAD_PIN_05": 19,
+        "CONROD_04": 20,
+        "CROSSHEAD_PIN_06": 21,
+        "CONROD_05": 22,
+        "CONROD_06": 23,
+        "PISTON_ROD_01": 24,
+        "PISTON_ROD_02": 25,
+        "PISTON_ROD_03": 26,
+        "PISTON_ROD_04": 27,
+        "PISTON_ROD_05": 28,
+        "CROSSHEAD_BRG_01": 29,
+        "PISTON_ROD_06": 30,
+        "CROSSHEAD_BRG_02": 31,
+        "CROSSHEAD_BRG_03": 32,
+        "CROSSHEAD_BRG_04": 33,
+        "CROSSHEAD_BRG_05": 34,
+        "CROSSHEAD_BRG_06": 35,
+        "PISTON_01": 36,
+        "PISTON_02": 37,
+        "PISTON_03": 38,
+        "PISTON_04": 39,
+        "PISTON_05": 40,
+        "PISTON_06": 41
+      }
+    }
+  },
+  "id_rule": "ROLE_01..ROLE_06; no duplicate part or cylinder IDs within a document; alternate representations preserve identities.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Everllence G50ME-C9.6 Project Guide",
+      "url": "https://www.everllence.com/applications/projectguides/2stroke/content/printed/replaced/G50ME-C9_6.pdf",
+      "locator": "PDF pp.23-26, section 1.06, 199 05 61-7.4; PDF p.3 preface",
+      "used_for": [
+        "crosshead architecture",
+        "four piston ring grooves",
+        "lower liner flange",
+        "bearing shell and cap description"
+      ],
+      "limitation": "Family-level project guide; not as-built Hanwha drawings. Not detailed design data."
+    },
+    {
+      "id": "S2",
+      "title": "MITSUI E&S Marine Propulsion System Program 2024",
+      "url": "https://www.mes.co.jp/assets/uploads/marine-propulsion-syastem-program-2024.pdf",
+      "locator": "PDF page 24 (zero-based page 23), G50ME-C9.6 entry",
+      "used_for": [
+        "bore 500 mm",
+        "stroke 2500 mm"
+      ],
+      "limitation": "Independent licensee family data; no detailed dimensions for Hanwha components."
+    },
+    {
+      "id": "S3",
+      "title": "Everllence G50ME-C9.6 with high-pressure SCR Technical Poster",
+      "url": "https://www.everllence.com/docs/default-source/marine-documents/poster/poster_sl_bw_g50_me-c_9-6_hpscr.pdf?sfvrsn=5db1bfbc_3",
+      "locator": "one-page exterior poster",
+      "used_for": [
+        "vertical engine exterior context only"
+      ],
+      "limitation": "Exterior illustration cannot establish internal part dimensions."
+    },
+    {
+      "id": "S4",
+      "title": "earthtojake/text-to-cad official CAD skill, latest branch",
+      "url": "https://github.com/earthtojake/text-to-cad/tree/latest/skills/cad",
+      "used_for": [
+        "cadgen 0.7.21",
+        "STEP and GLB generation",
+        "snapshot review",
+        "native geometry checks"
+      ]
+    }
+  ],
+  "public_dimensions": {
+    "bore_mm": 500,
+    "stroke_mm": 2500
+  },
+  "derived_dimension": {
+    "crank_radius_mm": 1250
+  },
+  "six_cylinder_assumptions": {
+    "pitch_mm": 1080.0,
+    "phase_angles_deg": [
+      30,
+      150,
+      270,
+      90,
+      210,
+      330
+    ],
+    "phase_status": "illustrative geometry, not verified firing order",
+    "crank_section_half_span_mm": 540,
+    "web_centers_local_y_mm": [
+      -375,
+      375
+    ],
+    "web_thickness_mm": 140,
+    "crank_pin_length_mm": 650,
+    "main_journal_segment_length_mm": 105,
+    "main_journal_segment_centers_local_y_mm": [
+      -487.5,
+      487.5
+    ],
+    "exploded_cylinder_spacing_mm": 1500
+  },
+  "baseline_dimensions": "baseline-dimensions.json; six_cylinder_assumptions overrides original crank axial lengths/positions.",
+  "features": {
+    "part_selection": "42 STEP leaves and 42 GLB mesh nodes",
+    "clip": "Native STEP viewer Clip tool; supplied cutaway variant removes local front half of each liner.",
+    "explode": "Native STEP viewer Explode slider and supplied explicit exploded variant."
+  },
+  "limitations": [
+    "Not actual manufacturer CAD, not for manufacturing or procurement specification.",
+    "Static assumed phase geometry; full stroke, dynamics, firing balance and assembly stress not verified.",
+    "Original simplified half bearings, open saddles and omission list remain applicable.",
+    "Geometry contacts are not serialized motion constraints.",
+    "Independent GLB node picking verified in CPU ray tests; existing CAD viewer topology tools use STEP."
+  ]
+}

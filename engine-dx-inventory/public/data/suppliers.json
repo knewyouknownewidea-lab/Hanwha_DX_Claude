@@ -1,0 +1,90 @@
+{
+ "meta": {
+  "as_of": "2026-10-23",
+  "sample": true,
+  "note": "가상 협력사·평가 값. 실제 평가 아님"
+ },
+ "suppliers": [
+  {
+   "supplier_id": "SUP-DEMO-A",
+   "name": "가상 협력사 A",
+   "grade": "A",
+   "on_time_rate_pct": 96.4,
+   "scope": "운동부(커넥팅로드·피스톤 계열) 부품"
+  },
+  {
+   "supplier_id": "SUP-DEMO-B",
+   "name": "가상 협력사 B",
+   "grade": "B",
+   "on_time_rate_pct": 86.2,
+   "scope": "실린더 부속·상부 부품, 커넥팅로드 보조 공급"
+  },
+  {
+   "supplier_id": "SUP-DEMO-C",
+   "name": "가상 협력사 C",
+   "grade": "A",
+   "on_time_rate_pct": 93.1,
+   "scope": "연료분사·과급·리시버 부품"
+  },
+  {
+   "supplier_id": "SUP-DEMO-D",
+   "name": "가상 협력사 D",
+   "grade": "C",
+   "on_time_rate_pct": 76.8,
+   "scope": "구조물·주베어링 지지대"
+  },
+  {
+   "supplier_id": "SUP-DEMO-E",
+   "name": "가상 협력사 E",
+   "grade": "B",
+   "on_time_rate_pct": 88.5,
+   "scope": "크랭크축·갤러리·냉각 재킷 보조"
+  }
+ ],
+ "supply": {
+  "SUP-DEMO-A": [
+   "CONROD",
+   "PISTON",
+   "PISTON_ROD",
+   "CROSSHEAD_PIN",
+   "CROSSHEAD_BRG",
+   "CROSSHEAD",
+   "LINER"
+  ],
+  "SUP-DEMO-B": [
+   "CONROD",
+   "LINER",
+   "PISTON",
+   "COOLING_JACKET",
+   "COVER",
+   "EXHAUST_VALVE"
+  ],
+  "SUP-DEMO-C": [
+   "FUEL_INJECTOR_01",
+   "FUEL_INJECTOR_02",
+   "FUEL_INJECTOR_03",
+   "ENGINE_TURBOCHARGER",
+   "ENGINE_EXHAUST_RECEIVER",
+   "ENGINE_SCAVENGE_RECEIVER"
+  ],
+  "SUP-DEMO-D": [
+   "ENGINE_BEDPLATE",
+   "ENGINE_FRAME",
+   "ENGINE_CYLINDER_FRAME",
+   "ENGINE_MAIN_BEARING_01",
+   "ENGINE_MAIN_BEARING_02",
+   "ENGINE_MAIN_BEARING_03",
+   "ENGINE_MAIN_BEARING_04",
+   "ENGINE_MAIN_BEARING_05",
+   "ENGINE_MAIN_BEARING_06",
+   "ENGINE_MAIN_BEARING_07"
+  ],
+  "SUP-DEMO-E": [
+   "ENGINE_CRANKSHAFT",
+   "ENGINE_GALLERY_LOWER",
+   "ENGINE_GALLERY_UPPER",
+   "COOLING_JACKET",
+   "COVER"
+  ]
+ }
+}

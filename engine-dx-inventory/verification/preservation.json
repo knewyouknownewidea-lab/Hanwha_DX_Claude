@@ -1,0 +1,250 @@
+[
+  {
+    "path": "work/demo/index.html",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-prototype/build-assembled.log",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-prototype/build-cutaway.log",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-prototype/build-exploded.log",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-prototype/dimensions.json",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-prototype/glb-finalization.json",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-prototype/glb-picking-validation.json",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-prototype/manifest.json",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-prototype/parts.json",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-prototype/validation.json",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-prototype/검토보고서.txt",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-prototype/checks/check_glb_picking.py",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-prototype/checks/finalize_glb.py",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-prototype/checks/snapshot-jobs.json",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-prototype/checks/validate.py",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-prototype/checks/write_metadata.py",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-prototype/GLB/cylinder_01.glb",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-prototype/GLB/cylinder_01_cutaway.glb",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-prototype/GLB/cylinder_01_exploded.glb",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-prototype/images/assembled.png",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-prototype/images/crosshead.png",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-prototype/images/cutaway.png",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-prototype/images/exploded.png",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-prototype/images/viewer.png",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-prototype/src/cylinder_01.py",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-prototype/src/cylinder_01_cutaway.py",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-prototype/src/cylinder_01_exploded.py",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-prototype/src/geometry.py",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-prototype/STEP/cylinder_01.step",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-prototype/STEP/cylinder_01_cutaway.step",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-prototype/STEP/cylinder_01_exploded.step",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-six/baseline-dimensions.json",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-six/engine_06-build.log",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-six/engine_06_cutaway-build.log",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-six/engine_06_exploded-build.log",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-six/glb-finalization.json",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-six/glb-node-validation.json",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-six/glb-picking-validation.json",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-six/manifest.json",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-six/parts.json",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-six/validation.json",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-six/사용안내_검토결과.txt",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-six/checks/check_glb_picking.py",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-six/checks/finalize_glb.py",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-six/checks/snapshot-jobs.json",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-six/checks/validate.py",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-six/checks/write_metadata.py",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-six/GLB/engine_06.glb",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-six/GLB/engine_06_cutaway.glb",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-six/GLB/engine_06_exploded.glb",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-six/images/assembled.png",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-six/images/cutaway.png",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-six/images/explode-controls.png",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-six/images/exploded.png",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-six/images/piston06-selected.png",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-six/src/engine_06.py",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-six/src/engine_06_cutaway.py",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-six/src/engine_06_exploded.py",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-six/src/geometry.py",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-six/STEP/engine_06.step",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-six/STEP/engine_06_cutaway.step",
+    "preserved": true
+  },
+  {
+    "path": "outputs/engine-six/STEP/engine_06_exploded.step",
+    "preserved": true
+  }
+]

@@ -1,0 +1,75 @@
+{
+  "passed": true,
+  "tests": [
+    {
+      "name": "10 fictional scenarios seeded",
+      "passed": true
+    },
+    {
+      "name": "94 unique CAD IDs available",
+      "passed": true
+    },
+    {
+      "name": "Same component type in different cylinders remains distinct",
+      "passed": true
+    },
+    {
+      "name": "No session is denied",
+      "passed": true
+    },
+    {
+      "name": "Other supplier issue blocked at server",
+      "passed": true
+    },
+    {
+      "name": "Supplier identity spoof blocked",
+      "passed": true
+    },
+    {
+      "name": "Supplier cannot change status or assignment",
+      "passed": true
+    },
+    {
+      "name": "Unassigned department review blocked",
+      "passed": true
+    },
+    {
+      "name": "Multi-department gate prevents premature review completion",
+      "passed": true
+    },
+    {
+      "name": "Supplier receives no internal reviews, contract, actions or audit",
+      "passed": true
+    },
+    {
+      "name": "Review completion is distinct from purchase completion",
+      "passed": true
+    },
+    {
+      "name": "End-to-end review → reply → acknowledgment → purchase actions → closure",
+      "passed": true
+    },
+    {
+      "name": "Attachment file stored; internal file denied and external file allowed",
+      "passed": true
+    },
+    {
+      "name": "Status and business actions retain append-only audit trail",
+      "passed": true
+    },
+    {
+      "name": "Supplier-origin inquiry accepted under own supplier ID",
+      "passed": true
+    },
+    {
+      "name": "MAIN01 HTML byte-for-byte preserved",
+      "passed": true
+    },
+    {
+      "name": "Both GLBs preserve 94 independent part IDs and correct mapping",
+      "passed": true
+    }
+  ],
+  "main01_sha256": "7470ae35b8989711b2138823e88fa08d0f22f8507a7d5e9f9c9837bf91f6ebf9",
+  "database": "SQLite in-memory using real schema migrations, isolated from demo runtime"
+}

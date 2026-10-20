@@ -1,0 +1,765 @@
+{
+ "meta": {
+  "as_of": "2026-10-23",
+  "sample": true,
+  "note": "가상 재고 데이터. 실제 자료 아님"
+ },
+ "types": {
+  "ENGINE_CRANKSHAFT": {
+   "variants": [
+    {
+     "variant_id": "ENGINE_CRANKSHAFT-V1",
+     "drawing_no": "SMP-CRK-104",
+     "rev": "A",
+     "material": "단조 합금강",
+     "stock_qty": 1,
+     "safety_stock": 1,
+     "unit": "EA",
+     "warehouse": "본사 자재창고",
+     "used_by": [
+      "ENGINE_CRANKSHAFT"
+     ]
+    }
+   ]
+  },
+  "LINER": {
+   "variants": [
+    {
+     "variant_id": "LINER-V1",
+     "drawing_no": "SMP-LNR-106",
+     "rev": "A",
+     "material": "구상흑연주철",
+     "stock_qty": 8,
+     "safety_stock": 6,
+     "unit": "EA",
+     "warehouse": "본사 자재창고",
+     "used_by": [
+      "CYL_01_LINER",
+      "CYL_02_LINER",
+      "CYL_03_LINER",
+      "CYL_06_LINER"
+     ]
+    },
+    {
+     "variant_id": "LINER-V2",
+     "drawing_no": "SMP-LNR-116",
+     "rev": "B",
+     "material": "구상흑연주철 (내마모 코팅)",
+     "stock_qty": 5,
+     "safety_stock": 4,
+     "unit": "EA",
+     "warehouse": "외주 보관",
+     "used_by": [
+      "CYL_04_LINER",
+      "CYL_05_LINER"
+     ]
+    }
+   ]
+  },
+  "PISTON": {
+   "variants": [
+    {
+     "variant_id": "PISTON-V1",
+     "drawing_no": "SMP-PST-107",
+     "rev": "A",
+     "material": "단조 합금강 (크라운 내열 처리)",
+     "stock_qty": 7,
+     "safety_stock": 6,
+     "unit": "EA",
+     "warehouse": "본사 자재창고",
+     "used_by": [
+      "CYL_01_PISTON",
+      "CYL_02_PISTON",
+      "CYL_03_PISTON",
+      "CYL_04_PISTON",
+      "CYL_06_PISTON"
+     ]
+    },
+    {
+     "variant_id": "PISTON-V2",
+     "drawing_no": "SMP-PST-117",
+     "rev": "B",
+     "material": "단조 합금강",
+     "stock_qty": 3,
+     "safety_stock": 2,
+     "unit": "EA",
+     "warehouse": "예비품 보관소",
+     "used_by": [
+      "CYL_05_PISTON"
+     ]
+    }
+   ]
+  },
+  "PISTON_ROD": {
+   "variants": [
+    {
+     "variant_id": "PISTON_ROD-V1",
+     "drawing_no": "SMP-PRD-104",
+     "rev": "A",
+     "material": "단조 합금강",
+     "stock_qty": 9,
+     "safety_stock": 6,
+     "unit": "EA",
+     "warehouse": "본사 자재창고",
+     "used_by": [
+      "CYL_01_PISTON_ROD",
+      "CYL_02_PISTON_ROD",
+      "CYL_03_PISTON_ROD",
+      "CYL_04_PISTON_ROD",
+      "CYL_05_PISTON_ROD",
+      "CYL_06_PISTON_ROD"
+     ]
+    }
+   ]
+  },
+  "CROSSHEAD_PIN": {
+   "variants": [
+    {
+     "variant_id": "CROSSHEAD_PIN-V1",
+     "drawing_no": "SMP-CHP-107",
+     "rev": "A",
+     "material": "표면경화 합금강",
+     "stock_qty": 6,
+     "safety_stock": 6,
+     "unit": "EA",
+     "warehouse": "본사 자재창고",
+     "used_by": [
+      "CYL_01_CROSSHEAD_PIN",
+      "CYL_02_CROSSHEAD_PIN",
+      "CYL_04_CROSSHEAD_PIN",
+      "CYL_05_CROSSHEAD_PIN"
+     ]
+    },
+    {
+     "variant_id": "CROSSHEAD_PIN-V2",
+     "drawing_no": "SMP-CHP-117",
+     "rev": "B",
+     "material": "표면경화 합금강 (연마 마감)",
+     "stock_qty": 4,
+     "safety_stock": 2,
+     "unit": "EA",
+     "warehouse": "외주 보관",
+     "used_by": [
+      "CYL_03_CROSSHEAD_PIN",
+      "CYL_06_CROSSHEAD_PIN"
+     ]
+    }
+   ]
+  },
+  "CROSSHEAD_BRG": {
+   "variants": [
+    {
+     "variant_id": "CROSSHEAD_BRG-V1",
+     "drawing_no": "SMP-CHB-107",
+     "rev": "A",
+     "material": "강 모재 + 화이트메탈 도금",
+     "stock_qty": 10,
+     "safety_stock": 8,
+     "unit": "EA",
+     "warehouse": "본사 자재창고",
+     "used_by": [
+      "CYL_01_CROSSHEAD_BRG",
+      "CYL_02_CROSSHEAD_BRG",
+      "CYL_05_CROSSHEAD_BRG",
+      "CYL_06_CROSSHEAD_BRG"
+     ]
+    },
+    {
+     "variant_id": "CROSSHEAD_BRG-V2",
+     "drawing_no": "SMP-CHB-117",
+     "rev": "B",
+     "material": "강 모재 + 알루미늄 주석 도금",
+     "stock_qty": 2,
+     "safety_stock": 6,
+     "unit": "EA",
+     "warehouse": "외주 보관",
+     "used_by": [
+      "CYL_03_CROSSHEAD_BRG",
+      "CYL_04_CROSSHEAD_BRG"
+     ]
+    },
+    {
+     "variant_id": "CROSSHEAD_BRG-V3",
+     "drawing_no": "SMP-CHB-127",
+     "rev": "C",
+     "material": "강 모재 + 화이트메탈 도금",
+     "stock_qty": 4,
+     "safety_stock": 0,
+     "unit": "EA",
+     "warehouse": "예비품 보관소",
+     "used_by": []
+    }
+   ]
+  },
+  "CONROD": {
+   "variants": [
+    {
+     "variant_id": "CONROD-V1",
+     "drawing_no": "SMP-CRD-107",
+     "rev": "A",
+     "material": "단조 합금강",
+     "stock_qty": 6,
+     "safety_stock": 4,
+     "unit": "EA",
+     "warehouse": "본사 자재창고",
+     "used_by": [
+      "CYL_01_CONROD",
+      "CYL_02_CONROD",
+      "CYL_05_CONROD"
+     ]
+    },
+    {
+     "variant_id": "CONROD-V2",
+     "drawing_no": "SMP-CRD-117",
+     "rev": "B",
+     "material": "주강",
+     "stock_qty": 4,
+     "safety_stock": 4,
+     "unit": "EA",
+     "warehouse": "외주 보관",
+     "used_by": [
+      "CYL_03_CONROD",
+      "CYL_06_CONROD"
+     ]
+    },
+    {
+     "variant_id": "CONROD-V3",
+     "drawing_no": "SMP-CRD-127",
+     "rev": "C",
+     "material": "단조 합금강 (경량 설계)",
+     "stock_qty": 2,
+     "safety_stock": 5,
+     "unit": "EA",
+     "warehouse": "예비품 보관소",
+     "used_by": [
+      "CYL_04_CONROD"
+     ]
+    },
+    {
+     "variant_id": "CONROD-V4",
+     "drawing_no": "SMP-CRD-137",
+     "rev": "D",
+     "material": "구상흑연주철",
+     "stock_qty": 3,
+     "safety_stock": 2,
+     "unit": "EA",
+     "warehouse": "본사 자재창고",
+     "used_by": []
+    }
+   ]
+  },
+  "CROSSHEAD": {
+   "variants": [
+    {
+     "variant_id": "CROSSHEAD-V1",
+     "drawing_no": "SMP-CHD-103",
+     "rev": "A",
+     "material": "주강",
+     "stock_qty": 7,
+     "safety_stock": 5,
+     "unit": "EA",
+     "warehouse": "본사 자재창고",
+     "used_by": [
+      "CYL_01_CROSSHEAD",
+      "CYL_02_CROSSHEAD",
+      "CYL_03_CROSSHEAD"
+     ]
+    },
+    {
+     "variant_id": "CROSSHEAD-V2",
+     "drawing_no": "SMP-CHD-113",
+     "rev": "B",
+     "material": "단조 합금강",
+     "stock_qty": 3,
+     "safety_stock": 3,
+     "unit": "EA",
+     "warehouse": "외주 보관",
+     "used_by": [
+      "CYL_04_CROSSHEAD",
+      "CYL_05_CROSSHEAD",
+      "CYL_06_CROSSHEAD"
+     ]
+    }
+   ]
+  },
+  "ENGINE_BEDPLATE": {
+   "variants": [
+    {
+     "variant_id": "ENGINE_BEDPLATE-V1",
+     "drawing_no": "SMP-BED-102",
+     "rev": "A",
+     "material": "용접 구조강",
+     "stock_qty": 1,
+     "safety_stock": 1,
+     "unit": "EA",
+     "warehouse": "본사 자재창고",
+     "used_by": [
+      "ENGINE_BEDPLATE"
+     ]
+    }
+   ]
+  },
+  "ENGINE_FRAME": {
+   "variants": [
+    {
+     "variant_id": "ENGINE_FRAME-V1",
+     "drawing_no": "SMP-FRM-106",
+     "rev": "A",
+     "material": "용접 구조강",
+     "stock_qty": 1,
+     "safety_stock": 1,
+     "unit": "EA",
+     "warehouse": "본사 자재창고",
+     "used_by": [
+      "ENGINE_FRAME"
+     ]
+    },
+    {
+     "variant_id": "ENGINE_FRAME-V2",
+     "drawing_no": "SMP-FRM-116",
+     "rev": "B",
+     "material": "주강",
+     "stock_qty": 1,
+     "safety_stock": 0,
+     "unit": "EA",
+     "warehouse": "외주 보관",
+     "used_by": []
+    }
+   ]
+  },
+  "ENGINE_CYLINDER_FRAME": {
+   "variants": [
+    {
+     "variant_id": "ENGINE_CYLINDER_FRAME-V1",
+     "drawing_no": "SMP-CFR-101",
+     "rev": "A",
+     "material": "주철",
+     "stock_qty": 1,
+     "safety_stock": 1,
+     "unit": "EA",
+     "warehouse": "본사 자재창고",
+     "used_by": [
+      "ENGINE_CYLINDER_FRAME"
+     ]
+    }
+   ]
+  },
+  "COOLING_JACKET": {
+   "variants": [
+    {
+     "variant_id": "COOLING_JACKET-V1",
+     "drawing_no": "SMP-CJK-101",
+     "rev": "A",
+     "material": "구상흑연주철",
+     "stock_qty": 9,
+     "safety_stock": 6,
+     "unit": "EA",
+     "warehouse": "본사 자재창고",
+     "used_by": [
+      "CYL_01_COOLING_JACKET",
+      "CYL_02_COOLING_JACKET",
+      "CYL_03_COOLING_JACKET",
+      "CYL_04_COOLING_JACKET",
+      "CYL_06_COOLING_JACKET"
+     ]
+    },
+    {
+     "variant_id": "COOLING_JACKET-V2",
+     "drawing_no": "SMP-CJK-111",
+     "rev": "B",
+     "material": "주철",
+     "stock_qty": 4,
+     "safety_stock": 3,
+     "unit": "EA",
+     "warehouse": "외주 보관",
+     "used_by": [
+      "CYL_05_COOLING_JACKET"
+     ]
+    }
+   ]
+  },
+  "COVER": {
+   "variants": [
+    {
+     "variant_id": "COVER-V1",
+     "drawing_no": "SMP-COV-106",
+     "rev": "A",
+     "material": "주강",
+     "stock_qty": 8,
+     "safety_stock": 6,
+     "unit": "EA",
+     "warehouse": "본사 자재창고",
+     "used_by": [
+      "CYL_01_COVER",
+      "CYL_02_COVER",
+      "CYL_04_COVER",
+      "CYL_05_COVER",
+      "CYL_06_COVER"
+     ]
+    },
+    {
+     "variant_id": "COVER-V2",
+     "drawing_no": "SMP-COV-116",
+     "rev": "B",
+     "material": "단조 합금강",
+     "stock_qty": 3,
+     "safety_stock": 3,
+     "unit": "EA",
+     "warehouse": "예비품 보관소",
+     "used_by": [
+      "CYL_03_COVER"
+     ]
+    }
+   ]
+  },
+  "EXHAUST_VALVE": {
+   "variants": [
+    {
+     "variant_id": "EXHAUST_VALVE-V1",
+     "drawing_no": "SMP-EXV-107",
+     "rev": "A",
+     "material": "내열 합금강 (스핀들) + 주강 (하우징)",
+     "stock_qty": 4,
+     "safety_stock": 6,
+     "unit": "EA",
+     "warehouse": "본사 자재창고",
+     "used_by": [
+      "CYL_01_EXHAUST_VALVE",
+      "CYL_02_EXHAUST_VALVE",
+      "CYL_03_EXHAUST_VALVE"
+     ]
+    },
+    {
+     "variant_id": "EXHAUST_VALVE-V2",
+     "drawing_no": "SMP-EXV-117",
+     "rev": "B",
+     "material": "내열 합금강 (스핀들) + 주철 (하우징)",
+     "stock_qty": 6,
+     "safety_stock": 4,
+     "unit": "EA",
+     "warehouse": "외주 보관",
+     "used_by": [
+      "CYL_04_EXHAUST_VALVE",
+      "CYL_05_EXHAUST_VALVE",
+      "CYL_06_EXHAUST_VALVE"
+     ]
+    }
+   ]
+  },
+  "FUEL_INJECTOR_01": {
+   "variants": [
+    {
+     "variant_id": "FUEL_INJECTOR_01-V1",
+     "drawing_no": "SMP-FI1-103",
+     "rev": "A",
+     "material": "스테인리스강",
+     "stock_qty": 12,
+     "safety_stock": 8,
+     "unit": "EA",
+     "warehouse": "본사 자재창고",
+     "used_by": [
+      "CYL_01_FUEL_INJECTOR_01",
+      "CYL_02_FUEL_INJECTOR_01",
+      "CYL_03_FUEL_INJECTOR_01",
+      "CYL_04_FUEL_INJECTOR_01",
+      "CYL_05_FUEL_INJECTOR_01",
+      "CYL_06_FUEL_INJECTOR_01"
+     ]
+    }
+   ]
+  },
+  "FUEL_INJECTOR_02": {
+   "variants": [
+    {
+     "variant_id": "FUEL_INJECTOR_02-V1",
+     "drawing_no": "SMP-FI2-103",
+     "rev": "A",
+     "material": "스테인리스강",
+     "stock_qty": 3,
+     "safety_stock": 8,
+     "unit": "EA",
+     "warehouse": "본사 자재창고",
+     "used_by": [
+      "CYL_01_FUEL_INJECTOR_02",
+      "CYL_02_FUEL_INJECTOR_02"
+     ]
+    },
+    {
+     "variant_id": "FUEL_INJECTOR_02-V2",
+     "drawing_no": "SMP-FI2-113",
+     "rev": "B",
+     "material": "스테인리스강 (내식 코팅)",
+     "stock_qty": 9,
+     "safety_stock": 6,
+     "unit": "EA",
+     "warehouse": "외주 보관",
+     "used_by": [
+      "CYL_03_FUEL_INJECTOR_02",
+      "CYL_04_FUEL_INJECTOR_02",
+      "CYL_05_FUEL_INJECTOR_02",
+      "CYL_06_FUEL_INJECTOR_02"
+     ]
+    }
+   ]
+  },
+  "FUEL_INJECTOR_03": {
+   "variants": [
+    {
+     "variant_id": "FUEL_INJECTOR_03-V1",
+     "drawing_no": "SMP-FI3-103",
+     "rev": "A",
+     "material": "스테인리스강",
+     "stock_qty": 10,
+     "safety_stock": 8,
+     "unit": "EA",
+     "warehouse": "본사 자재창고",
+     "used_by": [
+      "CYL_01_FUEL_INJECTOR_03",
+      "CYL_02_FUEL_INJECTOR_03",
+      "CYL_03_FUEL_INJECTOR_03",
+      "CYL_04_FUEL_INJECTOR_03",
+      "CYL_05_FUEL_INJECTOR_03",
+      "CYL_06_FUEL_INJECTOR_03"
+     ]
+    }
+   ]
+  },
+  "ENGINE_EXHAUST_RECEIVER": {
+   "variants": [
+    {
+     "variant_id": "ENGINE_EXHAUST_RECEIVER-V1",
+     "drawing_no": "SMP-EXR-103",
+     "rev": "A",
+     "material": "내열 강판 용접 구조",
+     "stock_qty": 1,
+     "safety_stock": 1,
+     "unit": "EA",
+     "warehouse": "본사 자재창고",
+     "used_by": [
+      "ENGINE_EXHAUST_RECEIVER"
+     ]
+    }
+   ]
+  },
+  "ENGINE_SCAVENGE_RECEIVER": {
+   "variants": [
+    {
+     "variant_id": "ENGINE_SCAVENGE_RECEIVER-V1",
+     "drawing_no": "SMP-SCR-104",
+     "rev": "A",
+     "material": "강판 용접 구조",
+     "stock_qty": 1,
+     "safety_stock": 1,
+     "unit": "EA",
+     "warehouse": "본사 자재창고",
+     "used_by": [
+      "ENGINE_SCAVENGE_RECEIVER"
+     ]
+    }
+   ]
+  },
+  "ENGINE_TURBOCHARGER": {
+   "variants": [
+    {
+     "variant_id": "ENGINE_TURBOCHARGER-V1",
+     "drawing_no": "SMP-TCH-106",
+     "rev": "A",
+     "material": "알루미늄 합금 (하우징) + 내열 합금 (로터)",
+     "stock_qty": 0,
+     "safety_stock": 1,
+     "unit": "EA",
+     "warehouse": "예비품 보관소",
+     "used_by": [
+      "ENGINE_TURBOCHARGER"
+     ]
+    },
+    {
+     "variant_id": "ENGINE_TURBOCHARGER-V2",
+     "drawing_no": "SMP-TCH-116",
+     "rev": "B",
+     "material": "알루미늄 합금 (하우징) + 내열 합금 (로터)",
+     "stock_qty": 1,
+     "safety_stock": 1,
+     "unit": "EA",
+     "warehouse": "외주 보관",
+     "used_by": []
+    }
+   ]
+  },
+  "ENGINE_GALLERY_LOWER": {
+   "variants": [
+    {
+     "variant_id": "ENGINE_GALLERY_LOWER-V1",
+     "drawing_no": "SMP-GLL-107",
+     "rev": "A",
+     "material": "강판 + 격자 바닥재",
+     "stock_qty": 1,
+     "safety_stock": 1,
+     "unit": "EA",
+     "warehouse": "본사 자재창고",
+     "used_by": [
+      "ENGINE_GALLERY_LOWER"
+     ]
+    }
+   ]
+  },
+  "ENGINE_GALLERY_UPPER": {
+   "variants": [
+    {
+     "variant_id": "ENGINE_GALLERY_UPPER-V1",
+     "drawing_no": "SMP-GLU-107",
+     "rev": "A",
+     "material": "강판 + 격자 바닥재",
+     "stock_qty": 1,
+     "safety_stock": 1,
+     "unit": "EA",
+     "warehouse": "본사 자재창고",
+     "used_by": [
+      "ENGINE_GALLERY_UPPER"
+     ]
+    }
+   ]
+  },
+  "ENGINE_MAIN_BEARING_01": {
+   "variants": [
+    {
+     "variant_id": "ENGINE_MAIN_BEARING_01-V1",
+     "drawing_no": "SMP-MB1-102",
+     "rev": "A",
+     "material": "강 모재 + 화이트메탈 도금",
+     "stock_qty": 2,
+     "safety_stock": 1,
+     "unit": "EA",
+     "warehouse": "본사 자재창고",
+     "used_by": [
+      "ENGINE_MAIN_BEARING_01"
+     ]
+    },
+    {
+     "variant_id": "ENGINE_MAIN_BEARING_01-V2",
+     "drawing_no": "SMP-MB1-112",
+     "rev": "B",
+     "material": "주강 지지대",
+     "stock_qty": 1,
+     "safety_stock": 1,
+     "unit": "EA",
+     "warehouse": "외주 보관",
+     "used_by": []
+    }
+   ]
+  },
+  "ENGINE_MAIN_BEARING_02": {
+   "variants": [
+    {
+     "variant_id": "ENGINE_MAIN_BEARING_02-V1",
+     "drawing_no": "SMP-MB2-102",
+     "rev": "A",
+     "material": "강 모재 + 화이트메탈 도금",
+     "stock_qty": 2,
+     "safety_stock": 1,
+     "unit": "EA",
+     "warehouse": "본사 자재창고",
+     "used_by": [
+      "ENGINE_MAIN_BEARING_02"
+     ]
+    }
+   ]
+  },
+  "ENGINE_MAIN_BEARING_03": {
+   "variants": [
+    {
+     "variant_id": "ENGINE_MAIN_BEARING_03-V1",
+     "drawing_no": "SMP-MB3-102",
+     "rev": "A",
+     "material": "강 모재 + 화이트메탈 도금",
+     "stock_qty": 2,
+     "safety_stock": 1,
+     "unit": "EA",
+     "warehouse": "본사 자재창고",
+     "used_by": [
+      "ENGINE_MAIN_BEARING_03"
+     ]
+    }
+   ]
+  },
+  "ENGINE_MAIN_BEARING_04": {
+   "variants": [
+    {
+     "variant_id": "ENGINE_MAIN_BEARING_04-V1",
+     "drawing_no": "SMP-MB4-102",
+     "rev": "A",
+     "material": "강 모재 + 화이트메탈 도금",
+     "stock_qty": 2,
+     "safety_stock": 1,
+     "unit": "EA",
+     "warehouse": "본사 자재창고",
+     "used_by": [
+      "ENGINE_MAIN_BEARING_04"
+     ]
+    }
+   ]
+  },
+  "ENGINE_MAIN_BEARING_05": {
+   "variants": [
+    {
+     "variant_id": "ENGINE_MAIN_BEARING_05-V1",
+     "drawing_no": "SMP-MB5-102",
+     "rev": "A",
+     "material": "강 모재 + 화이트메탈 도금",
+     "stock_qty": 2,
+     "safety_stock": 1,
+     "unit": "EA",
+     "warehouse": "본사 자재창고",
+     "used_by": [
+      "ENGINE_MAIN_BEARING_05"
+     ]
+    }
+   ]
+  },
+  "ENGINE_MAIN_BEARING_06": {
+   "variants": [
+    {
+     "variant_id": "ENGINE_MAIN_BEARING_06-V1",
+     "drawing_no": "SMP-MB6-102",
+     "rev": "A",
+     "material": "강 모재 + 화이트메탈 도금",
+     "stock_qty": 2,
+     "safety_stock": 1,
+     "unit": "EA",
+     "warehouse": "본사 자재창고",
+     "used_by": [
+      "ENGINE_MAIN_BEARING_06"
+     ]
+    }
+   ]
+  },
+  "ENGINE_MAIN_BEARING_07": {
+   "variants": [
+    {
+     "variant_id": "ENGINE_MAIN_BEARING_07-V1",
+     "drawing_no": "SMP-MB7-102",
+     "rev": "A",
+     "material": "강 모재 + 화이트메탈 도금",
+     "stock_qty": 2,
+     "safety_stock": 1,
+     "unit": "EA",
+     "warehouse": "본사 자재창고",
+     "used_by": [
+      "ENGINE_MAIN_BEARING_07"
+     ]
+    },
+    {
+     "variant_id": "ENGINE_MAIN_BEARING_07-V2",
+     "drawing_no": "SMP-MB7-112",
+     "rev": "B",
+     "material": "주강 지지대",
+     "stock_qty": 1,
+     "safety_stock": 1,
+     "unit": "EA",
+     "warehouse": "외주 보관",
+     "used_by": []
+    }
+   ]
+  }
+ }
+}
