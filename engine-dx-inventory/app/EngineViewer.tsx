@@ -19,6 +19,7 @@ type ViewerProps = {
   focusTick?: number;
   onReady: (ids: string[]) => void;
   highlightIds?: string[];
+  supplierFocused?: boolean;
   cylinders?: number;
   statusById?: Record<string, string>;
   pulse?: boolean;
@@ -35,14 +36,14 @@ const STATUS_COLORS: Record<string, string> = {
 
 function Model({catalog, selected, onSelect, hidden = [], isolate = false, ghost = false,
   cutaway = false, explode = 0, resetTick = 0, focusTick = 0, onReady,
-  highlightIds = [], cylinders = 6, statusById = {}, pulse = true, reducedMotion = false}: ViewerProps) {
+  highlightIds = [], supplierFocused = highlightIds.length > 0, cylinders = 6, statusById = {}, pulse = true, reducedMotion = false}: ViewerProps) {
   const { camera, size, gl } = useThree();
   const controls = useRef<any>(null);
   const desired = useRef<THREE.Vector3 | null>(null);
   const activeState = useRef({ pulse, reducedMotion });
   activeState.current = { pulse, reducedMotion };
-  const viewState = useRef({ cutaway, explode, hidden, isolate, selected });
-  viewState.current = { cutaway, explode, hidden, isolate, selected };
+  const viewState = useRef({ cutaway, explode, hidden, isolate, selected, supplierFocused });
+  viewState.current = { cutaway, explode, hidden, isolate, selected, supplierFocused };
   const model = useMemo(() => createEngine(cylinders), [cylinders]);
   const plane = useMemo(() => new THREE.Plane(new THREE.Vector3(0, 0, -1), 0), []);
   const parts = model.parts as Map<string, THREE.Group>;
@@ -101,8 +102,11 @@ function Model({catalog, selected, onSelect, hidden = [], isolate = false, ghost
       const parentState = parentHighlighted
         ? ancestors.slice(1).map(id => statusById[id]).find(state => state && state !== 'unknown') : undefined;
       const state = directState !== 'unknown' ? directState : parentState || 'unknown';
-      const color = STATUS_COLORS[state] || STATUS_COLORS.unknown;
-      const faded = !entry.pickable || (highlights.size > 0 ? !highlighted : ghost && !!selected && !chosen);
+      // Supplier focus suppresses other suppliers' status colours, including a
+      // selected part outside this supplier. Its outline stays available.
+      const color = supplierFocused && !highlighted
+        ? STATUS_COLORS.unknown : STATUS_COLORS[state] || STATUS_COLORS.unknown;
+      const faded = !entry.pickable || (supplierFocused ? !highlighted : ghost && !!selected && !chosen);
       entry.material.color.set(color);
       entry.material.emissive.set(highlighted ? color : '#000000');
       entry.material.emissiveIntensity = highlighted ? .34 : 0;
@@ -119,7 +123,7 @@ function Model({catalog, selected, onSelect, hidden = [], isolate = false, ghost
       entry.outline.material.needsUpdate = true;
     }
     model.root.updateMatrixWorld(true);
-  }, [model, entries, selected, hidden, isolate, ghost, cutaway, explode, highlights, partInfo, statusById, plane]);
+  }, [model, entries, selected, hidden, isolate, ghost, cutaway, explode, highlights, supplierFocused, partInfo, statusById, plane]);
 
   useEffect(() => {
     const center = total.getCenter(new THREE.Vector3());

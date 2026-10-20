@@ -40,6 +40,18 @@ async function check(name, action) {
 const state = () => page.evaluate(() => window.__engineDx);
 const snap = () => page.evaluate(() => window.__integratedViewer.snapshot());
 const pause = ms => page.waitForTimeout(ms);
+function assertSupplierColorScope(viewer) {
+  const highlighted = new Set(viewer.highlightedMeshIds);
+  const neutral = Object.keys(viewer.colors).filter(id => !highlighted.has(id));
+  assert.ok(neutral.length, 'The supplier view retains neutral surrounding parts');
+  for (const id of neutral) {
+    assert.equal(viewer.colors[id], '#87949d', `${id}: another supplier must not retain its status color`);
+    assert.ok(viewer.byPartOpacity[id] < .3, `${id}: surrounding geometry must be translucent`);
+    assert.equal(viewer.emissive[id], 0, `${id}: another supplier must not glow`);
+  }
+  for (const id of highlighted) assert.equal(viewer.byPartOpacity[id], 1, `${id}: supplied part stays opaque`);
+  return { highlighted: [...highlighted], neutralMeshPartCount: neutral.length };
+}
 async function selectPart(id) {
   await page.getByLabel('부품 선택', { exact: true }).selectOption(id);
   await page.waitForFunction(id => window.__engineDx.selected === id, id);
@@ -387,6 +399,32 @@ try {
     return { highlighted: expected, otherTypeUnselected: 'CYL01_HYDPIPE_01', screenshot: await picture('integrated-supplier.png') };
   });
 
+  await check('supplier selection removes other-supplier status colors, switching replaces them and clearing restores all statuses', async () => {
+    await supplier('');
+    const baseline = await snap();
+    assert.equal(baseline.colors.CYL01_COVER, '#319c70');
+    assert.equal(baseline.colors.CYL01_LINER, '#319c70');
+    await supplier('SUP-DEMO-A');
+    const supplierA = await snap(), scopeA = assertSupplierColorScope(supplierA);
+    assert.equal(supplierA.colors.CYL01_LINER, '#319c70');
+    assert.equal(supplierA.colors.CYL05_LINER, '#dbaa35');
+    assert.equal(supplierA.colors.CYL06_LINER, '#da5b57');
+    assert.equal(supplierA.colors.CYL01_COVER, '#87949d');
+    await supplier('SUP-DEMO-B');
+    const supplierB = await snap(), scopeB = assertSupplierColorScope(supplierB);
+    assert.equal(supplierB.colors.CYL01_COVER, baseline.colors.CYL01_COVER);
+    for (const id of scopeA.highlighted) {
+      assert.equal(supplierB.colors[id], '#87949d', `${id}: previous supplier color must be removed`);
+      assert.equal(supplierB.emissive[id], 0);
+    }
+    await supplier('');
+    const restored = await snap();
+    assert.deepEqual(restored.colors, baseline.colors);
+    assert.ok(Object.values(restored.emissive).every(value => value === 0));
+    await supplier('SUP-DEMO-A');
+    return { supplierA: scopeA, supplierB: scopeB, clearedRestoresEveryStatusColor: true };
+  });
+
   await check('slow continuous pulse changes brightness without disappearance and stop freezes it', async () => {
     await page.waitForFunction(() => window.__integratedViewer.snapshot().emissive.CYL01_LINER >= .28);
     const samples = [];
@@ -597,6 +635,28 @@ try {
     assert.ok((await page.locator('.supply-summary').innerText()).includes('미등록'));
     await purchaseDetails(false);
     return { item: 'QA-ITEM-001', stock: '미등록', fixtureOnly: true };
+  });
+
+  await check('supplier without current-unit supplied parts neutralizes every mesh instead of restoring unrelated status colors', async () => {
+    const fixture = structuredClone(registeredFixture);
+    fixture.suppliers = [
+      { supplier_id: 'QA-SUPPLIER-A', name: 'QA 공급 연결 확인', grade: null, on_time_rate_pct: null },
+      { supplier_id: 'QA-NO-SUPPLY', name: 'QA 공급 관계 없음', grade: null, on_time_rate_pct: null },
+    ];
+    Object.assign(fixture.supply[0], { supplierId: 'QA-SUPPLIER-A', status: 'secured',
+      required: 1, available: 1, allocated: 1, shortage: 0, openOrder: 0 });
+    await upload('qa-empty-supplier-fixture.json', fixture);
+    await page.waitForFunction(() => window.__integratedViewer.snapshot().colors.CYL01_LINER === '#319c70');
+    await page.getByLabel('협력사 강조', { exact: true }).selectOption('QA-NO-SUPPLY');
+    await page.waitForFunction(() => window.__integratedViewer.snapshot().supplierFocused === true
+      && window.__integratedViewer.snapshot().colors.CYL01_LINER === '#87949d');
+    const viewer = await snap();
+    assert.deepEqual(viewer.highlightedMeshIds, []);
+    const scoped = assertSupplierColorScope(viewer);
+    await supplier('');
+    await page.waitForFunction(() => window.__integratedViewer.snapshot().colors.CYL01_LINER === '#319c70');
+    assert.equal((await snap()).supplierFocused, false);
+    return { ...scoped, emptySupplierDoesNotRevealOtherSupplierColors: true, clearingRestoresGreen: true };
   });
 
   await check('source information explains concept geometry, sample data and actual purchase limitations', async () => {

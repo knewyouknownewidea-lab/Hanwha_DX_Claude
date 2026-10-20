@@ -160,17 +160,46 @@
       }
     },
     {
+      "name": "supplier selection removes other-supplier status colors, switching replaces them and clearing restores all statuses",
+      "passed": true,
+      "evidence": {
+        "supplierA": {
+          "highlighted": [
+            "CYL01_LINER",
+            "CYL02_LINER",
+            "CYL03_LINER",
+            "CYL04_LINER",
+            "CYL05_LINER",
+            "CYL06_LINER"
+          ],
+          "neutralMeshPartCount": 60
+        },
+        "supplierB": {
+          "highlighted": [
+            "CYL01_COVER",
+            "CYL02_COVER",
+            "CYL03_COVER",
+            "CYL04_COVER",
+            "CYL05_COVER",
+            "CYL06_COVER"
+          ],
+          "neutralMeshPartCount": 60
+        },
+        "clearedRestoresEveryStatusColor": true
+      }
+    },
+    {
       "name": "slow continuous pulse changes brightness without disappearance and stop freezes it",
       "passed": true,
       "evidence": {
         "samples": [
-          0.2832909639393443,
-          0.2802920528524856,
-          0.33280646161143534,
-          0.4018483887312745,
-          0.4482253609108461,
-          0.47921583904221005,
-          0.46300122850953696
+          0.34,
+          0.3105843992700629,
+          0.37842926826881906,
+          0.44184083953575565,
+          0.47744485281524107,
+          0.4698487786500233,
+          0.4204183960311625
         ],
         "frozen": 0.34,
         "opacity": 1
@@ -200,9 +229,9 @@
       "passed": true,
       "evidence": {
         "x": 5.4046343500153734e-17,
-        "y": -0.162162283341879,
+        "y": -0.16212702731832937,
         "clientX": 461.7890625,
-        "clientY": 746.8919082511536,
+        "clientY": 746.8871486879744,
         "pick": "CYL01_LINER"
       }
     },
@@ -285,6 +314,16 @@
       }
     },
     {
+      "name": "supplier without current-unit supplied parts neutralizes every mesh instead of restoring unrelated status colors",
+      "passed": true,
+      "evidence": {
+        "highlighted": [],
+        "neutralMeshPartCount": 66,
+        "emptySupplierDoesNotRevealOtherSupplierColors": true,
+        "clearingRestoresGreen": true
+      }
+    },
+    {
       "name": "source information explains concept geometry, sample data and actual purchase limitations",
       "passed": true,
       "evidence": {
@@ -349,9 +388,9 @@
   "guidedVideo": {
     "available": true,
     "file": "integrated-demo.webm",
-    "durationMs": 17715,
-    "capturedFrames": 40,
-    "averageCapturedFps": 2.26,
+    "durationMs": 18597,
+    "capturedFrames": 41,
+    "averageCapturedFps": 2.2,
     "method": "Actual application viewport screenshot frames encoded with browser MediaRecorder; capture cadence is reported separately, no external ffmpeg."
   },
   "limitation": "Headless WebGL software rendering. Import fixture is QA-only input, not actual commercial/ERP data. Manufacturing dimensions and external purchase facts are not validated."
