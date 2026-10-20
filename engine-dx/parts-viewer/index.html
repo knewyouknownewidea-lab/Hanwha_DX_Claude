@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="선박 저속엔진의 주요 구매 부품, 연결 위치와 호기별 자재 상태를 확인하는 구조 설명용 3D 뷰어">
+  <title>DOCK · 엔진 부품 구매</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./src/styles.css">
+  <script type="importmap">{"imports":{"three":"./vendor/three/three.module.js","three/addons/":"./vendor/three/addons/"}}</script>
+</head>
+<body>
+  <header class="header">
+    <a class="brand" href="./"><span class="brand-mark">D<span>•</span></span><span>DOCK<small>ENGINE PROCUREMENT</small></span></a>
+    <div class="breadcrumb">구매 워크스페이스 <span>/</span> 엔진 부품</div>
+    <div class="header-end"><span class="connection-dot"></span><span id="data-label">실제 데이터 미연결</span><button class="avatar" aria-label="구매 담당자 안내" id="help-button">구</button></div>
+  </header>
+  <div class="shell">
+    <nav class="rail" aria-label="주요 화면">
+      <button class="active" data-page="model" aria-label="3D 부품 화면"><span class="rail-icon">◇</span><span>부품 뷰어</span></button>
+      <button data-page="procurement" aria-label="호기별 구매 목록"><span class="rail-icon">▤</span><span>구매 목록</span></button>
+      <button data-page="sources" aria-label="출처와 모델 정확도"><span class="rail-icon">▧</span><span>검증 자료</span></button>
+      <span class="rail-bottom">G95<br>REFERENCE</span>
+    </nav>
+    <main>
+      <div class="page-heading"><div><div class="eyebrow">PURCHASING / DIGITAL PARTS</div><h1>엔진 부품 구매 <span>연결 위치부터, 자재 확보까지.</span></h1></div><div class="heading-actions"><label class="upload-button">JSON 연결<input id="data-import" type="file" accept=".json,application/json"></label><button id="demo-toggle" class="primary">시연 데이터 켜기 <span>↗</span></button></div></div>
+      <div id="data-notice" class="data-notice"><span class="notice-dot"></span><strong>실제 데이터 미등록</strong><span>생산 호기·품목번호·협력사·재고·발주 정보를 연결해주세요.</span><button id="template-download">빈 연결 양식 ↓</button></div>
+      <div class="control-strip">
+        <label class="field unit-field"><span>생산 호기</span><select id="unit-select" aria-label="생산 호기"></select></label>
+        <label class="field supplier-field"><span>협력사</span><select id="supplier-select" aria-label="협력사"><option value="">전체 부품</option></select></label>
+        <label class="field count-field"><span>반복 배치 · 개념</span><select id="cylinder-select" aria-label="기통 수"><option value="6">6기통</option><option value="7">7기통</option><option value="11">11기통</option></select></label>
+        <div class="scope-note"><span id="unit-phase">미등록 생산 호기</span><small>품목 연결은 선택 호기 기준</small></div>
+      </div>
+      <section class="metrics" aria-label="주요 구매 부품 자재 현황">
+        <div class="metric total"><span>주요 구매 객체</span><strong id="metric-total">—</strong><small id="metric-registered">실제 품목 미연결</small></div>
+        <div class="metric"><span><i class="dot secured"></i>재고 확보</span><strong id="metric-secured">0</strong><small>사양·수량 충족</small></div>
+        <div class="metric"><span><i class="dot review"></i>확인 필요</span><strong id="metric-review">0</strong><small>입고·납기·적용 검토</small></div>
+        <div class="metric"><span><i class="dot shortage"></i>미확보</span><strong id="metric-shortage">0</strong><small>필요일 내 대책 없음</small></div>
+        <div class="metric"><span><i class="dot unknown"></i>데이터 미확인</span><strong id="metric-unknown">—</strong><small>미등록 정보 포함</small></div>
+      </section>
+      <div id="model-page" class="page active">
+        <section class="workspace">
+          <aside class="parts-panel"><div class="panel-title"><h2>부품 탐색</h2><span id="part-count" class="count-badge">—</span></div><div class="search"><span>⌕</span><input id="part-search" aria-label="부품명 또는 ID 검색" placeholder="부품명 또는 ID 검색"></div><label class="subpart-toggle"><input id="subparts-toggle" type="checkbox">조립체 하위품·보조 객체</label><div id="parts-list" class="parts-list" aria-label="부품 목록"></div><div class="parts-foot"><i class="dot unknown"></i>색상은 형상이 아닌 자재 상태입니다.</div></aside>
+          <section class="viewer-panel" aria-label="3D 엔진 모델">
+            <div class="viewer-top"><div class="view-tabs" role="group" aria-label="모델 보기"><button data-view="assembled" class="active">조립</button><button data-view="section">단면</button><button data-view="exploded">연결 분리</button></div><div class="view-actions"><button id="focus-button" title="선택 부품 중심" aria-label="선택 부품 중심">⊙</button><button id="reset-camera" title="전체 보기" aria-label="전체 보기">↺</button><button id="snapshot-button" title="화면 PNG 저장" aria-label="화면 PNG 저장">▣</button></div></div>
+            <div id="viewport" class="viewport"><div class="model-heading"><span>STRUCTURAL REFERENCE</span><strong>MAN B&W G95ME-C</strong><small id="model-subtitle">6기통 반복 배치 · 개념 모델</small></div><div id="canvas-loading">부품별 3D 모델을 준비하고 있습니다…</div><div id="selection-label" class="selection-label" hidden></div><div class="axis"><b>Y</b><span>↑ 수직</span><small>X 크랭크축 / Z 횡방향</small></div><div class="viewer-help">드래그 회전 · 휠 확대 · 우클릭 이동</div><span class="model-watermark">구조 설명용 모델 / 실제 제작 치수 아님</span></div>
+            <div class="viewer-settings"><label><input type="checkbox" id="ghost-toggle" checked>주변 반투명</label><label><input type="checkbox" id="pulse-toggle" checked>천천히 점멸</label><label><input type="checkbox" id="motion-toggle">모션 감소</label><button id="glb-download">GLB ↓</button><button id="mapping-download">객체 JSON ↓</button></div>
+            <div id="view-notice" class="view-notice">기통 수와 간격은 배치 시연입니다. 실제 엔진의 제작 사양을 의미하지 않습니다.</div>
+          </section>
+          <aside id="detail-panel" class="detail-panel" aria-label="선택 부품 상세"></aside>
+        </section>
+        <div class="bottom-strip"><span><i class="dot secured"></i>확보</span><span><i class="dot review"></i>확인 필요</span><span><i class="dot shortage"></i>미확보</span><span><i class="dot unknown"></i>미확인</span><span class="bottom-right" id="supplier-note">협력사를 선택하면 해당 호기의 공급 부품이 강조됩니다.</span></div>
+      </div>
+      <section id="procurement-page" class="page full-panel"><div class="table-heading"><div><h2>호기별 구매 연결</h2><p>조립체 구매 시 정보용 하위품은 BOM 집계에서 제외합니다.</p></div><button id="bom-download" class="secondary">BOM JSON ↓</button></div><div id="purchase-table" class="table-scroll"></div></section>
+      <section id="sources-page" class="page full-panel"><div class="table-heading"><div><h2>출처와 모델 정확도</h2><p>공식 자료의 구조·명칭을 참고한 직접 제작 모델입니다. 부품별 확정 치수는 적용하지 않았습니다.</p></div><a class="secondary" href="./docs/sources-and-accuracy.md" target="_blank" rel="noopener">검증 기록 ↗</a></div><div class="accuracy-banner"><strong>구조 설명용 모델 / 실제 제작 치수 아님</strong><p>확인 형상: 공식 자료의 외형·배치 참고. 확인 치수: 현재 형상에 적용한 부품 제작 치수 없음. 개념 형상: 비례, 두께, 간격, 단순화 연결부 및 배관 경로.</p><a href="./public/reference/index.html" target="_blank" rel="noopener">부품별 정면·측면·개념 단면 참고도 ↗</a></div><div id="sources-list" class="sources-list"></div></section>
+      <footer><span>MODEL ACCURACY <b>CONCEPT</b> <span>·</span> ERP · PDF · 계약 시스템 연결 인터페이스 준비</span><a href="./docs/modeling.md" target="_blank" rel="noopener">좌표계·가정·제작 범위 ↗</a></footer>
+    </main>
+  </div>
+  <div id="toast" role="status" class="toast" hidden></div>
+  <dialog id="help-dialog"><button id="help-close" class="dialog-close" aria-label="도움말 닫기">×</button><div class="eyebrow">QUICK DEMO</div><h2>구매 부품을 따라가세요.</h2><ol><li>시연 데이터를 켜고 생산 호기를 선택합니다.</li><li>시연 협력사 A를 고르면 해당 호기 라이너가 자재 상태 색상으로 점멸합니다.</li><li>부품을 클릭해 품목·재고·발주·입고 일정을 확인합니다.</li><li>단면에서 MBS와 쉘, 배기밸브 하위품을 각각 선택합니다.</li><li>모션 감소 또는 점멸 해제로 밝기 변화를 멈춥니다.</li></ol><p>모든 시연 업무 데이터는 가상입니다. 실제 정보는 JSON 인터페이스로 별도 연결합니다.</p><a href="./docs/data-contract.md" target="_blank" rel="noopener">데이터 연결 명세 ↗</a></dialog>
+  <noscript>3D 부품 뷰어를 사용하려면 JavaScript를 활성화해주세요.</noscript>
+  <script type="module" src="./src/app.js"></script>
+</body>
+</html>
