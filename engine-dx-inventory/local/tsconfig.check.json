@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "ES2022", "lib": ["ES2022", "DOM"],
+    "module": "ESNext", "moduleResolution": "Bundler",
+    "jsx": "react-jsx", "allowJs": true, "checkJs": false,
+    "skipLibCheck": true, "esModuleInterop": true, "noEmit": true,
+    "strict": false, "types": ["react", "react-dom"],
+    "baseUrl": "..", "paths": {"next/dynamic": ["local/next-dynamic.tsx"]}
+  },
+  "include": ["../app/Workspace.tsx", "../app/EngineViewer.tsx", "./*.tsx"]
+}

@@ -1,5 +1,7 @@
 # engine-dx-inventory
 
+통합판의 현재 실행 방법·화면·모델 연결은 [README_INTEGRATED.md](./README_INTEGRATED.md)에 정리했습니다. 아래 내용은 통합 전 재고 화면의 기능과 SAMPLE 데이터 기록입니다.
+
 engine-dx를 부품 재고와 협력사 강조 화면으로 수정한 판입니다. 원본 `engine-dx` 폴더는 그대로 두었습니다.
 
 ## 원본 대비 변경

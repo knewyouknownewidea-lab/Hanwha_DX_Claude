@@ -1,0 +1,15 @@
+import {existsSync,mkdirSync,readFileSync,writeFileSync,symlinkSync} from 'node:fs';
+import {spawnSync} from 'node:child_process';
+import path from 'node:path';
+const root=path.resolve(import.meta.dirname,'..');
+const runtime=path.join(root,'.preview-runtime');
+mkdirSync(runtime,{recursive:true});
+writeFileSync(path.join(runtime,'package.json'),readFileSync(path.join(root,'package.preview.json')));
+const nodeDir=path.dirname(process.execPath);
+const cli=[process.env.NPM_CLI_JS,process.env.npm_execpath,path.join(nodeDir,'node_modules/npm/bin/npm-cli.js'),path.join(nodeDir,'../lib/node_modules/npm/bin/npm-cli.js'),path.join(nodeDir,'../node_modules/npm/bin/npm-cli.js')].find(p=>p&&existsSync(p));
+if(!cli)throw new Error('npm-cli.js를 찾을 수 없습니다. NPM_CLI_JS에 npm-cli.js 경로를 지정하세요.');
+const result=spawnSync(process.execPath,[cli,'install','--prefix',runtime,'--cache',path.join(runtime,'cache'),'--no-audit','--no-fund'],{cwd:root,stdio:'inherit'});
+if(result.status!==0)process.exit(result.status??1);
+const modules=path.join(runtime,'node_modules');
+if(!existsSync(path.join(root,'node_modules')))symlinkSync(modules,path.join(root,'node_modules'),process.platform==='win32'?'junction':'dir');
+console.log('Preview dependencies installed. Run npm run preview:build, then npm run preview:serve.');
