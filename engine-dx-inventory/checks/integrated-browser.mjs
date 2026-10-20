@@ -49,6 +49,18 @@ async function selectPart(id) {
 async function demoMode() {
   await page.getByLabel('데이터 모드').selectOption('demo');
   await page.waitForFunction(() => window.__engineDx.dataKind === 'demo');
+  await page.getByLabel('시뮬레이션 시나리오').selectOption('baseline');
+  await page.waitForFunction(() => window.__engineDx.scenario === 'baseline');
+}
+async function setScenario(id) {
+  await page.getByLabel('시뮬레이션 시나리오').selectOption(id);
+  await page.waitForFunction(id => window.__engineDx.scenario === id, id);
+}
+async function downloadScenario() {
+  const pending = page.waitForEvent('download');
+  await page.getByRole('button', { name: '현재 가상 데이터 JSON 다운로드', exact: true }).click();
+  const download = await pending;
+  return JSON.parse(await readFile(await download.path(), 'utf8'));
 }
 async function supplier(id) {
   await page.getByLabel('협력사 강조', { exact: true }).selectOption(id);
@@ -125,25 +137,37 @@ async function recordViewportDemo() {
     }
   })();
   try {
-    await guide.waitForTimeout(1400);
-    await guide.getByLabel('데이터 모드').selectOption('demo');
+    await guide.waitForTimeout(1000);
+    await guide.getByRole('button', { name: '협력사 선택: 가상 한빛정밀', exact: true }).click();
+    await guide.getByRole('button', { name: '전체 보기 및 초기화', exact: true }).click();
+    await guide.waitForTimeout(1600);
+    await guide.getByRole('button', { name: '가상 데이터 보기', exact: true }).click();
     await guide.waitForTimeout(1200);
-    await guide.getByLabel('협력사 강조', { exact: true }).selectOption('SUP-DEMO-A');
+    await guide.getByRole('dialog', { name: '가상 데이터 테이블', exact: true }).getByRole('tab', { name: /^발주 및 입고/ }).click();
+    await guide.waitForTimeout(1200);
+    await guide.getByRole('button', { name: '가상 데이터 닫기', exact: true }).click();
+    await guide.getByLabel('부품 선택', { exact: true }).selectOption('CYL05_LINER');
     await guide.getByRole('button', { name: '전체 보기 및 초기화', exact: true }).click();
-    await guide.waitForTimeout(2600);
-    await guide.getByLabel('부품 선택', { exact: true }).selectOption('CYL03_LINER');
-    await guide.getByLabel('협력사 강조', { exact: true }).selectOption('SUP-DEMO-B');
+    await guide.getByLabel('시뮬레이션 시나리오').selectOption('receipts');
+    await guide.waitForTimeout(1600);
+    await guide.getByLabel('시뮬레이션 시나리오').selectOption('delayed');
+    await guide.waitForTimeout(1600);
+    await guide.getByLabel('부품 선택', { exact: true }).selectOption('CYL05_COVER');
+    await guide.getByLabel('시뮬레이션 시나리오').selectOption('rejected');
+    await guide.getByRole('button', { name: '협력사 선택: 가상 바다메탈', exact: true }).click();
     await guide.getByRole('button', { name: '전체 보기 및 초기화', exact: true }).click();
-    await guide.waitForTimeout(2000);
+    await guide.waitForTimeout(1600);
+    await guide.getByLabel('시뮬레이션 시나리오').selectOption('baseline');
+    await guide.getByRole('button', { name: '협력사 선택: 가상 새론부품', exact: true }).click();
     await guide.getByRole('button', { name: '내부 단면', exact: true }).click();
     await guide.getByLabel('분리 정도', { exact: true }).fill('50');
-    await guide.waitForTimeout(1900);
+    await guide.waitForTimeout(1500);
     await guide.getByLabel('부품 선택', { exact: true }).selectOption('CYL01_EXHVALVE_SPINDLE');
-    await guide.waitForTimeout(1400);
+    await guide.waitForTimeout(1200);
     await guide.getByRole('button', { name: '전체 보기 및 초기화', exact: true }).click();
     await guide.getByLabel('생산 호기', { exact: true }).selectOption('DEMO-7B');
     await guide.getByLabel('협력사 강조', { exact: true }).selectOption('SUP-DEMO-A');
-    await guide.waitForTimeout(2200);
+    await guide.waitForTimeout(1500);
     await guide.getByRole('button', { name: '점멸 정지', exact: true }).click();
     await guide.waitForTimeout(1300);
   } finally {
@@ -160,7 +184,7 @@ async function recordViewportDemo() {
 try {
   await page.goto(baseUrl, { waitUntil: 'networkidle', timeout: 90000 });
   await page.waitForFunction(() => window.__integratedViewer?.snapshot().ids.length === 64
-    && window.__engineDx?.unitId === 'UNREGISTERED-6', null, { timeout: 90000 });
+    && window.__engineDx?.unitId === 'DEMO-6A' && window.__engineDx?.dataKind === 'demo', null, { timeout: 90000 });
   await pause(1200);
 
   await check('inventory UI preserves orange Hanwha branding, MAIN navigation and two panels', async () => {
@@ -176,7 +200,93 @@ try {
     return { orange, leftPanel: left, rightPanel: right, screenshot: await picture('integrated-initial.png') };
   });
 
-  await check('initial mode has 64 G95 concept objects and no fabricated stock or suppliers', async () => {
+  await check('initial prototype opens immediately with labelled demo data and selectable fictional suppliers', async () => {
+    const current = await state(), viewer = await snap();
+    assert.equal(current.dataKind, 'demo');
+    assert.equal(current.unitId, 'DEMO-6A');
+    assert.equal(current.partIds.length, 64);
+    assert.equal(viewer.modelFamily, 'MAN B&W G95ME-C');
+    assert.equal(await page.getByLabel('시뮬레이션 시나리오').inputValue(), 'baseline');
+    assert.notEqual(await page.getByTestId('inv-total').textContent(), '미등록');
+    assert.ok(await page.getByRole('button', { name: '협력사 선택: 가상 한빛정밀', exact: true }).isVisible());
+    assert.ok(await page.getByRole('button', { name: '협력사 선택: 가상 바다메탈', exact: true }).isVisible());
+    assert.ok((await page.locator('.summary-note').innerText()).includes('SAMPLE'));
+    assert.ok((await page.locator('.accuracy-watermark').textContent()).includes('실제 제작 치수 아님'));
+    return { dataKind: current.dataKind, unitId: current.unitId, count: current.partIds.length,
+      scenario: await page.getByLabel('시뮬레이션 시나리오').inputValue() };
+  });
+
+  await check('seven fictional data tables show linked stock mappings items suppliers orders inspections and BOM', async () => {
+    await page.getByRole('button', { name: '가상 데이터 보기', exact: true }).click();
+    const modal = page.getByRole('dialog', { name: '가상 데이터 테이블', exact: true });
+    assert.ok(await modal.isVisible());
+    assert.equal(await modal.getByRole('tab').count(), 7);
+    assert.ok((await modal.locator('.simulation-disclaimer').innerText()).includes('모든 값은 가상 시연 데이터'));
+    const tables = [
+      { name: '재고', rows: 12, headers: ['품번', '현재고', '검사 보류량', '가용재고', '안전재고'] },
+      { name: '3D 부품 매핑', rows: 64, headers: ['모델 부품 이름', '3D 부품 ID', '도면번호', 'REV'] },
+      { name: '품목', rows: 12, headers: ['품번', '품명', '규격', '단위', 'REV'] },
+      { name: '협력사', rows: 5, headers: ['가상 협력사명', '공급 품번', '리드타임', '가상 등급', '가상 납기 준수율'] },
+      { name: '발주 및 입고', rows: 9, headers: ['발주번호', '수량', '필요일', '약정일', '입고 예정일', '확정 여부'] },
+      { name: '입고검사', rows: 6, headers: ['검사 LOT', '검사 수량', '부적합 수량', '검사일'] },
+      { name: '생산계획 및 BOM', rows: 64, headers: ['엔진 번호', '조립일', '부품명', '소요 수량', 'BOM 집계'] },
+    ];
+    for (const expected of tables) {
+      await modal.getByRole('tab', { name: new RegExp('^' + expected.name) }).click();
+      await modal.getByRole('heading', { name: expected.name, exact: true }).waitFor();
+      const table = modal.getByRole('table');
+      assert.equal(await table.locator('tbody tr').count(), expected.rows);
+      const headers = await table.getByRole('columnheader').allTextContents();
+      for (const header of expected.headers) assert.ok(headers.includes(header), `${expected.name}: ${header}`);
+      if (expected.name === '협력사') assert.ok((await table.innerText()).includes('97.2%'));
+      if (expected.name === '생산계획 및 BOM') {
+        assert.ok((await table.innerText()).includes('하위품 중복 집계 제외'));
+        assert.ok((await table.innerText()).includes('통합'));
+      }
+    }
+    await modal.getByRole('tab', { name: /^재고/ }).click();
+    await page.getByRole('button', { name: '가상 데이터 닫기', exact: true }).click();
+    return { tableCount: tables.length, unitScopedRows: Object.fromEntries(tables.map(table => [table.name, table.rows])) };
+  });
+
+  await check('data modal supports all-unit filtering, tab keyboard navigation, searching and direct 3D links', async () => {
+    await page.getByRole('button', { name: '가상 데이터 보기', exact: true }).click();
+    const modal = page.getByRole('dialog', { name: '가상 데이터 테이블', exact: true });
+    await modal.getByLabel('선택 호기만', { exact: true }).uncheck();
+    assert.equal(await modal.getByRole('table').locator('tbody tr').count(), 24);
+    await modal.getByLabel('선택 호기만', { exact: true }).check();
+    const stockTab = modal.getByRole('tab', { name: /^재고/ });
+    await stockTab.focus(); await page.keyboard.press('ArrowRight');
+    assert.equal(await modal.getByRole('tab', { name: /^3D 부품 매핑/ }).getAttribute('aria-selected'), 'true');
+    await modal.getByLabel('가상 테이블 검색').fill('CYL05_LINER');
+    assert.equal(await modal.getByRole('table').locator('tbody tr').count(), 1);
+    assert.ok((await modal.getByRole('table').innerText()).includes('DEMO-A-LNR-001'));
+    const screenshot = await picture('integrated-data-tables.png');
+    await modal.getByRole('button', { name: 'CYL05_LINER 3D에서 보기', exact: true }).click();
+    await modal.waitFor({ state: 'hidden' });
+    assert.equal((await state()).selected, 'CYL05_LINER');
+    assert.equal(await page.getByTestId('selected-part-id').textContent(), 'CYL05_LINER');
+    await page.getByRole('button', { name: '가상 데이터 보기', exact: true }).click();
+    await page.keyboard.press('Escape');
+    await modal.waitFor({ state: 'hidden' });
+    assert.equal(await page.getByRole('button', { name: '가상 데이터 보기', exact: true }).evaluate(el => document.activeElement === el), true);
+    await page.getByRole('button', { name: '가상 데이터 보기', exact: true }).click();
+    await modal.getByLabel('선택 호기만', { exact: true }).uncheck();
+    await modal.getByRole('tab', { name: /^3D 부품 매핑/ }).click();
+    await modal.getByLabel('가상 테이블 검색').fill('CYL07_LINER');
+    assert.equal(await modal.getByRole('table').locator('tbody tr').count(), 1);
+    await modal.getByRole('button', { name: 'CYL07_LINER 3D에서 보기', exact: true }).click();
+    await modal.waitFor({ state: 'hidden' });
+    await page.waitForFunction(() => window.__integratedViewer.snapshot().ids.length === 74
+      && window.__engineDx.unitId === 'DEMO-7B' && window.__engineDx.selected === 'CYL07_LINER');
+    return { allUnitStockRows: 24, searchedMappingRows: 1, linkedPartId: 'CYL05_LINER',
+      crossUnitLink: { unitId: 'DEMO-7B', partId: 'CYL07_LINER', objectCount: 74 }, keyboardAndEscape: true, screenshot };
+  });
+
+  await check('explicit unregistered mode retains 64 concept objects with unknown stock and suppliers', async () => {
+    await page.getByLabel('데이터 모드').selectOption('unregistered');
+    await page.waitForFunction(() => window.__engineDx.dataKind === 'unregistered');
+    await page.waitForFunction(() => window.__integratedViewer.snapshot().ids.length === 64);
     const current = await state(), viewer = await snap();
     assert.equal(current.partIds.length, 64);
     assert.equal(viewer.modelFamily, 'MAN B&W G95ME-C');
@@ -188,6 +298,26 @@ try {
     assert.ok((await page.locator('.supply-summary').textContent()).includes('미등록'));
     assert.ok((await page.locator('.accuracy-watermark').textContent()).includes('실제 제작 치수 아님'));
     return { dataKind: current.dataKind, count: current.partIds.length, statuses: [...new Set(Object.values(current.statusById))] };
+  });
+
+  await check('fictional supplier cards select exact current-unit positions immediately', async () => {
+    await demoMode();
+    const hanbit = page.getByRole('button', { name: '협력사 선택: 가상 한빛정밀', exact: true });
+    const bada = page.getByRole('button', { name: '협력사 선택: 가상 바다메탈', exact: true });
+    await hanbit.click();
+    await page.waitForFunction(() => window.__integratedViewer.snapshot().highlightedMeshIds.length === 6);
+    const liners = Array.from({ length: 6 }, (_, i) => `CYL${String(i + 1).padStart(2, '0')}_LINER`);
+    assert.deepEqual((await state()).highlighted, liners);
+    assert.equal(await hanbit.getAttribute('aria-pressed'), 'true');
+    assert.ok((await hanbit.innerText()).includes('리드타임 21일'));
+    await bada.click();
+    await page.waitForFunction(() => window.__integratedViewer.snapshot().highlightedMeshIds.includes('CYL01_COVER'));
+    const covers = Array.from({ length: 6 }, (_, i) => `CYL${String(i + 1).padStart(2, '0')}_COVER`);
+    assert.deepEqual((await state()).highlighted, covers);
+    assert.equal(await bada.getAttribute('aria-pressed'), 'true');
+    assert.equal(await hanbit.getAttribute('aria-pressed'), 'false');
+    await supplier('');
+    return { supplierA: liners, supplierB: covers, fictionalNamesExplicit: true };
   });
 
   await check('part selector and ID search route into matching purchase details', async () => {
@@ -216,44 +346,45 @@ try {
 
   await check('demo inventory keeps variant details, SAMPLE evaluation and unit allocation separate', async () => {
     assert.equal((await state()).unitId, 'DEMO-6A');
-    assert.equal(await page.getByTestId('inv-total').textContent(), '13EA');
-    assert.equal(await page.locator('.unit-purchase-details').getAttribute('open'), null);
+    assert.equal(await page.getByTestId('inv-total').textContent(), '9EA');
+    assert.equal(await page.locator('.unit-purchase-details').getAttribute('open'), '');
     await purchaseDetails(true);
     const facts = await page.locator('.supply-summary').innerText();
     assert.ok(facts.includes('호기 가용재고\n1') && facts.includes('호기 배정량\n1'));
     const row = page.getByTestId('sup-row');
-    assert.ok((await row.innerText()).includes('96.4%'));
+    assert.ok((await row.innerText()).includes('97.2%'));
     assert.ok((await page.locator('.sup-list + .sample-note').innerText()).includes('실제 계약·평가 아님'));
     const first = page.getByTestId('inv-variant').nth(0), second = page.getByTestId('inv-variant').nth(1);
     assert.equal(await first.getAttribute('open'), '');
-    assert.ok((await first.innerText()).includes('구상흑연주철'));
-    assert.ok((await first.innerText()).includes('본사 자재창고'));
+    assert.ok((await first.innerText()).includes('가상 내마모 주철'));
+    assert.ok((await first.innerText()).includes('가상 조립동 자재창고'));
     assert.ok((await first.innerText()).includes('Rev A'));
     await second.locator('summary').click();
     assert.equal(await second.getAttribute('open'), '');
-    assert.ok((await second.innerText()).includes('외주 보관'));
+    assert.ok((await second.innerText()).includes('가상 제2 자재창고'));
     await second.locator('summary').click();
     assert.equal(await second.getAttribute('open'), null);
     await purchaseDetails(false);
     await page.locator('.inv-body').evaluate(el => { el.scrollTop = 0; });
-    return { typeTotal: 13, unitAvailable: 1, unitAllocated: 1, sampleOnTimePct: 96.4,
+    return { typeTotal: 9, unitAvailable: 1, unitAllocated: 1, sampleOnTimePct: 97.2,
       screenshot: await picture('integrated-demo.png') };
   });
 
   await check('supplier row highlights only exact current-unit part IDs and preserves their statuses', async () => {
     await page.getByRole('button', { name: '이 협력사 부품 3D에서 강조' }).click();
-    const expected = ['CYL01_LINER', 'CYL02_LINER', 'CYL04_LINER', 'CYL06_LINER'];
-    await page.waitForFunction(() => window.__integratedViewer.snapshot().highlightedMeshIds.length === 4);
+    const expected = ['CYL01_LINER', 'CYL02_LINER', 'CYL03_LINER', 'CYL04_LINER', 'CYL05_LINER', 'CYL06_LINER'];
+    await page.waitForFunction(() => window.__integratedViewer.snapshot().highlightedMeshIds.length === 6);
     assert.deepEqual((await state()).highlighted, expected);
     const viewer = await snap();
     assert.deepEqual(new Set(viewer.highlightedMeshIds), new Set(expected));
     assert.equal(viewer.colors.CYL01_LINER, '#319c70');
-    assert.equal(viewer.colors.CYL04_LINER, '#da5b57');
+    assert.equal(viewer.colors.CYL05_LINER, '#dbaa35');
+    assert.equal(viewer.colors.CYL06_LINER, '#da5b57');
     assert.equal(viewer.byPartOpacity.CYL01_LINER, 1);
-    assert.ok(viewer.byPartOpacity.CYL03_LINER < .3);
+    assert.ok(viewer.byPartOpacity.CYL01_HYDPIPE_01 < .3);
     assert.equal(viewer.byPartOpacity.CYL01_COVER, .16);
     assert.deepEqual(viewer.selectedOutlineIds, ['CYL01_LINER']);
-    return { highlighted: expected, sameTypeUnselected: 'CYL03_LINER', screenshot: await picture('integrated-supplier.png') };
+    return { highlighted: expected, otherTypeUnselected: 'CYL01_HYDPIPE_01', screenshot: await picture('integrated-supplier.png') };
   });
 
   await check('slow continuous pulse changes brightness without disappearance and stop freezes it', async () => {
@@ -273,23 +404,26 @@ try {
     return { samples, frozen: frozenA, opacity: (await snap()).byPartOpacity.CYL01_LINER };
   });
 
-  await check('review yellow, shortage red and assembly-child colour inheritance retain independent part materials', async () => {
-    await supplier('SUP-DEMO-B');
-    await page.waitForFunction(() => window.__integratedViewer.snapshot().highlightedMeshIds.includes('CYL03_LINER'));
+  await check('green yellow red states remain distinct while valve child buying quantities stay excluded', async () => {
+    await supplier('SUP-DEMO-A');
+    await page.waitForFunction(() => window.__integratedViewer.snapshot().highlightedMeshIds.includes('CYL05_LINER'));
     const viewer = await snap();
-    assert.equal(viewer.colors.CYL03_LINER, '#dbaa35');
+    assert.equal(viewer.colors.CYL05_LINER, '#dbaa35');
     assert.equal(viewer.colors.CYL01_LINER, '#319c70');
-    assert.equal(viewer.colors.CYL01_EXHVALVE_SPINDLE, '#da5b57');
+    assert.equal(viewer.colors.CYL06_LINER, '#da5b57');
     assert.equal((await state()).statusById.CYL01_EXHVALVE_SPINDLE, 'unknown');
-    await selectPart('CYL03_LINER');
+    await selectPart('CYL05_LINER');
     await purchaseDetails(true);
     assert.ok((await page.locator('.supply-reason').innerText()).includes('입고 예정'));
-    assert.ok((await page.locator('.purchase-facts').nth(1).innerText()).includes('2026-11-07'));
+    assert.ok((await page.locator('.purchase-facts').nth(1).innerText()).includes('2026-11-05'));
+    await selectPart('CYL01_EXHVALVE_SPINDLE');
+    assert.ok((await page.locator('.supply-reason').innerText()).includes('하위품 중복 집계 제외'));
+    assert.ok((await page.locator('.supply-summary').innerText()).includes('필요량\n0'));
     await supplier('SUP-DEMO-A');
     await selectPart('CYL01_LINER');
     await purchaseDetails(false);
-    return { green: viewer.colors.CYL01_LINER, yellow: viewer.colors.CYL03_LINER,
-      assemblyInheritedRed: viewer.colors.CYL01_EXHVALVE_SPINDLE, childDataStatus: 'unknown' };
+    return { green: viewer.colors.CYL01_LINER, yellow: viewer.colors.CYL05_LINER,
+      red: viewer.colors.CYL06_LINER, childPurchaseQuantity: 0, childDataStatus: 'unknown' };
   });
 
   await check('reduced-motion control freezes pulse and respects browser motion preference', async () => {
@@ -380,12 +514,14 @@ try {
     await page.waitForFunction(() => window.__integratedViewer.snapshot().ids.length === 74);
     assert.equal((await state()).highlighted.length, 0);
     await supplier('SUP-DEMO-A');
-    assert.deepEqual((await state()).highlighted, ['CYL02_LINER']);
+    const expectedCoverIds = Array.from({ length: 7 }, (_, i) => `CYL${String(i + 1).padStart(2, '0')}_COVER`);
+    assert.deepEqual((await state()).highlighted, expectedCoverIds);
     assert.equal(new Set((await snap()).ids).size, 74);
     await selectPart('CYL01_LINER');
     await purchaseDetails(true);
-    assert.ok((await page.locator('.purchase-facts').first().innerText()).includes('DEMO-7B-LNR-01 · DEMO-B'));
-    assert.equal((await state()).statusById.CYL01_LINER, 'shortage');
+    assert.ok((await page.locator('.purchase-facts').first().innerText()).includes('DEMO-B-LNR-001 · B'));
+    assert.equal((await state()).statusById.CYL01_LINER, 'secured');
+    assert.ok((await page.getByTestId('sup-row').innerText()).includes('가상 바다메탈'));
     assert.ok((await state()).partIds.includes('CYL07_LINER'));
     await purchaseDetails(false);
     return { count: 74, supplierA: (await state()).highlighted, currentUnit: (await state()).unitId };
@@ -471,6 +607,66 @@ try {
     assert.equal(await modal.locator('a[href^="https:"]').count(), 7);
     await page.getByRole('button', { name: '모델 정보 닫기' }).click();
     return { sourceLinks: 7 };
+  });
+
+  await check('receipt scenario turns an incoming liner into allocated stock while an uncovered shortage remains red', async () => {
+    await demoMode(); await supplier('SUP-DEMO-A'); await selectPart('CYL05_LINER'); await purchaseDetails(true);
+    assert.equal((await state()).statusById.CYL05_LINER, 'review');
+    assert.equal(await page.getByTestId('inv-total').textContent(), '9EA');
+    await setScenario('receipts');
+    await page.waitForFunction(() => window.__engineDx.statusById.CYL05_LINER === 'secured'
+      && window.__integratedViewer.snapshot().colors.CYL05_LINER === '#319c70');
+    assert.equal((await state()).statusById.CYL06_LINER, 'shortage');
+    assert.equal(await page.getByTestId('inv-total').textContent(), '11EA');
+    assert.ok((await page.locator('.supply-summary').innerText()).includes('호기 배정량\n1'));
+    assert.ok((await page.locator('.supply-reason').innerText()).includes('입고·검사 합격'));
+    const data = await downloadScenario();
+    const stock = data.relations.stock.find(row => row.itemNo === 'DEMO-A-LNR-001');
+    assert.equal(stock.currentStock, 5); assert.equal(stock.acceptedStock, 5);
+    assert.ok(data.relations.inspections.some(row => row.itemNo === stock.itemNo && row.simulationEvent === 'receipts' && row.rejectedQty === 0));
+    return { changedPart: 'CYL05_LINER', status: 'secured', allocated: 1, unchangedShortagePart: 'CYL06_LINER',
+      screenshot: await picture('integrated-simulation-receipts.png') };
+  });
+
+  await check('delayed scenario restores seed quantities and shows the shifted promised arrival in UI and order data', async () => {
+    await setScenario('delayed');
+    await page.waitForFunction(() => window.__engineDx.statusById.CYL05_LINER === 'review');
+    assert.equal(await page.getByTestId('inv-total').textContent(), '9EA');
+    assert.ok((await page.locator('.purchase-facts').nth(1).innerText()).includes('2026-11-19'));
+    assert.ok((await page.locator('.supply-reason').innerText()).includes('납기 지연'));
+    const data = await downloadScenario();
+    const order = data.relations.purchaseOrders.find(row => row.itemNo === 'DEMO-A-LNR-001' && row.status === 'delayed');
+    assert.equal(order.expectedDate, '2026-11-19'); assert.equal(order.confirmed, false);
+    const stock = data.relations.stock.find(row => row.itemNo === 'DEMO-A-LNR-001');
+    assert.equal(stock.currentStock, 4);
+    return { partId: 'CYL05_LINER', expectedDate: order.expectedDate, confirmed: order.confirmed,
+      screenshot: await picture('integrated-simulation-delayed.png') };
+  });
+
+  await check('inspection rejection removes two cover units from availability and returning to baseline resets every scenario effect', async () => {
+    await setScenario('rejected'); await selectPart('CYL05_COVER'); await purchaseDetails(true);
+    await page.waitForFunction(() => window.__engineDx.statusById.CYL05_COVER === 'shortage');
+    assert.equal(await page.getByTestId('inv-total').textContent(), '9EA');
+    assert.ok((await page.locator('.supply-summary').innerText()).includes('호기 배정량\n0'));
+    assert.ok((await page.locator('.supply-reason').innerText()).includes('검사 부적합'));
+    const data = await downloadScenario();
+    const stock = data.relations.stock.find(row => row.itemNo === 'DEMO-A-COV-001');
+    assert.equal(stock.currentStock, 6); assert.equal(stock.rejectedQty, 2); assert.equal(stock.acceptedStock, 4);
+    assert.ok(data.relations.inspections.some(row => row.itemNo === stock.itemNo && row.simulationEvent === 'rejected' && row.rejectedQty === 2));
+    const screenshot = await picture('integrated-simulation-rejected.png');
+    await setScenario('baseline');
+    await page.waitForFunction(() => window.__engineDx.statusById.CYL05_COVER === 'secured');
+    assert.equal(await page.getByTestId('inv-total').textContent(), '13EA');
+    await selectPart('CYL05_LINER');
+    assert.equal((await state()).statusById.CYL05_LINER, 'review');
+    assert.equal(await page.getByTestId('inv-total').textContent(), '9EA');
+    assert.ok((await page.locator('.purchase-facts').nth(1).innerText()).includes('2026-11-05'));
+    const reset = await downloadScenario();
+    assert.ok(!reset.relations.inspections.some(row => row.simulationEvent));
+    assert.equal(reset.relations.stock.find(row => row.itemNo === 'DEMO-A-COV-001').acceptedStock, 6);
+    await purchaseDetails(false);
+    return { changedPart: 'CYL05_COVER', rejected: 2, accepted: 4, baselineAccepted: 6,
+      resetsSeed: true, scenario: reset.meta.scenario, screenshot };
   });
 
   await demoMode(); await supplier('SUP-DEMO-A'); await selectPart('CYL01_LINER');

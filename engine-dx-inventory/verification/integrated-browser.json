@@ -1,6 +1,6 @@
 {
   "passed": true,
-  "browser": "headless Edge",
+  "browser": "headless msedge",
   "version": "145.0.3800.82",
   "url": "http://127.0.0.1:5179",
   "desktopViewport": {
@@ -15,21 +15,63 @@
         "orange": "rgb(237, 106, 36)",
         "leftPanel": {
           "x": 108,
-          "y": 271,
+          "y": 357,
           "width": 707.578125,
-          "height": 700
+          "height": 660
         },
         "rightPanel": {
           "x": 831.578125,
-          "y": 271,
+          "y": 357,
           "width": 505.40625,
-          "height": 700
+          "height": 660
         },
         "screenshot": "integrated-initial.png"
       }
     },
     {
-      "name": "initial mode has 64 G95 concept objects and no fabricated stock or suppliers",
+      "name": "initial prototype opens immediately with labelled demo data and selectable fictional suppliers",
+      "passed": true,
+      "evidence": {
+        "dataKind": "demo",
+        "unitId": "DEMO-6A",
+        "count": 64,
+        "scenario": "baseline"
+      }
+    },
+    {
+      "name": "seven fictional data tables show linked stock mappings items suppliers orders inspections and BOM",
+      "passed": true,
+      "evidence": {
+        "tableCount": 7,
+        "unitScopedRows": {
+          "재고": 12,
+          "3D 부품 매핑": 64,
+          "품목": 12,
+          "협력사": 5,
+          "발주 및 입고": 9,
+          "입고검사": 6,
+          "생산계획 및 BOM": 64
+        }
+      }
+    },
+    {
+      "name": "data modal supports all-unit filtering, tab keyboard navigation, searching and direct 3D links",
+      "passed": true,
+      "evidence": {
+        "allUnitStockRows": 24,
+        "searchedMappingRows": 1,
+        "linkedPartId": "CYL05_LINER",
+        "crossUnitLink": {
+          "unitId": "DEMO-7B",
+          "partId": "CYL07_LINER",
+          "objectCount": 74
+        },
+        "keyboardAndEscape": true,
+        "screenshot": "integrated-data-tables.png"
+      }
+    },
+    {
+      "name": "explicit unregistered mode retains 64 concept objects with unknown stock and suppliers",
       "passed": true,
       "evidence": {
         "dataKind": "unregistered",
@@ -37,6 +79,29 @@
         "statuses": [
           "unknown"
         ]
+      }
+    },
+    {
+      "name": "fictional supplier cards select exact current-unit positions immediately",
+      "passed": true,
+      "evidence": {
+        "supplierA": [
+          "CYL01_LINER",
+          "CYL02_LINER",
+          "CYL03_LINER",
+          "CYL04_LINER",
+          "CYL05_LINER",
+          "CYL06_LINER"
+        ],
+        "supplierB": [
+          "CYL01_COVER",
+          "CYL02_COVER",
+          "CYL03_COVER",
+          "CYL04_COVER",
+          "CYL05_COVER",
+          "CYL06_COVER"
+        ],
+        "fictionalNamesExplicit": true
       }
     },
     {
@@ -71,10 +136,10 @@
       "name": "demo inventory keeps variant details, SAMPLE evaluation and unit allocation separate",
       "passed": true,
       "evidence": {
-        "typeTotal": 13,
+        "typeTotal": 9,
         "unitAvailable": 1,
         "unitAllocated": 1,
-        "sampleOnTimePct": 96.4,
+        "sampleOnTimePct": 97.2,
         "screenshot": "integrated-demo.png"
       }
     },
@@ -85,10 +150,12 @@
         "highlighted": [
           "CYL01_LINER",
           "CYL02_LINER",
+          "CYL03_LINER",
           "CYL04_LINER",
+          "CYL05_LINER",
           "CYL06_LINER"
         ],
-        "sameTypeUnselected": "CYL03_LINER",
+        "otherTypeUnselected": "CYL01_HYDPIPE_01",
         "screenshot": "integrated-supplier.png"
       }
     },
@@ -97,25 +164,26 @@
       "passed": true,
       "evidence": {
         "samples": [
-          0.284586411454628,
-          0.30266021620839983,
-          0.3813264113346217,
-          0.438098710025403,
-          0.4789925048845464,
-          0.46949343616020345,
-          0.4094373942011855
+          0.2832909639393443,
+          0.2802920528524856,
+          0.33280646161143534,
+          0.4018483887312745,
+          0.4482253609108461,
+          0.47921583904221005,
+          0.46300122850953696
         ],
         "frozen": 0.34,
         "opacity": 1
       }
     },
     {
-      "name": "review yellow, shortage red and assembly-child colour inheritance retain independent part materials",
+      "name": "green yellow red states remain distinct while valve child buying quantities stay excluded",
       "passed": true,
       "evidence": {
         "green": "#319c70",
         "yellow": "#dbaa35",
-        "assemblyInheritedRed": "#da5b57",
+        "red": "#da5b57",
+        "childPurchaseQuantity": 0,
         "childDataStatus": "unknown"
       }
     },
@@ -131,10 +199,10 @@
       "name": "actual canvas ray click selects a liner behind faded surroundings and updates details",
       "passed": true,
       "evidence": {
-        "x": 1.5589617739708696E-16,
-        "y": -0.1621628265772086,
-        "clientX": 461.78906250000006,
-        "clientY": 647.2767340934156,
+        "x": 5.4046343500153734e-17,
+        "y": -0.162162283341879,
+        "clientX": 461.7890625,
+        "clientY": 746.8919082511536,
         "pick": "CYL01_LINER"
       }
     },
@@ -163,7 +231,13 @@
       "evidence": {
         "count": 74,
         "supplierA": [
-          "CYL02_LINER"
+          "CYL01_COVER",
+          "CYL02_COVER",
+          "CYL03_COVER",
+          "CYL04_COVER",
+          "CYL05_COVER",
+          "CYL06_COVER",
+          "CYL07_COVER"
         ],
         "currentUnit": "DEMO-7B"
       }
@@ -218,6 +292,40 @@
       }
     },
     {
+      "name": "receipt scenario turns an incoming liner into allocated stock while an uncovered shortage remains red",
+      "passed": true,
+      "evidence": {
+        "changedPart": "CYL05_LINER",
+        "status": "secured",
+        "allocated": 1,
+        "unchangedShortagePart": "CYL06_LINER",
+        "screenshot": "integrated-simulation-receipts.png"
+      }
+    },
+    {
+      "name": "delayed scenario restores seed quantities and shows the shifted promised arrival in UI and order data",
+      "passed": true,
+      "evidence": {
+        "partId": "CYL05_LINER",
+        "expectedDate": "2026-11-19",
+        "confirmed": false,
+        "screenshot": "integrated-simulation-delayed.png"
+      }
+    },
+    {
+      "name": "inspection rejection removes two cover units from availability and returning to baseline resets every scenario effect",
+      "passed": true,
+      "evidence": {
+        "changedPart": "CYL05_COVER",
+        "rejected": 2,
+        "accepted": 4,
+        "baselineAccepted": 6,
+        "resetsSeed": true,
+        "scenario": "baseline",
+        "screenshot": "integrated-simulation-rejected.png"
+      }
+    },
+    {
       "name": "390px mobile retains controls and prevents horizontal overflow",
       "passed": true,
       "evidence": {
@@ -241,10 +349,10 @@
   "guidedVideo": {
     "available": true,
     "file": "integrated-demo.webm",
-    "durationMs": 15715,
-    "capturedFrames": 36,
-    "method": "Actual application viewport screenshot frames encoded with browser MediaRecorder; capture cadence is reported separately, no external ffmpeg.",
-    "averageCapturedFps": 2.29
+    "durationMs": 17715,
+    "capturedFrames": 40,
+    "averageCapturedFps": 2.26,
+    "method": "Actual application viewport screenshot frames encoded with browser MediaRecorder; capture cadence is reported separately, no external ffmpeg."
   },
   "limitation": "Headless WebGL software rendering. Import fixture is QA-only input, not actual commercial/ERP data. Manufacturing dimensions and external purchase facts are not validated."
 }

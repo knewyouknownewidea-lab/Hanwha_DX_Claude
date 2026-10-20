@@ -1,13 +1,14 @@
 # 부품 모델·재고 UI 통합 데이터 계약
 
-이 통합본은 기존 `engine-dx-inventory`의 화면 구성과 기존 가상 재고·협력사 평가 예시를 유지하면서, 독립 제작한 `lib/engine-model/engine-scene.js`와 `models/*`의 부품 형상으로 교체한다. 기존 `public/models/parts.json`, `public/data/inventory.json`, `public/data/suppliers.json`은 참조용 원본으로 보존한다. 원본의 `used_by` 및 협력사 공급 분류는 새 부품의 적용·장착·공급 관계로 사용하지 않는다.
+이 통합본은 기존 `engine-dx-inventory`의 화면 구성을 유지하면서, 독립 제작한 `lib/engine-model/engine-scene.js`와 `models/*`의 부품 형상으로 교체한다. 최신 기본 시연은 사용자 요청에 따라 독립 생성한 `prototype-simulation.json`이다. 기존 `public/models/parts.json`, `public/data/inventory.json`, `public/data/suppliers.json`은 참조용 원본으로 보존한다. 원본의 `used_by` 및 협력사 공급 분류는 새 부품의 적용·장착·공급 관계로 사용하지 않는다.
 
 **모델: MAN B&W G95ME-C 구조 설명용 모델 / 실제 제작 치수 아님.** 6·7기통은 반복 배치 시연이며 승인된 실제 제품 구성을 뜻하지 않는다. 수치 좌표는 무차원 비례이다. 새 모델에 기존 6G50 시연 데이터의 품목이 실제로 맞는다는 근거는 없다.
 
 ## 기본 상태와 시연 상태
 
+- **현재 기본값:** `public/data/prototype-simulation.json`. `meta.dataKind="demo", sample=true`. 가상 호기 2개·협력사 5곳·품목 24개·3D 매핑 138개와 첨부 표의 7종 관계 데이터를 포함한다. `lib/simulation.mjs`가 독립적인 가상 시나리오를 계산한다. 전체 관계와 계산은 [프로토타입 데이터](prototype-data.md)에 기록한다.
 - `public/data/parts-inventory-empty.json`: `meta.dataKind="unregistered"`. 미등록 6·7기통 배치만 제공하고, 공급·재고·협력사 평가를 비운다. 모든 미확인 수량은 `null`; 0재고·초록 상태로 대체하지 않는다.
-- `public/data/parts-inventory-demo.json`: `meta.dataKind="demo", sample=true`. 호기·품목·REV·재고·배정·발주·납기·협력사 등급은 전부 가상 예시이다. 공급 row의 가상 품목번호는 `DEMO-`로 구분한다.
+- `public/data/parts-inventory-demo.json`: 이전 통합 단계의 가상 예시이며 회귀 검사 자료로 보존한다. 현재 기본 화면에서는 사용하지 않는다. 공급 row의 가상 품목번호는 `DEMO-`로 구분한다.
 - 선택적 실제 등록: `meta.dataKind="registered", sample=false, source="승인된 입력 출처"` 및 같은 schema를 사용한다. 전체 JSON 검증을 통과한 후 교체한다. 시연 식별자, SAMPLE 출처, 가상 평가를 metadata만 바꿔 실제 등록 상태로 전환할 수 없다.
 
 `UNREGISTERED-6`, `UNREGISTERED-7`은 실제 생산 호기 번호가 아닌 미등록 배치 슬롯이다. `DEMO-6A`, `DEMO-7B`도 가상 시연 호기이다.
@@ -29,7 +30,7 @@
 | shell | G95_CONCEPT_BEARING_SHELL | 없음 |
 | cylinderFrame | G95_CONCEPT_CYLINDER_FRAME | 없음 |
 
-위 다섯 연결은 **가상 유형 참조**이다. 기존 SAMPLE의 재고 수량·재질·도면번호를 유형 카드에 보여주기 위한 명시적 시연 연결이다. G50에서 G95로의 실제 적용, 도면 승인, 동일한 재질·규격, 장착 가능성을 뜻하지 않는다. 각 재고 bucket의 `provenance`에 원본 유형과 한계를 기록했다. 원본 `used_by`는 완전히 제거했다.
+위 표의 마지막 열은 이전 `parts-inventory-demo.json`의 **가상 유형 참조**이다. 기존 SAMPLE의 재고 수량·재질·도면번호를 보여주던 연결이며 현재 기본 시연에는 사용하지 않는다. 새 `prototype-simulation.json`은 12개 분류 모두 별도의 가상 품목을 생성한다. 어느 데이터도 G50에서 G95로의 실제 적용, 도면 승인, 재질·규격, 장착 가능성을 뜻하지 않는다.
 
 기존 `ENGINE_MAIN_BEARING_*` SAMPLE 항목은 지지대와 베어링 표현이 혼재해 새 MBS나 쉘로 연결하지 않았다. 신형 geometry의 MBS와 쉘은 독립 ID를 유지하며 기존 재고나 공급업체를 자동 연결하지 않는다.
 
@@ -51,9 +52,9 @@ supply[]
 
 시연 JSON의 `variantId` 연결도 가상 적용 가정이다. API는 해당 variant에 `hypothetical_assignment=true`를 붙인다. `assigned`는 화면에서 현재 가상 참조를 구별하는 의미이며 승인 적용을 뜻하지 않는다.
 
-`getSupplierPartIds(data, unitId, supplierId)`는 정확한 공급 row에 있는 `partId`만 반환한다. 같은 라이너 유형 전체, 원본 협력사의 `scope` 문구, 다른 호기의 공급 관계를 강조 대상으로 확장하지 않는다. 시연 A는 6기통 호기의 CYL01·02·04·06 라이너에 연결되고, 7기통 호기에서는 CYL02 라이너에만 연결된다. 같은 위치라도 호기 변경 후 데이터가 달라지는 검증 사례이다.
+`getSupplierPartIds(data, unitId, supplierId)`는 정확한 공급 row에 있는 `partId`만 반환한다. 같은 라이너 유형 전체, 원본 협력사의 `scope` 문구, 다른 호기의 공급 관계를 강조 대상으로 확장하지 않는다. 최신 가상 한빛정밀은 A호기 라이너 6개, B호기 커버 7개에 연결된다. 같은 위치라도 호기 변경 후 데이터가 달라지는 검증 사례이다.
 
-현재 schema는 한 호기의 한 `partId`에 한 직접 공급 row를 허용한다. 복수 계약·대체 공급업체 후보·개별 발주 라인 분할은 별도 승인 데이터 schema 확장이 필요하다. 협력사 카드의 등급·납기 준수율은 기존 가상 A/B/D의 SAMPLE 값을 명시적으로 재사용한 것으로 실제 업체 평가가 아니다.
+현재 schema는 한 호기의 한 `partId`에 한 직접 공급 row를 허용한다. 복수 계약·대체 공급업체 후보·개별 발주 라인 분할은 별도 데이터 schema 확장이 필요하다. 최신 협력사 카드의 등급·납기 준수율·리드타임은 새로 생성한 가상 값이며 실제 업체 평가가 아니다.
 
 ## BOM 집계 정책
 

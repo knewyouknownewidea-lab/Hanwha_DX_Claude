@@ -12,6 +12,8 @@
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "db:generate": "drizzle-kit generate",
     "parts:export": "node scripts/export-parts.mjs",
+    "simulation:generate": "node scripts/generate-simulation.mjs",
+    "test:simulation": "node checks/simulation.mjs",
     "preview:setup": "node scripts/setup-preview.mjs",
     "preview:build": "node scripts/export-parts.mjs && node scripts/build-local.mjs",
     "preview:serve": "node scripts/serve-local.mjs",
