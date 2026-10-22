@@ -1,0 +1,23 @@
+# Search API only. The existing Sites dashboard and Excel calculations stay
+# deployed separately. Explicit free plan: no paid default or persistent disk.
+services:
+  - type: web
+    name: hanwha-supplier-rag-demo
+    runtime: docker
+    plan: free
+    region: singapore
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /ready
+    autoDeployTrigger: "off"
+    envVars:
+      - key: RAG_SERVICE_TOKEN
+        sync: false
+      - key: RAG_EMBEDDING_BACKEND
+        value: onnx
+      - key: RAG_ONNX_MODEL_DIR
+        value: /opt/rag-model
+      - key: RAG_STATE_DIR
+        value: /tmp/supplier-rag
+      - key: PORT
+        value: "10000"

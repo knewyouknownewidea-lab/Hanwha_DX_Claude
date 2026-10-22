@@ -1,0 +1,12 @@
+# Explicit allowlist: never send local credentials, model caches, or unrelated
+# application files to the search-service container build.
+**
+!Dockerfile
+!requirements-rag-cloud.txt
+!rag_service/
+!rag_service/*.py
+!scripts/
+!scripts/export-rag-onnx.py
+!scripts/start-cloud-rag.py
+!data/
+!data/mock-data.json

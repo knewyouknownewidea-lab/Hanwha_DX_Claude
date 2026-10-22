@@ -1,0 +1,9 @@
+# CPU runtime only. The pinned upstream ONNX assets are prepared at build time.
+# PyTorch, transformers and sentence-transformers are deliberately omitted.
+chromadb==1.5.9
+fastapi==0.159.1
+uvicorn==0.54.0
+onnxruntime==1.31.0
+tokenizers==0.23.3
+numpy==2.5.4
+sentencepiece==0.2.2
