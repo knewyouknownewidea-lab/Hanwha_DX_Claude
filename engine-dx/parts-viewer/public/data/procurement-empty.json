@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1.0",
+  "dataKind": "unregistered",
+  "notice": "실제 생산 호기·품목·협력사·재고·발주 데이터는 미등록입니다.",
+  "units": [
+    {
+      "id": "UNREGISTERED-001",
+      "label": "미등록 생산 호기",
+      "cylinders": 6,
+      "phase": "미등록",
+      "dueDate": null
+    }
+  ],
+  "suppliers": [],
+  "supply": [],
+  "purchasingPolicy": []
+}

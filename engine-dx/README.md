@@ -10,6 +10,10 @@ https://hanwha-engine-dx-6g50-demo.knewyouknownewidea.chatgpt.site/
 
 ## 주요 기능
 
+새 [부품 구매 모듈](./parts-viewer/README.md)은 기존 MAIN 01·MAIN 02를 유지하면서 별도로 추가한 구매부품 식별 뷰어입니다. MAIN 02 왼쪽 **부품 구매** 메뉴 또는 `/parts-viewer/index.html`로 엽니다. [부품별 원본과 웹 배포 파일](./parts-viewer/), [구매 데이터 계약](./parts-viewer/docs/data-contract.md), [기존 프로젝트 연결 범위](./parts-viewer/docs/기존프로젝트-연결.md)를 함께 제공합니다.
+
+이 모듈의 G95ME-C 계열 구조 설명 모델은 기존 6G50ME-C9.6 모델과 독립적입니다. 실제 제작 치수·재고·공급관계를 추정하지 않으며 미등록 모드와 가상 시연을 구분합니다.
+
 - 6기통 전체 94개 독립 CAD 객체와 연속된 공통 크랭크축
 - 외형/내부 단면, 회전·확대·이동, 부품 선택·강조·부품군 표시
 - 모델 아래 '분리' 슬라이더로 분리 표시, 0% 또는 초기화로 재조립

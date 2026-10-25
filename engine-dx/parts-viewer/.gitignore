@@ -1,0 +1,14 @@
+node_modules/
+.sites-runtime/
+.sites-checkout/
+*.tar.gz
+work/
+playwright-report/
+test-results/
+.env*
+dist/
+public/models/
+public/reference/
+public/data/parts-manifest.json
+verification/*.png
+verification/*.webm

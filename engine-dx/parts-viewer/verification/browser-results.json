@@ -1,0 +1,258 @@
+{
+  "passed": true,
+  "browser": "msedge",
+  "browserVersion": "145.0.3800.82",
+  "url": "http://127.0.0.1:5178",
+  "desktopViewport": {
+    "width": 1365,
+    "height": 1000
+  },
+  "checks": [
+    {
+      "name": "initial unregistered data preserves null and grey status",
+      "passed": true,
+      "evidence": {
+        "kind": "unregistered",
+        "unit": "UNREGISTERED-001",
+        "supplierCount": 0,
+        "state": "unknown"
+      }
+    },
+    {
+      "name": "every major purchase object can be selected through the part list",
+      "passed": true,
+      "evidence": {
+        "selectedCount": 33,
+        "ids": [
+          "ENGINE_BEDPLATE",
+          "ENGINE_FRAMEBOX",
+          "ENGINE_MBS_01",
+          "ENGINE_MBS_02",
+          "ENGINE_MBS_03",
+          "ENGINE_MBS_04",
+          "ENGINE_MBS_05",
+          "ENGINE_MBS_06",
+          "ENGINE_MBS_07",
+          "CYL01_LINER",
+          "CYL01_COVER",
+          "CYL01_EXHVALVE",
+          "CYL01_HYDPIPE_01",
+          "CYL02_LINER",
+          "CYL02_COVER",
+          "CYL02_EXHVALVE",
+          "CYL02_HYDPIPE_01",
+          "CYL03_LINER",
+          "CYL03_COVER",
+          "CYL03_EXHVALVE",
+          "CYL03_HYDPIPE_01",
+          "CYL04_LINER",
+          "CYL04_COVER",
+          "CYL04_EXHVALVE",
+          "CYL04_HYDPIPE_01",
+          "CYL05_LINER",
+          "CYL05_COVER",
+          "CYL05_EXHVALVE",
+          "CYL05_HYDPIPE_01",
+          "CYL06_LINER",
+          "CYL06_COVER",
+          "CYL06_EXHVALVE",
+          "CYL06_HYDPIPE_01"
+        ]
+      }
+    },
+    {
+      "name": "demo data is explicitly fictional and supplier A belongs to current unit only",
+      "passed": true,
+      "evidence": {
+        "expected": [
+          "CYL01_LINER",
+          "CYL02_LINER",
+          "CYL03_LINER",
+          "CYL04_LINER",
+          "CYL05_LINER",
+          "CYL06_LINER"
+        ],
+        "selected": [
+          "CYL01_LINER",
+          "CYL02_LINER",
+          "CYL03_LINER",
+          "CYL04_LINER",
+          "CYL05_LINER",
+          "CYL06_LINER"
+        ],
+        "highlighted": [
+          "CYL01_LINER",
+          "CYL02_LINER",
+          "CYL03_LINER",
+          "CYL04_LINER",
+          "CYL05_LINER",
+          "CYL06_LINER"
+        ],
+        "maxOtherOpacity": 0.14
+      }
+    },
+    {
+      "name": "secured review shortage use separate material colors in repeated cylinders",
+      "passed": true,
+      "evidence": [
+        {
+          "id": "CYL01_LINER",
+          "color": 4827001,
+          "status": "secured",
+          "opacity": 1
+        },
+        {
+          "id": "CYL02_LINER",
+          "color": 14464338,
+          "status": "review",
+          "opacity": 1
+        },
+        {
+          "id": "CYL03_LINER",
+          "color": 14251904,
+          "status": "shortage",
+          "opacity": 1
+        }
+      ]
+    },
+    {
+      "name": "pulse has a smooth 1.8 second period and stop/reduced motion freeze actual materials",
+      "passed": true,
+      "evidence": {
+        "periodSeconds": 1.8,
+        "waveform": [
+          0.195,
+          0.26,
+          0.195,
+          0.13,
+          0.195
+        ],
+        "stoppedIntensity": 0.13,
+        "reducedIntensity": 0.13
+      }
+    },
+    {
+      "name": "actual raycast can pick an interior behind a transparent structural exterior",
+      "passed": true,
+      "evidence": {
+        "x": 0.3107125886230847,
+        "y": -0.49549392993118824,
+        "picked": "ENGINE_MBS_06",
+        "transparentExterior": "ENGINE_FRAMEBOX",
+        "exteriorOpacity": 0.14
+      }
+    },
+    {
+      "name": "MBS shell assembly housing spindle and seat remain separately selectable",
+      "passed": true,
+      "evidence": [
+        "ENGINE_MBS_01",
+        "ENGINE_SHELL_01",
+        "CYL01_EXHVALVE",
+        "CYL01_EXHVALVE_HOUSING",
+        "CYL01_EXHVALVE_SPINDLE",
+        "CYL01_EXHVALVE_SEAT"
+      ]
+    },
+    {
+      "name": "section/exploded views keep integrated MBS attached and disclose conceptual cuts",
+      "passed": true,
+      "evidence": {
+        "mbsBefore": [
+          -5.1,
+          0.7,
+          0
+        ],
+        "mbsAfter": [
+          -5.1,
+          0.7,
+          0
+        ]
+      }
+    },
+    {
+      "name": "BOM download excludes assembly child rows without losing their IDs",
+      "passed": true,
+      "evidence": {
+        "items": 26,
+        "excludedChildren": 18
+      }
+    },
+    {
+      "name": "7-cylinder unit rebuild has stable collision-free IDs and exact different supplier scope",
+      "passed": true,
+      "evidence": {
+        "cylinders": 7,
+        "independentIds": 74,
+        "supplierIds": [
+          "ENGINE_FRAMEBOX"
+        ]
+      }
+    },
+    {
+      "name": "manual cylinder count change clears purchase data until matching production unit",
+      "passed": true
+    },
+    {
+      "name": "browser GLB download preserves assembly hierarchy independent IDs and dimension disclaimer",
+      "passed": true,
+      "evidence": {
+        "bytes": 2702252,
+        "stablePartIds": 74,
+        "nodes": 356,
+        "filename": "engine-7-concept.glb"
+      }
+    },
+    {
+      "name": "invalid JSON and unknown model part imports are rejected atomically",
+      "passed": true,
+      "evidence": {
+        "unit": "DEMO-0702",
+        "kind": "demo"
+      }
+    },
+    {
+      "name": "actual user import preserves missing inventory and unknown status without guessing",
+      "passed": true
+    },
+    {
+      "name": "mobile 390px keeps page within viewport with no horizontal overflow",
+      "passed": true,
+      "evidence": {
+        "viewport": 390,
+        "document": 390,
+        "body": 390
+      }
+    },
+    {
+      "name": "runtime has no browser console errors or failed asset requests",
+      "passed": true,
+      "evidence": {
+        "consoleErrors": 0,
+        "failedRequests": 0
+      }
+    }
+  ],
+  "consoleErrors": [],
+  "failedRequests": [],
+  "guidedVideo": {
+    "file": "verification/demo.webm",
+    "method": "Live WebGL canvas MediaRecorder with labels read from actual UI state; not a full-page UI recording",
+    "steps": [
+      "initial unregistered",
+      "fictional demo",
+      "supplier A exact six liners",
+      "CYL03_LINER shortage",
+      "7-cylinder unit supplier A frame only",
+      "concept section with integrated MBS",
+      "reduced motion stops pulse"
+    ],
+    "durationSeconds": 32.072,
+    "videoDecoded": {
+      "width": 1280,
+      "height": 900,
+      "passed": true
+    }
+  },
+  "limitation": "Headless browser with WebGL software rendering; actual CAD dimensions and ERP facts are outside this verification."
+}
