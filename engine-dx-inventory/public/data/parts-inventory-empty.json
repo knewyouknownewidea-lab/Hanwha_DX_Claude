@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "1.0",
+  "meta": {
+    "dataKind": "unregistered",
+    "sample": false,
+    "as_of": null,
+    "note": "실제 호기·품목 적용·재고·공급·평가 데이터 미등록. 수량 미확인은 null이며 0이 아님.",
+    "source": null,
+    "geometryModel": "MAN B&W G95ME-C 구조 설명용 개념 모델"
+  },
+  "units": [
+    {
+      "id": "UNREGISTERED-6",
+      "label": "미등록 호기 · 6기통 배치",
+      "cylinderCount": 6
+    },
+    {
+      "id": "UNREGISTERED-7",
+      "label": "미등록 호기 · 7기통 배치",
+      "cylinderCount": 7
+    }
+  ],
+  "suppliers": [],
+  "inventory": {
+    "types": {}
+  },
+  "supply": [],
+  "bomPolicies": {
+    "bedplateIncludesMbs": true,
+    "exhaustValvePurchaseMode": {},
+    "notice": "구매 단위 미등록. 조립체 구매 및 베드 통합은 표시 집계의 개념 기본값."
+  }
+}

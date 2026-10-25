@@ -1,0 +1,397 @@
+{
+  "passed": true,
+  "browser": "headless msedge",
+  "version": "145.0.3800.82",
+  "url": "http://127.0.0.1:5179",
+  "desktopViewport": {
+    "width": 1365,
+    "height": 1000
+  },
+  "checks": [
+    {
+      "name": "inventory UI preserves orange Hanwha branding, MAIN navigation and two panels",
+      "passed": true,
+      "evidence": {
+        "orange": "rgb(237, 106, 36)",
+        "leftPanel": {
+          "x": 108,
+          "y": 357,
+          "width": 707.578125,
+          "height": 660
+        },
+        "rightPanel": {
+          "x": 831.578125,
+          "y": 357,
+          "width": 505.40625,
+          "height": 660
+        },
+        "screenshot": "integrated-initial.png"
+      }
+    },
+    {
+      "name": "initial prototype opens immediately with labelled demo data and selectable fictional suppliers",
+      "passed": true,
+      "evidence": {
+        "dataKind": "demo",
+        "unitId": "DEMO-6A",
+        "count": 64,
+        "scenario": "baseline"
+      }
+    },
+    {
+      "name": "seven fictional data tables show linked stock mappings items suppliers orders inspections and BOM",
+      "passed": true,
+      "evidence": {
+        "tableCount": 7,
+        "unitScopedRows": {
+          "재고": 12,
+          "3D 부품 매핑": 64,
+          "품목": 12,
+          "협력사": 5,
+          "발주 및 입고": 9,
+          "입고검사": 6,
+          "생산계획 및 BOM": 64
+        }
+      }
+    },
+    {
+      "name": "data modal supports all-unit filtering, tab keyboard navigation, searching and direct 3D links",
+      "passed": true,
+      "evidence": {
+        "allUnitStockRows": 24,
+        "searchedMappingRows": 1,
+        "linkedPartId": "CYL05_LINER",
+        "crossUnitLink": {
+          "unitId": "DEMO-7B",
+          "partId": "CYL07_LINER",
+          "objectCount": 74
+        },
+        "keyboardAndEscape": true,
+        "screenshot": "integrated-data-tables.png"
+      }
+    },
+    {
+      "name": "explicit unregistered mode retains 64 concept objects with unknown stock and suppliers",
+      "passed": true,
+      "evidence": {
+        "dataKind": "unregistered",
+        "count": 64,
+        "statuses": [
+          "unknown"
+        ]
+      }
+    },
+    {
+      "name": "fictional supplier cards select exact current-unit positions immediately",
+      "passed": true,
+      "evidence": {
+        "supplierA": [
+          "CYL01_LINER",
+          "CYL02_LINER",
+          "CYL03_LINER",
+          "CYL04_LINER",
+          "CYL05_LINER",
+          "CYL06_LINER"
+        ],
+        "supplierB": [
+          "CYL01_COVER",
+          "CYL02_COVER",
+          "CYL03_COVER",
+          "CYL04_COVER",
+          "CYL05_COVER",
+          "CYL06_COVER"
+        ],
+        "fictionalNamesExplicit": true
+      }
+    },
+    {
+      "name": "part selector and ID search route into matching purchase details",
+      "passed": true,
+      "evidence": {
+        "selected": "CYL01_LINER",
+        "unit": "DEMO-6A"
+      }
+    },
+    {
+      "name": "every principal component, valve child and support context is independently selectable",
+      "passed": true,
+      "evidence": {
+        "selectedIndependently": [
+          "CYL01_LINER",
+          "CYL01_COVER",
+          "CYL01_EXHVALVE",
+          "CYL01_EXHVALVE_HOUSING",
+          "CYL01_EXHVALVE_SPINDLE",
+          "CYL01_EXHVALVE_SEAT",
+          "CYL01_HYDPIPE_01",
+          "CYL01_FRAME",
+          "ENGINE_FRAMEBOX",
+          "ENGINE_BEDPLATE",
+          "ENGINE_MBS_01",
+          "ENGINE_SHELL_01"
+        ]
+      }
+    },
+    {
+      "name": "demo inventory keeps variant details, SAMPLE evaluation and unit allocation separate",
+      "passed": true,
+      "evidence": {
+        "typeTotal": 9,
+        "unitAvailable": 1,
+        "unitAllocated": 1,
+        "sampleOnTimePct": 97.2,
+        "screenshot": "integrated-demo.png"
+      }
+    },
+    {
+      "name": "supplier row highlights only exact current-unit part IDs and preserves their statuses",
+      "passed": true,
+      "evidence": {
+        "highlighted": [
+          "CYL01_LINER",
+          "CYL02_LINER",
+          "CYL03_LINER",
+          "CYL04_LINER",
+          "CYL05_LINER",
+          "CYL06_LINER"
+        ],
+        "otherTypeUnselected": "CYL01_HYDPIPE_01",
+        "screenshot": "integrated-supplier.png"
+      }
+    },
+    {
+      "name": "supplier selection removes other-supplier status colors, switching replaces them and clearing restores all statuses",
+      "passed": true,
+      "evidence": {
+        "supplierA": {
+          "highlighted": [
+            "CYL01_LINER",
+            "CYL02_LINER",
+            "CYL03_LINER",
+            "CYL04_LINER",
+            "CYL05_LINER",
+            "CYL06_LINER"
+          ],
+          "neutralMeshPartCount": 60
+        },
+        "supplierB": {
+          "highlighted": [
+            "CYL01_COVER",
+            "CYL02_COVER",
+            "CYL03_COVER",
+            "CYL04_COVER",
+            "CYL05_COVER",
+            "CYL06_COVER"
+          ],
+          "neutralMeshPartCount": 60
+        },
+        "clearedRestoresEveryStatusColor": true
+      }
+    },
+    {
+      "name": "slow continuous pulse changes brightness without disappearance and stop freezes it",
+      "passed": true,
+      "evidence": {
+        "samples": [
+          0.34,
+          0.3105843992700629,
+          0.37842926826881906,
+          0.44184083953575565,
+          0.47744485281524107,
+          0.4698487786500233,
+          0.4204183960311625
+        ],
+        "frozen": 0.34,
+        "opacity": 1
+      }
+    },
+    {
+      "name": "green yellow red states remain distinct while valve child buying quantities stay excluded",
+      "passed": true,
+      "evidence": {
+        "green": "#319c70",
+        "yellow": "#dbaa35",
+        "red": "#da5b57",
+        "childPurchaseQuantity": 0,
+        "childDataStatus": "unknown"
+      }
+    },
+    {
+      "name": "reduced-motion control freezes pulse and respects browser motion preference",
+      "passed": true,
+      "evidence": {
+        "manual": true,
+        "mediaQuery": true
+      }
+    },
+    {
+      "name": "actual canvas ray click selects a liner behind faded surroundings and updates details",
+      "passed": true,
+      "evidence": {
+        "x": 5.4046343500153734e-17,
+        "y": -0.16212702731832937,
+        "clientX": 461.7890625,
+        "clientY": 746.8871486879744,
+        "pick": "CYL01_LINER"
+      }
+    },
+    {
+      "name": "hide group, isolate, surrounding translucency and reset control actual mesh visibility",
+      "passed": true,
+      "evidence": {
+        "resetRestores": [
+          "CYL01_LINER",
+          "CYL01_COVER"
+        ]
+      }
+    },
+    {
+      "name": "section and exploded views keep MBS and shell locations and distinct valve hierarchy",
+      "passed": true,
+      "evidence": {
+        "integratedSupportCount": 14,
+        "clippingMeshPartCount": 58,
+        "screenshot": "integrated-section.png"
+      }
+    },
+    {
+      "name": "7-cylinder unit rebuild has 74 unique G95 IDs and does not leak other-unit supply",
+      "passed": true,
+      "evidence": {
+        "count": 74,
+        "supplierA": [
+          "CYL01_COVER",
+          "CYL02_COVER",
+          "CYL03_COVER",
+          "CYL04_COVER",
+          "CYL05_COVER",
+          "CYL06_COVER",
+          "CYL07_COVER"
+        ],
+        "currentUnit": "DEMO-7B"
+      }
+    },
+    {
+      "name": "BOM download exports explicit purchasing rows without assembly-child or MBS duplication",
+      "passed": true,
+      "evidence": {
+        "filename": "bom-DEMO-7B.json",
+        "purchasePositions": 30
+      }
+    },
+    {
+      "name": "GLB download preserves part IDs and excludes replaced G50 legacy objects",
+      "passed": true,
+      "evidence": {
+        "filename": "engine-7.glb",
+        "preservedIds": 74
+      }
+    },
+    {
+      "name": "MAIN 01 route is HTTP 200 with original source bytes preserved",
+      "passed": true,
+      "evidence": {
+        "status": 200,
+        "sha256": "7470ae35b8989711b2138823e88fa08d0f22f8507a7d5e9f9c9837bf91f6ebf9",
+        "bytes": 490743
+      }
+    },
+    {
+      "name": "invalid and disguised demo JSON imports reject atomically",
+      "passed": true,
+      "evidence": {
+        "previousModeRetained": "demo",
+        "previousUnitRetained": "DEMO-7B"
+      }
+    },
+    {
+      "name": "provided JSON connects explicit fixture item while preserving unknown stock and evaluations",
+      "passed": true,
+      "evidence": {
+        "item": "QA-ITEM-001",
+        "stock": "미등록",
+        "fixtureOnly": true
+      }
+    },
+    {
+      "name": "supplier without current-unit supplied parts neutralizes every mesh instead of restoring unrelated status colors",
+      "passed": true,
+      "evidence": {
+        "highlighted": [],
+        "neutralMeshPartCount": 66,
+        "emptySupplierDoesNotRevealOtherSupplierColors": true,
+        "clearingRestoresGreen": true
+      }
+    },
+    {
+      "name": "source information explains concept geometry, sample data and actual purchase limitations",
+      "passed": true,
+      "evidence": {
+        "sourceLinks": 7
+      }
+    },
+    {
+      "name": "receipt scenario turns an incoming liner into allocated stock while an uncovered shortage remains red",
+      "passed": true,
+      "evidence": {
+        "changedPart": "CYL05_LINER",
+        "status": "secured",
+        "allocated": 1,
+        "unchangedShortagePart": "CYL06_LINER",
+        "screenshot": "integrated-simulation-receipts.png"
+      }
+    },
+    {
+      "name": "delayed scenario restores seed quantities and shows the shifted promised arrival in UI and order data",
+      "passed": true,
+      "evidence": {
+        "partId": "CYL05_LINER",
+        "expectedDate": "2026-11-19",
+        "confirmed": false,
+        "screenshot": "integrated-simulation-delayed.png"
+      }
+    },
+    {
+      "name": "inspection rejection removes two cover units from availability and returning to baseline resets every scenario effect",
+      "passed": true,
+      "evidence": {
+        "changedPart": "CYL05_COVER",
+        "rejected": 2,
+        "accepted": 4,
+        "baselineAccepted": 6,
+        "resetsSeed": true,
+        "scenario": "baseline",
+        "screenshot": "integrated-simulation-rejected.png"
+      }
+    },
+    {
+      "name": "390px mobile retains controls and prevents horizontal overflow",
+      "passed": true,
+      "evidence": {
+        "viewport": 390,
+        "html": 390,
+        "body": 390,
+        "screenshot": "integrated-mobile.png"
+      }
+    },
+    {
+      "name": "runtime completes without JavaScript errors or failed asset requests",
+      "passed": true,
+      "evidence": {
+        "consoleErrors": 0,
+        "failedRequests": 0
+      }
+    }
+  ],
+  "consoleErrors": [],
+  "failedRequests": [],
+  "guidedVideo": {
+    "available": true,
+    "file": "integrated-demo.webm",
+    "durationMs": 18597,
+    "capturedFrames": 41,
+    "averageCapturedFps": 2.2,
+    "method": "Actual application viewport screenshot frames encoded with browser MediaRecorder; capture cadence is reported separately, no external ffmpeg."
+  },
+  "limitation": "Headless WebGL software rendering. Import fixture is QA-only input, not actual commercial/ERP data. Manufacturing dimensions and external purchase facts are not validated."
+}

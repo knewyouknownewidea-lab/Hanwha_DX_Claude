@@ -58,3 +58,10 @@ __pycache__/
 *.pyc
 *.tsbuildinfo
 *.log
+/.preview-runtime/
+/local-dist/
+/public/models/g95-concept/
+/public/model-reference/
+/public/data/g95-model-manifest.json
+/verification/integrated-*.png
+/verification/integrated-*.webm

@@ -6,11 +6,21 @@
     "node": ">=22.13.0"
   },
   "scripts": {
-    "dev": "node scripts/run-framework.mjs dev",
-    "build": "node scripts/run-framework.mjs build",
+    "dev": "node scripts/export-parts.mjs && node scripts/run-framework.mjs dev",
+    "build": "node scripts/export-parts.mjs && node scripts/run-framework.mjs build",
     "start": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
-    "db:generate": "drizzle-kit generate"
+    "db:generate": "drizzle-kit generate",
+    "parts:export": "node scripts/export-parts.mjs",
+    "simulation:generate": "node scripts/generate-simulation.mjs",
+    "test:simulation": "node checks/simulation.mjs",
+    "preview:setup": "node scripts/setup-preview.mjs",
+    "preview:build": "node scripts/export-parts.mjs && node scripts/build-local.mjs",
+    "preview:serve": "node scripts/serve-local.mjs",
+    "static:build": "node scripts/build-static.mjs",
+    "test:parts": "node checks/parts-model.mjs && node checks/parts-inventory.mjs",
+    "typecheck:parts": "node node_modules/typescript/bin/tsc -p local/tsconfig.check.json",
+    "static:serve": "node scripts/serve-static.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
