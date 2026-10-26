@@ -34,5 +34,62 @@ class QueryRulesTest(unittest.TestCase):
         self.assertEqual(self.route('발주 1101 승인 담당 조직')['mode'],'clarify')
         # 민원에 원인 확인 요청이 있다는 것과 실제 근본 원인을 아는 것은 다릅니다.
         self.assertEqual(self.route('실린더 라이너 긁힘 원인 확인을 요청한 민원 찾아줘')['mode'],'semantic')
+    def test_scope_is_not_tied_to_evaluation_wording(self):
+        # 평가셋(calibrate_threshold.py)에 없는 표현으로 규칙이 일반화되는지 확인합니다.
+        for q in ['주말에 볼 영화 추천해줘','엑셀 VLOOKUP 쓰는 법 알려줘','영어 이메일 번역해줘','신입사원 연봉은 얼마야?']:
+            self.assertEqual(self.route(q)['reason'],'outside_scope',q)
+        for q in ['가상 A사 팩스 번호 알려줘','베어링 규격 알려줘','발주 1101의 운송비는?','가상 C사 리드타임은?','민원 3002 처리 결과는?']:
+            self.assertEqual(self.route(q)['reason'],'unsupported_field',q)
+        # 민원 본문에 있는 단어(치수·포장)는 없는 속성으로 막지 않습니다.
+        for q in ['실린더 라이너 치수 확인 요청 민원 찾아줘','베어링 포장 불량 민원']:
+            self.assertEqual(self.route(q)['mode'],'semantic',q)
+
+    def test_explicit_filters_supply_context_for_short_questions(self):
+        cases = [
+            ('수량은?', {'document_type':'order','order_id':1101}, 'order-1101'),
+            ('수량은?', {'order_id':1101}, 'order-1101'),
+            ('수량 좀 알려줘', {'order_id':1101}, 'order-1101'),
+            ('상태는?', {'order_id':1101}, 'order-1101'),
+            ('수량은?', {'delivery_id':2024}, 'order-1101'),
+            ('unit_price', {'supplier_id':1,'part_id':1}, 'supplier_part-1'),
+            ('C 계산값', {'document_type':'supplier','supplier_id':1}, 'supplier-1'),
+            ('C 계산값', {'supplier_id':1}, 'supplier-1'),
+        ]
+        for question, filters, expected_id in cases:
+            with self.subTest(question=question, filters=filters):
+                result = self.route(question, filters)
+                self.assertEqual(result['mode'], 'structured')
+                self.assertEqual([doc['id'] for doc in result['documents']], [expected_id])
+
+    def test_filters_do_not_admit_unrelated_questions(self):
+        for filters in [{'document_type':'order','order_id':1101},
+                        {'document_type':'supplier','supplier_id':1},
+                        {'document_type':'complaint','part_id':1}]:
+            for question in ['주말에 볼 영화 추천해줘','영화 정보 알려줘','영어 이메일 번역해줘',
+                             '현재 서버 상태는?','사용자 계정 수량은?']:
+                with self.subTest(question=question, filters=filters):
+                    self.assertEqual(self.route(question, filters)['reason'], 'outside_scope')
+        for filters in [{}, {'order_id':None}, {'document_type':None},
+                        {'unknown_filter':1101}, {'document_type':'unknown'}]:
+            with self.subTest(filters=filters):
+                self.assertEqual(self.route('수량은?', filters)['reason'], 'outside_scope')
+
+    def test_filtered_short_questions_keep_condition_validation(self):
+        cases = [
+            ('수량은?', {'order_id':999999}, 'unknown_id'),
+            ('수량은?', {'order_id':1101,'supplier_id':2}, 'no_matching_records'),
+            ('수량은?', {'document_type':'supplier','order_id':1101}, 'conflicting_document_type'),
+            ('수량은?', {'document_type':'supplier','supplier_id':1}, 'conflicting_document_type'),
+            ('unit_price', {'document_type':'order','supplier_id':1,'part_id':1}, 'conflicting_document_type'),
+            ('C 계산값', {'document_type':'order','supplier_id':1}, 'conflicting_document_type'),
+            ('unit_price', {'supplier_id':1}, 'missing_price_conditions'),
+            ('C 계산값', {'document_type':'supplier'}, 'missing_supplier'),
+            ('협력사 전화번호는?', {'supplier_id':1}, 'unsupported_field'),
+            ('발주 수량과 운송비는?', {'order_id':1101}, 'unsupported_field'),
+            ('2026년 5월 C 계산값', {'supplier_id':1}, 'unsupported_history'),
+        ]
+        for question, filters, expected_reason in cases:
+            with self.subTest(question=question, filters=filters):
+                self.assertEqual(self.route(question, filters)['reason'], expected_reason)
 
 if __name__=='__main__':unittest.main()

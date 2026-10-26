@@ -7,14 +7,30 @@ import re
 from datetime import date
 from .documents import load_records, build_documents
 
+# 규칙 작성 원칙: 평가 질문(calibrate_threshold.py 등)의 단어를 옮겨 적지 않습니다.
+# 평가셋에 맞춰 규칙을 만들면 거절률이 구조적으로 100%가 되어 성능을 측정할 수 없습니다.
+
+# 구매관리 관련 키워드입니다. 질문에 하나도 없으면(협력사·부품 이름도 없으면) 범위 밖으로 봅니다.
+DOMAIN_TERMS = (r'협력사|공급사|업체|거래처|공급|부품|품목|품번|발주|주문|구매|납품|입고|납기|'
+                r'민원|클레임|불량|결함|하자|단가|가격|비용|점수|품질|검사|'
+                r'포장|라벨|긁힘|찍힘|스크래치|완충|치수|작동')
+
+# 필터가 지정된 짧은 질문도 같은 조회 항목 규칙으로 해석합니다.
+ORDER_FIELDS = r'수량|몇\s*개|납기|예정|발주일|주문일|납품일|상태|cost|비용'
+
+# 구매 업무에는 있지만 현재 schema.sql 컬럼에는 없는 속성입니다.
+# 민원 본문 검색에 쓰이는 단어(치수·원인·조치·포장·라벨 등)는 넣지 않습니다.
 UNAVAILABLE = {
-    '이메일': r'이메일|이메일주소|e-?mail', '전화번호': r'전화|연락처',
-    '주소': r'주소|공장\s*위치', '재질·무게': r'재질|무게|중량',
-    '회전수': r'회전수|rpm', '보증': r'보증', '결제': r'결제|지불|입금|송금',
-    '운송장': r'운송장|송장\s*번호', '해결일': r'해결일|해결\s*날짜|최종\s*해결|처리\s*완료일',
-    '처리자': r'처리자|담당자|담당\s*처리', '평가 산출근거': r'점수.*(?:산출|평가\s*기간|평가\s*근거)',
-    '실제 불량률': r'불량률|불량\s*수량',
+    '연락처·소재지': r'이메일|e-?mail|전화|연락처|팩스|주소|소재지|공장\s*위치',
+    '담당 인력': r'담당자|처리자|담당\s*처리|승인자|책임자',
+    '부품 사양': r'재질|무게|중량|회전수|rpm|규격|사양|도면',
+    '계약·대금': r'보증|결제|지불|입금|송금|계약\s*조건|운임|운송비|관세|세금|할인|환율',
+    '물류': r'운송장|송장\s*번호|배송사|선적',
     '재고': r'재고',
+    '리드타임': r'리드\s*타임|lead\s*time',
+    '민원 처리 결과': r'해결일|해결\s*날짜|최종\s*해결|처리\s*완료일|처리\s*결과|조치\s*결과',
+    '평가 산출근거': r'점수.*(?:산출|평가\s*기간|평가\s*근거)',
+    '품질 실적 수량': r'불량률|부적합률|불량\s*수량|검사\s*수량',
 }
 
 def decision(mode, reason, message, **extra):
@@ -50,12 +66,29 @@ def period(text):
 
 def plan(database,question,filters):
     text=question.strip();filters=dict(filters or {})
+    records,c_values,digest=load_records(database)
+    price=bool(re.search(r'단가|unit_price',text,re.I))
+    score=bool(re.search(r'점수|C\s*계산값',text,re.I))
+    order_field=bool(re.search(ORDER_FIELDS,text,re.I))
+    # '서버 상태'처럼 다른 대상을 명시한 질문을 발주 필터만으로 해석하지 않습니다.
+    short_order_question=bool(re.fullmatch(
+        rf'(?:{ORDER_FIELDS})(?:\s*(?:은|는|이|가|을|를))?\s*(?:좀\s*)?'
+        r'(?:(?:알려|보여)\s*(?:줘|주세요)|얼마(?:야|인가요)?|몇\s*개(?:야|인가요)?)?\s*[?？.!]*',
+        text,re.I))
+    has_domain_filter=(filters.get('document_type') in ('supplier','part','supplier_part','order','complaint')
+                       or any(filters.get(key) is not None for key in
+                              ('order_id','delivery_id','complaint_id','supplier_id','part_id')))
+    # 금지어 목록 대신, 구매관리 키워드나 DB에 있는 협력사·부품 이름이 있는지로 범위를 판단합니다.
+    # 명시적인 필터와 조회 항목이 함께 있으면 질문에 업무 대상 이름을 반복하지 않아도 됩니다.
+    names=[r['name'] for r in records['supplier']]+[r['part_name'].replace('(가상)','') for r in records['part']]
+    in_domain=(re.search(DOMAIN_TERMS,text) or re.search(r'가상\s*[A-Za-z가-힣0-9]+사',text)
+               or any(re.sub(r'\s+','',n) in re.sub(r'\s+','',text) for n in names)
+               or (has_domain_filter and (price or score or short_order_question)))
+    if not in_domain:
+        return decision('reject','outside_scope','근거 부족: 현재 구매관리 데이터의 지원 범위 밖 질문입니다.')
     for label,pattern in UNAVAILABLE.items():
         if re.search(pattern,text,re.I):
             return decision('reject','unsupported_field',f'근거 부족: 현재 스키마에서 {label} 항목의 값을 제공할 수 없습니다. 실제 정보가 존재하지 않는다는 의미는 아닙니다.')
-    if re.search(r'날씨|김치찌개|수도는|파이썬|축구|여행|미분|적분|배터리|환율|휴가',text):
-        return decision('reject','outside_scope','근거 부족: 현재 구매관리 데이터의 지원 범위 밖 질문입니다.')
-    records,c_values,digest=load_records(database)
     docs=build_documents(records,c_values,database.name,digest)
     conditions={k:v for k,v in filters.items() if k!='document_type' and v is not None}
     # 숫자를 문자 포함 검색하지 않고 완전한 정수 ID로 대조합니다.
@@ -88,10 +121,8 @@ def plan(database,question,filters):
         conditions['part_id']=pid
     try:dates=period(text)
     except ValueError as error:return decision('clarify','invalid_or_ambiguous_date',str(error))
-    price=bool(re.search(r'단가|unit_price',text,re.I))
-    score=bool(re.search(r'[QDTEC]\s*점수|점수',text,re.I))
     complaint=bool(re.search(r'민원|클레임|불량|포장|긁힘|찍힘|스크래치|라벨|완충|작동\s*확인',text))
-    order=bool(re.search(r'발주|주문|납품|입고|납기',text))
+    order=bool(re.search(r'발주|주문|납품|입고|납기',text) or (has_domain_filter and order_field))
     if re.search(r'최저|가장\s*낮|평균|합계|총합|순위|비교',text):
         return decision('clarify','aggregate_not_supported','비교·집계 질문은 아직 지원하지 않습니다. 협력사·부품·발주를 지정해 개별 값을 조회해 주세요.')
     if price:kind='supplier_part'
@@ -100,9 +131,9 @@ def plan(database,question,filters):
     elif order:kind='order'
     elif filters.get('document_type'):kind=filters['document_type']
     else:return decision('clarify','unrecognized_intent','조회할 항목을 지정해 주세요. 현재는 저장 점수·등록 단가·발주/납품 수량·민원 검색을 지원합니다.')
-    if kind=='order' and not re.search(r'수량|몇\s*개|납기|예정|발주일|주문일|납품일|상태|cost|비용|정보',text,re.I):
+    if kind=='order' and not (order_field or re.search(r'정보',text)):
         return decision('clarify','unsupported_order_field','발주에서 조회할 수량·비용·날짜·상태 항목을 명확히 지정해 주세요.')
-    if score and not re.search(r'[QDTEC]\s*(?:저장\s*)?점수',text,re.I):
+    if score and not re.search(r'[QDTEC]\s*(?:저장\s*)?점수|C\s*계산값',text,re.I):
         return decision('clarify','unsupported_score','조회할 저장 점수 Q/D/T/E 또는 C 계산값을 지정해 주세요.')
     if filters.get('document_type') and filters['document_type']!=kind:
         return decision('clarify','conflicting_document_type','질문의 항목과 document_type 필터가 다릅니다.')

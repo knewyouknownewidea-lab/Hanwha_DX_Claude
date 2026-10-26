@@ -18,6 +18,46 @@ def fake_encoder(texts):
     return np.array([np.random.default_rng(int(hashlib.sha256(t.encode()).hexdigest()[:8],16)).normal(size=1024) for t in texts])
 
 class BackendTest(unittest.TestCase):
+    def test_filtered_short_questions_use_structured_api_without_embeddings(self):
+        svc=object.__new__(RagService)
+        svc.lock=threading.RLock()
+        svc.database=DATABASE
+        svc.active=lambda:{'fingerprint':'fixture','source_sha256':hashlib.sha256(DATABASE.read_bytes()).hexdigest()}
+        svc.similarity_policy=lambda:{'min_similarity':0.5,'calibrated_index_fingerprint':'fixture','calibrated_top_k':3}
+        svc.encode=MagicMock()
+        svc._vector_search=MagicMock()
+        cases=[
+            ({'question':'수량은?','document_type':'order','order_id':1101}, 'order-1101'),
+            ({'question':'수량은?','order_id':1101}, 'order-1101'),
+            ({'question':'unit_price','supplier_id':1,'part_id':1}, 'supplier_part-1'),
+            ({'question':'C 계산값','supplier_id':1}, 'supplier-1'),
+        ]
+        with patch('backend.app.service',return_value=svc), TestClient(app) as api:
+            for payload, expected_id in cases:
+                with self.subTest(payload=payload):
+                    response=api.post('/search',json=payload)
+                    self.assertEqual(response.status_code,200,response.text)
+                    result=response.json()
+                    self.assertEqual(result['retrieval_method'],'structured_db')
+                    self.assertFalse(result['embedding_used'])
+                    self.assertEqual(result['count'],1)
+                    self.assertEqual(result['results'][0]['parent_document_id'],expected_id)
+            for payload, reason in [
+                ({'question':'주말에 볼 영화 추천해줘','document_type':'supplier','supplier_id':1}, 'outside_scope'),
+                ({'question':'현재 서버 상태는?','document_type':'order','order_id':1101}, 'outside_scope'),
+                ({'question':'수량은?','order_id':999999}, 'unknown_id'),
+                ({'question':'수량은?','document_type':'supplier','supplier_id':1}, 'conflicting_document_type'),
+                ({'question':'발주 수량과 운송비는?','order_id':1101}, 'unsupported_field'),
+            ]:
+                with self.subTest(payload=payload):
+                    response=api.post('/search',json=payload)
+                    self.assertEqual(response.status_code,200,response.text)
+                    result=response.json()
+                    self.assertEqual(result['reason'],reason)
+                    self.assertEqual(result['count'],0)
+        svc.encode.assert_not_called()
+        svc._vector_search.assert_not_called()
+
     def test_lifecycle_and_api(self):
         # 임시 폴더는 Chroma 파일 핸들 때문에 Windows에서 즉시 지우지 않습니다.
         folder=Path(tempfile.mkdtemp(prefix='rag-test-',dir=WORK_DIR))
