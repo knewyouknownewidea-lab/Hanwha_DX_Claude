@@ -5,6 +5,7 @@ import type { AnalysisResult, SourceRef } from "../../lib/analysisTypes";
 import { useStore } from "../../store/store";
 import { fmtMoney, fmtSignedPct } from "../../lib/format";
 import { StatusPill } from "../ui";
+import { ScrollX } from "../ScrollX";
 
 export function Highlights({ result }: { result: AnalysisResult }) {
   if (!result.highlights.length) return null;
@@ -105,7 +106,7 @@ function SourceTable({ src }: { src: SourceRef }) {
       <p className="src-title">
         {src.label} · {src.ids.length}건{src.ids.length > ids.length ? ` (앞 ${ids.length}건 표시)` : ""}
       </p>
-      <div className="table-scroll">
+      <ScrollX>
         <table className="mini-table">
           <thead>
             <tr>
@@ -124,7 +125,7 @@ function SourceTable({ src }: { src: SourceRef }) {
             ))}
           </tbody>
         </table>
-      </div>
+      </ScrollX>
     </div>
   );
 }

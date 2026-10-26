@@ -49,7 +49,7 @@ export function hasBatchim(word: string): boolean {
   return false;
 }
 /** josa("업체 L", "이/가") → "이" */
-export function josa(word: string, pair: "이/가" | "은/는" | "을/를" | "과/와"): string {
+export function josa(word: string, pair: "이/가" | "은/는" | "을/를" | "과/와" | "이면/면"): string {
   const [a, b] = pair.split("/");
   return hasBatchim(word) ? a : b;
 }

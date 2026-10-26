@@ -12,12 +12,32 @@
     "lastAuditDate": "2024-05-21",
     "evalHistory": [
       {
+        "year": 2023,
+        "half": 2,
+        "grade": "A",
+        "score": 86
+      },
+      {
         "year": 2024,
+        "half": 1,
+        "grade": "A",
+        "score": 87
+      },
+      {
+        "year": 2024,
+        "half": 2,
         "grade": "A",
         "score": 88
       },
       {
         "year": 2025,
+        "half": 1,
+        "grade": "A",
+        "score": 88
+      },
+      {
+        "year": 2025,
+        "half": 2,
         "grade": "A",
         "score": 89
       }
@@ -40,12 +60,32 @@
     "lastAuditDate": "2025-04-10",
     "evalHistory": [
       {
+        "year": 2023,
+        "half": 2,
+        "grade": "B",
+        "score": 80
+      },
+      {
         "year": 2024,
+        "half": 1,
+        "grade": "B",
+        "score": 81
+      },
+      {
+        "year": 2024,
+        "half": 2,
         "grade": "B",
         "score": 82
       },
       {
         "year": 2025,
+        "half": 1,
+        "grade": "B",
+        "score": 82
+      },
+      {
+        "year": 2025,
+        "half": 2,
         "grade": "B",
         "score": 83
       }
@@ -68,12 +108,33 @@
     "lastAuditDate": "2024-09-03",
     "evalHistory": [
       {
+        "year": 2023,
+        "half": 2,
+        "grade": "B",
+        "score": 84
+      },
+      {
         "year": 2024,
+        "half": 1,
+        "grade": "A",
+        "score": 87,
+        "reason": "가공 라인 안정화 후 불량률 개선"
+      },
+      {
+        "year": 2024,
+        "half": 2,
         "grade": "A",
         "score": 89
       },
       {
         "year": 2025,
+        "half": 1,
+        "grade": "A",
+        "score": 89
+      },
+      {
+        "year": 2025,
+        "half": 2,
         "grade": "A",
         "score": 90
       }
@@ -97,6 +158,14 @@
     "evalHistory": [
       {
         "year": 2025,
+        "half": 1,
+        "grade": "C",
+        "score": 70,
+        "reason": "신규 등록 · 초도 평가"
+      },
+      {
+        "year": 2025,
+        "half": 2,
         "grade": "C",
         "score": 71
       }
@@ -118,12 +187,32 @@
     "lastAuditDate": "2023-11-14",
     "evalHistory": [
       {
+        "year": 2023,
+        "half": 2,
+        "grade": "A",
+        "score": 90
+      },
+      {
         "year": 2024,
+        "half": 1,
+        "grade": "A",
+        "score": 90
+      },
+      {
+        "year": 2024,
+        "half": 2,
         "grade": "A",
         "score": 91
       },
       {
         "year": 2025,
+        "half": 1,
+        "grade": "A",
+        "score": 92
+      },
+      {
+        "year": 2025,
+        "half": 2,
         "grade": "A",
         "score": 92
       }
@@ -146,12 +235,33 @@
     "lastAuditDate": "2025-06-02",
     "evalHistory": [
       {
+        "year": 2023,
+        "half": 2,
+        "grade": "A",
+        "score": 87
+      },
+      {
         "year": 2024,
+        "half": 1,
+        "grade": "A",
+        "score": 86
+      },
+      {
+        "year": 2024,
+        "half": 2,
         "grade": "A",
         "score": 86
       },
       {
         "year": 2025,
+        "half": 1,
+        "grade": "B",
+        "score": 84,
+        "reason": "납기 지연 증가 (반기 준수율 80%대)"
+      },
+      {
+        "year": 2025,
+        "half": 2,
         "grade": "B",
         "score": 84
       }
@@ -174,12 +284,32 @@
     "lastAuditDate": "2024-03-28",
     "evalHistory": [
       {
+        "year": 2023,
+        "half": 2,
+        "grade": "A",
+        "score": 87
+      },
+      {
         "year": 2024,
+        "half": 1,
+        "grade": "A",
+        "score": 88
+      },
+      {
+        "year": 2024,
+        "half": 2,
         "grade": "A",
         "score": 88
       },
       {
         "year": 2025,
+        "half": 1,
+        "grade": "A",
+        "score": 88
+      },
+      {
+        "year": 2025,
+        "half": 2,
         "grade": "A",
         "score": 89
       }
@@ -202,12 +332,33 @@
     "lastAuditDate": "2025-08-19",
     "evalHistory": [
       {
+        "year": 2023,
+        "half": 2,
+        "grade": "A",
+        "score": 85
+      },
+      {
         "year": 2024,
+        "half": 1,
+        "grade": "B",
+        "score": 84,
+        "reason": "입고검사 불량률 상승"
+      },
+      {
+        "year": 2024,
+        "half": 2,
         "grade": "B",
         "score": 84
       },
       {
         "year": 2025,
+        "half": 1,
+        "grade": "B",
+        "score": 83
+      },
+      {
+        "year": 2025,
+        "half": 2,
         "grade": "B",
         "score": 83
       }
@@ -231,12 +382,32 @@
     "lastAuditDate": "2025-10-07",
     "evalHistory": [
       {
+        "year": 2023,
+        "half": 2,
+        "grade": "B",
+        "score": 81
+      },
+      {
         "year": 2024,
+        "half": 1,
+        "grade": "B",
+        "score": 82
+      },
+      {
+        "year": 2024,
+        "half": 2,
         "grade": "B",
         "score": 82
       },
       {
         "year": 2025,
+        "half": 1,
+        "grade": "B",
+        "score": 83
+      },
+      {
+        "year": 2025,
+        "half": 2,
         "grade": "B",
         "score": 83
       }
@@ -258,12 +429,33 @@
     "lastAuditDate": "2026-03-11",
     "evalHistory": [
       {
+        "year": 2023,
+        "half": 2,
+        "grade": "B",
+        "score": 79
+      },
+      {
         "year": 2024,
+        "half": 1,
+        "grade": "B",
+        "score": 78
+      },
+      {
+        "year": 2024,
+        "half": 2,
         "grade": "B",
         "score": 77
       },
       {
         "year": 2025,
+        "half": 1,
+        "grade": "C",
+        "score": 74,
+        "reason": "고압 연료관 납기 지연 반복 · 불량률 2%대"
+      },
+      {
+        "year": 2025,
+        "half": 2,
         "grade": "C",
         "score": 73
       }
@@ -286,12 +478,32 @@
     "lastAuditDate": "2024-07-30",
     "evalHistory": [
       {
+        "year": 2023,
+        "half": 2,
+        "grade": "A",
+        "score": 89
+      },
+      {
         "year": 2024,
+        "half": 1,
+        "grade": "A",
+        "score": 90
+      },
+      {
+        "year": 2024,
+        "half": 2,
         "grade": "A",
         "score": 90
       },
       {
         "year": 2025,
+        "half": 1,
+        "grade": "A",
+        "score": 91
+      },
+      {
+        "year": 2025,
+        "half": 2,
         "grade": "A",
         "score": 92
       }
@@ -314,14 +526,35 @@
     "lastAuditDate": "2025-01-22",
     "evalHistory": [
       {
+        "year": 2023,
+        "half": 2,
+        "grade": "B",
+        "score": 82
+      },
+      {
         "year": 2024,
+        "half": 1,
+        "grade": "B",
+        "score": 83
+      },
+      {
+        "year": 2024,
+        "half": 2,
         "grade": "B",
         "score": 84
       },
       {
         "year": 2025,
+        "half": 1,
+        "grade": "B",
+        "score": 84
+      },
+      {
+        "year": 2025,
+        "half": 2,
         "grade": "A",
-        "score": 86
+        "score": 86,
+        "reason": "단조 설비 교체 후 품질 점수 개선"
       }
     ],
     "items": [

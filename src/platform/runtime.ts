@@ -4,24 +4,27 @@
 import { isArtifactViewer } from "../ai/llm";
 
 type DownloadsNS = { save: (req: { filename: string; data: string | Blob }) => Promise<{ status: string }> };
+export type SaveResult = "saved" | "declined" | "unavailable";
 
 export const inArtifact = () => isArtifactViewer();
 export const canPrint = () => !inArtifact();
 
-export async function saveFile(filename: string, content: string, mime: string): Promise<"saved" | "declined" | "unavailable"> {
+/** 파일 저장: 글자(CSV·HTML)나 바이너리(xlsx)를 받는다 */
+export async function saveFile(filename: string, content: string | Uint8Array, mime: string): Promise<SaveResult> {
+  const asBlob = () => new Blob([typeof content === "string" ? content : (content.slice().buffer as ArrayBuffer)], { type: mime });
   if (inArtifact()) {
     try {
       const c = (window as unknown as { claude: { use: (n: string) => Promise<unknown> } }).claude;
       const dl = (await c.use("downloads")) as DownloadsNS | null;
       if (!dl) return "unavailable";
-      await dl.save({ filename, data: content });
+      await dl.save({ filename, data: typeof content === "string" ? content : asBlob() });
       return "saved";
     } catch (e) {
       const code = (e as { code?: string })?.code;
       return code === "declined" ? "declined" : "unavailable";
     }
   }
-  const blob = new Blob([content], { type: mime });
+  const blob = asBlob();
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
@@ -32,6 +35,9 @@ export async function saveFile(filename: string, content: string, mime: string):
   setTimeout(() => URL.revokeObjectURL(url), 2000);
   return "saved";
 }
+
+export const saveMessage = (r: SaveResult, what: string) =>
+  r === "saved" ? `${what}을(를) 저장했습니다` : r === "declined" ? "저장을 취소했습니다" : "이 화면에서는 파일 저장을 쓸 수 없습니다";
 
 export function printReport() {
   document.body.classList.add("printing-report");

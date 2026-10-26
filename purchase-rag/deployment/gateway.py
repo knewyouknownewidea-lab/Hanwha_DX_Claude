@@ -17,10 +17,11 @@ from typing import Literal
 import httpx
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, ValidationError, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, ValidationError, field_validator, model_validator
 
 BACKEND_URL = 'http://127.0.0.1:8000'
 MAX_BODY_BYTES = 8192
+MAX_DATASET_BYTES = 2 * 1024 * 1024
 JOB_TTL_SECONDS = 15 * 60
 MAX_JOBS = 100
 QUOTA_WINDOW_SECONDS = 600
@@ -28,6 +29,19 @@ VISITOR_JOB_LIMIT = 6
 GLOBAL_JOB_LIMIT = 20
 MAX_QUOTA_VISITORS = 1000
 VISITOR_PATTERN = re.compile(r'[A-Za-z0-9_-]{43}')
+
+
+class DatasetHandle(BaseModel):
+    model_config = ConfigDict(extra='forbid')
+    id: StrictStr
+    revision: StrictStr = Field(pattern=r'^[0-9a-f]{64}$')
+
+    @field_validator('id')
+    @classmethod
+    def valid_id(cls, value):
+        if str(uuid.UUID(value)) != value:
+            raise ValueError('invalid dataset id')
+        return value
 
 
 class AnswerInput(BaseModel):
@@ -40,6 +54,13 @@ class AnswerInput(BaseModel):
     supplier_id: StrictInt | None = Field(default=None, gt=0)
     part_id: StrictInt | None = Field(default=None, gt=0)
     document_type: Literal['supplier', 'part', 'supplier_part', 'order', 'complaint'] | None = None
+    dataset: DatasetHandle | None = None
+
+    @model_validator(mode='after')
+    def separate_sources(self):
+        if self.dataset is not None and any(getattr(self, key) is not None for key in ('order_id', 'supplier_id', 'part_id', 'document_type')):
+            raise ValueError('web and DB filters cannot be mixed')
+        return self
 
     @field_validator('question')
     @classmethod
@@ -59,14 +80,25 @@ class BackendUnavailable(Exception):
 class LocalBackend:
     """고정된 로컬 주소/경로만 호출합니다. 사용자 URL/경로는 받지 않습니다."""
     def request(self, method, path, payload=None):
-        allowed = {('GET', '/health'), ('GET', '/models'), ('POST', '/answer')}
+        allowed = {('GET', '/health'), ('GET', '/models'), ('POST', '/answer'),
+                   ('POST', '/web/datasets'), ('POST', '/web/datasets/status'),
+                   ('POST', '/web/datasets/delete'), ('POST', '/web/answer')}
         if (method, path) not in allowed:
             raise BackendUnavailable(502, '지원하지 않는 작업입니다.')
         try:
             with httpx.Client(base_url=BACKEND_URL, trust_env=False, follow_redirects=False,
-                              timeout=httpx.Timeout(630 if path == '/answer' else 10, connect=3)) as client:
+                              timeout=httpx.Timeout(630 if path in ('/answer', '/web/answer') else 10, connect=3)) as client:
                 response = client.request(method, path, json=payload)
             if not 200 <= response.status_code < 300:
+                if path.startswith('/web/'):
+                    messages = {404: '웹 데이터 연결이 없거나 만료되었습니다. 현재 데이터를 다시 연결해 주세요.',
+                                409: '웹 데이터가 변경되었거나 준비되지 않았습니다. 현재 데이터를 다시 연결해 주세요.',
+                                413: '웹 데이터 크기 한도를 넘었습니다. 데이터 범위를 줄여 주세요.',
+                                422: '웹 데이터 필드·키·형식·범위를 확인해 주세요.',
+                                429: '웹 데이터 처리 또는 메모리 보관 한도에 도달했습니다. 잠시 후 다시 시도해 주세요.',
+                                504: '답변 생성 시간이 초과되었습니다. 다시 시도해 주세요.'}
+                    status = response.status_code if response.status_code in messages else 503
+                    raise BackendUnavailable(status, messages.get(status, '웹 답변 서비스를 사용할 수 없습니다. 잠시 후 다시 시도해 주세요.'))
                 if response.status_code == 504:
                     raise BackendUnavailable(504, '답변 생성 시간이 초과되었습니다. 다시 시도해 주세요.')
                 if response.status_code in (400, 409, 422):
@@ -93,6 +125,8 @@ class Job:
     message: str | None = None
     error_status: int | None = None
     finished_at: float | None = None
+    dataset: dict | None = None
+    invalidated: bool = False
 
 
 class Busy(Exception):
@@ -157,6 +191,8 @@ class Jobs:
     @staticmethod
     def public(job):
         value = {'job_id': job.id, 'status': job.state}
+        if job.dataset is not None:
+            value['dataset'] = dict(job.dataset)
         if job.state == 'succeeded':
             value['result'] = job.result
         elif job.state == 'failed':
@@ -170,7 +206,7 @@ class Jobs:
                 raise Busy()
             self._check_quota(owner)
             copied = json.loads(json.dumps(payload, ensure_ascii=False))
-            job = Job(id=str(uuid.uuid4()), owner_hash=owner)
+            job = Job(id=str(uuid.uuid4()), owner_hash=owner, dataset=copied.get('dataset'))
             self.items[job.id] = job
             self.active = job.id
             accepted_at = self.clock()
@@ -188,11 +224,16 @@ class Jobs:
                     del self.visitor_usage[owner]
                 self.global_usage.pop()
                 raise Busy() from None
-            return {'job_id': job.id, 'status': 'running'}
+            return self.public(job)
 
     def _run(self, job_id, payload):
         try:
-            result = self.backend.request('POST', '/answer', payload)
+            with self.lock:
+                owner = self.items[job_id].owner_hash
+            result = self.backend.request('POST', '/web/answer' if payload.get('dataset') else '/answer',
+                                          {**payload, 'owner': owner} if payload.get('dataset') else payload)
+            if payload.get('dataset') and result.get('dataset') != payload['dataset']:
+                raise BackendUnavailable(502, '웹 데이터 답변의 버전 확인에 실패했습니다.')
             state, message, status = 'succeeded', None, None
         except BackendUnavailable as error:
             result, state, message, status = None, 'failed', error.message, error.status_code
@@ -200,16 +241,37 @@ class Jobs:
             # 예외 원문에는 경로/질문/내부 정보가 포함될 수 있어 기록하거나 외부로 반환하지 않습니다.
             result, state, message, status = None, 'failed', '답변 처리 중 오류가 발생했습니다.', 502
         with self.lock:
-            job = self.items[job_id]
-            job.result, job.state, job.message, job.error_status = result, state, message, status
-            job.finished_at = self.clock()
+            job = self.items.get(job_id)
+            if job is not None and not job.invalidated:
+                job.result, job.state, job.message, job.error_status = result, state, message, status
+                job.finished_at = self.clock()
             self.active = None
+
+    def invalidate_datasets(self, owner, *, keep=None, deleted=None):
+        with self.lock:
+            for job in self.items.values():
+                if job.owner_hash == owner and job.dataset and job.dataset['id'] != keep and (deleted is None or job.dataset['id'] == deleted):
+                    job.invalidated, job.result, job.state = True, None, 'failed'
+                    job.message, job.error_status, job.finished_at = '웹 데이터 연결이 변경되거나 삭제되었습니다. 현재 데이터를 다시 연결해 주세요.', 404, self.clock()
 
     def get(self, job_id, owner):
         with self.lock:
             self._expire()
             job = self.items.get(job_id)
-            return None if job is None or not hmac.compare_digest(job.owner_hash, owner) else self.public(job)
+            if job is None or not hmac.compare_digest(job.owner_hash, owner):
+                return None
+            dataset = dict(job.dataset) if job.dataset and not job.invalidated else None
+        if dataset:
+            try:
+                current = self.backend.request('POST', '/web/datasets/status', {'owner': owner, 'dataset_id': dataset['id']})
+                if current.get('revision') != dataset['revision'] or current.get('status') != 'ready':
+                    raise BackendUnavailable(409, '웹 데이터 연결이 변경되었습니다.')
+            except BackendUnavailable as error:
+                if error.status_code not in (404, 409):
+                    raise
+                self.invalidate_datasets(owner, deleted=dataset['id'])
+        with self.lock:
+            return self.public(job)
 
 
 def visitor_owner(request):
@@ -231,6 +293,7 @@ class BoundaryMiddleware:
             await self.app(scope, receive, send)
             return
         headers = scope.get('headers', [])
+        limit = MAX_DATASET_BYTES if scope.get('method') == 'POST' and scope.get('path') == '/datasets' else MAX_BODY_BYTES
         auth = [value for key, value in headers if key.lower() == b'authorization']
         if len(auth) != 1 or not hmac.compare_digest(auth[0], self.expected):
             await JSONResponse({'message': '인증이 필요합니다.'}, 401,
@@ -242,7 +305,7 @@ class BoundaryMiddleware:
                 await JSONResponse({'message': '요청 형식이 올바르지 않습니다.'}, 400)(scope, receive, send)
                 return
             # 매우 긴 숫자 헤더도 int 변환 제한/예외를 유발하지 않게 먼저 자릅니다.
-            if len(lengths[0]) > 10 or int(lengths[0]) > MAX_BODY_BYTES:
+            if len(lengths[0]) > 10 or int(lengths[0]) > limit:
                 await JSONResponse({'message': '요청 본문이 너무 큽니다.'}, 413)(scope, receive, send)
                 return
         chunks, size = [], 0
@@ -254,7 +317,7 @@ class BoundaryMiddleware:
                 continue
             body = part.get('body', b'')
             size += len(body)
-            if size > MAX_BODY_BYTES:
+            if size > limit:
                 await JSONResponse({'message': '요청 본문이 너무 큽니다.'}, 413)(scope, receive, send)
                 return
             chunks.append(body)
@@ -294,7 +357,69 @@ def create_app(token=None, backend=None, jobs=None):
 
     @app.exception_handler(BackendUnavailable)
     async def backend_error(request, error):
-        return JSONResponse({'message': error.message}, error.status_code)
+        return JSONResponse({'message': error.message}, error.status_code,
+                            headers={'Retry-After': '5'} if error.status_code == 429 else {})
+
+    def checked_owner(request):
+        owner = visitor_owner(request)
+        if owner is None:
+            raise BackendUnavailable(400, '방문자 확인 정보가 올바르지 않습니다. 페이지를 새로고침해 주세요.')
+        return owner
+
+    def checked_dataset_id(value):
+        try:
+            if str(uuid.UUID(value)) != value:
+                raise ValueError()
+        except (ValueError, TypeError, AttributeError):
+            raise BackendUnavailable(404, '웹 데이터 연결을 찾을 수 없습니다.') from None
+        return value
+
+    def public_dataset(value, expected_id=None):
+        if (not isinstance(value, dict) or value.get('status') not in ('indexing', 'ready', 'failed')
+                or not isinstance(value.get('revision'), str) or not re.fullmatch(r'[0-9a-f]{64}', value['revision'])
+                or type(value.get('row_count')) is not int or not 1 <= value['row_count'] <= 2000
+                or type(value.get('chunk_count')) is not int or not 1 <= value['chunk_count'] <= 2048):
+            raise BackendUnavailable(502, '웹 데이터 연결 상태를 확인하지 못했습니다.')
+        identifier = checked_dataset_id(value.get('dataset_id'))
+        if expected_id and identifier != expected_id:
+            raise BackendUnavailable(502, '웹 데이터 연결 상태를 확인하지 못했습니다.')
+        result = {key: value[key] for key in ('dataset_id', 'revision', 'status', 'row_count', 'chunk_count')}
+        if value['status'] == 'failed':
+            result['message'] = '웹 데이터 인덱싱에 실패했습니다. 모델 실행 상태와 데이터 크기를 확인해 주세요.'
+        return result
+
+    @app.post('/datasets', status_code=202)
+    async def create_dataset(request: Request):
+        owner = checked_owner(request)
+        if request.headers.get('content-type', '').split(';', 1)[0].strip().lower() != 'application/json':
+            raise BackendUnavailable(415, 'JSON 형식으로 요청해 주세요.')
+        try:
+            value = await request.json()
+            if not isinstance(value, dict) or set(value) != {'schema_version', 'client_revision', 'meta', 'data'}:
+                raise ValueError()
+        except (ValueError, UnicodeError):
+            raise BackendUnavailable(422, '웹 데이터 요청 형식을 확인해 주세요.') from None
+        from starlette.concurrency import run_in_threadpool
+        result = await run_in_threadpool(backend.request, 'POST', '/web/datasets', {**value, 'owner': owner})
+        result = public_dataset(result)
+        jobs.invalidate_datasets(owner, keep=result['dataset_id'])
+        return JSONResponse(result, 202, headers={'Location': '/datasets/' + result['dataset_id']})
+
+    @app.get('/datasets/{dataset_id}')
+    def dataset_status(dataset_id: str, request: Request):
+        owner = checked_owner(request)
+        identifier = checked_dataset_id(dataset_id)
+        return public_dataset(backend.request('POST', '/web/datasets/status', {'owner': owner, 'dataset_id': identifier}), identifier)
+
+    @app.delete('/datasets/{dataset_id}')
+    def delete_dataset(dataset_id: str, request: Request):
+        owner = checked_owner(request)
+        identifier = checked_dataset_id(dataset_id)
+        value = backend.request('POST', '/web/datasets/delete', {'owner': owner, 'dataset_id': identifier})
+        if value != {'deleted': True}:
+            raise BackendUnavailable(502, '웹 데이터 연결 해제를 확인하지 못했습니다.')
+        jobs.invalidate_datasets(owner, deleted=identifier)
+        return {'deleted': True}
 
     @app.get('/health')
     def health():
@@ -325,6 +450,10 @@ def create_app(token=None, backend=None, jobs=None):
             payload = AnswerInput.model_validate(value).model_dump(exclude_none=True)
         except (ValueError, ValidationError):
             return JSONResponse({'message': '질문·모델·조회 조건의 형식이나 범위를 확인해 주세요.'}, 422)
+        if payload.get('dataset'):
+            current = backend.request('POST', '/web/datasets/status', {'owner': owner, 'dataset_id': payload['dataset']['id']})
+            if current.get('status') != 'ready' or current.get('revision') != payload['dataset']['revision']:
+                raise BackendUnavailable(409, '웹 데이터가 변경되었거나 준비되지 않았습니다. 현재 데이터를 다시 연결해 주세요.')
         try:
             result = jobs.submit(payload, owner)
         except Busy:

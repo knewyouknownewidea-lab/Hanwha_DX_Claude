@@ -2,6 +2,8 @@
 import type { Contract, DataSet, InventoryRecord, Item, PurchaseOrder, Supplier } from "../data/types";
 import { addMonths, avg, daysBetween, quarterOf, quarterSortKey, round } from "./format";
 import { EVAL_CONFIG, comparableKey, evaluateSupplier, type SupplierEvaluation } from "./evaluation";
+import { buildBomIndex, type BomIndex } from "./bom";
+import { buildPayments, type PaymentSchedule } from "./payments";
 
 export type POStatus = "입고완료" | "지연입고" | "납기 지연" | "진행 중" | "취소";
 
@@ -66,6 +68,8 @@ export interface Derived {
   inventoryViews: InventoryView[];
   evaluations: Map<string, SupplierEvaluation>;
   supplierViews: SupplierView[];
+  bomIndex: BomIndex;
+  payments: PaymentSchedule;
 }
 
 export const pairKey = (supplierId: string, itemCode: string) => `${supplierId}|${itemCode}`;
@@ -171,6 +175,8 @@ export function derive(data: DataSet, asOf: string): Derived {
     inventoryViews,
     evaluations: new Map(),
     supplierViews: [],
+    bomIndex: buildBomIndex(data.bom ?? []),
+    payments: buildPayments(poViews, data.contracts, asOf),
   };
   for (const s of data.suppliers) partial.evaluations.set(s.supplierId, evaluateSupplier(s.supplierId, partial));
   partial.supplierViews = data.suppliers.map((s) => {

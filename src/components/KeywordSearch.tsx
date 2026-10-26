@@ -16,7 +16,10 @@ export function KeywordSearch() {
   const pick = (h: SearchHit) => {
     dispatch({ type: "tab", tab: h.tab });
     dispatch({ type: "selectRow", tab: h.tab, rowKey: h.rowKey, supplierId: h.supplierId, itemCode: h.itemCode });
-    if (isNarrow()) dispatch({ type: "panel", panel: "A" });
+    if (isNarrow()) {
+      dispatch({ type: "panel", panel: "A" });
+      dispatch({ type: "chat", open: false });
+    }
     dispatch({ type: "toast", text: `${h.tabLabel} 탭에서 '${h.title}'을(를) 선택했습니다` });
     setOpen(false);
   };
@@ -56,7 +59,11 @@ export function KeywordSearch() {
             } else if (e.key === "Enter" && hits[active]) {
               e.preventDefault();
               pick(hits[active]);
-            } else if (e.key === "Escape") setOpen(false);
+            } else if (e.key === "Escape" && open && q) {
+              e.preventDefault();
+              e.nativeEvent.preventDefault();
+              setOpen(false);
+            }
           }}
         />
         {q && (
@@ -67,7 +74,7 @@ export function KeywordSearch() {
       </label>
       {open && q.trim() && (
         <div className="kw-results" id="kw-results" role="listbox" aria-label="검색 결과">
-          <p className="kw-count">{hits.length ? `${hits.length}건${hits.length >= 40 ? " 이상" : ""} · 누르면 A 영역에서 선택됩니다` : "일치하는 데이터가 없습니다"}</p>
+          <p className="kw-count">{hits.length ? `${hits.length}건${hits.length >= 40 ? " 이상" : ""} · 누르면 데이터 관리에서 선택됩니다` : "일치하는 데이터가 없습니다"}</p>
           {hits.map((h, i) => (
             <button
               type="button"

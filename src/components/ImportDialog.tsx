@@ -2,13 +2,16 @@
 import { useEffect, useRef, useState } from "react";
 import { LuCircleAlert, LuDownload, LuFileUp, LuX } from "react-icons/lu";
 import { DATASET_LABEL, type DatasetKey } from "../data/types";
-import { SCHEMAS } from "../data/schema";
+import { FIELD_TYPE_LABEL, SCHEMAS, pkFields } from "../data/schema";
 import { parseCSV, toCSV } from "../lib/csv";
 import { guessDataset, rowsFromJSON, validateRows, type ValidationResult } from "../lib/validate";
 import { saveFile } from "../platform/runtime";
 import { useStore } from "../store/store";
+import { trapTab } from "./focus";
+import { josa } from "../lib/format";
 
-const DATASETS: DatasetKey[] = ["suppliers", "purchaseOrders", "contracts", "inventory", "items"];
+const BASIC: DatasetKey[] = ["suppliers", "purchaseOrders", "contracts", "inventory", "items", "bom"];
+const MARKET: DatasetKey[] = ["materialPrices", "fxRates", "laborWages", "competitorSupply", "industryNews"];
 
 export function ImportDialog() {
   const { state, dispatch } = useStore();
@@ -39,6 +42,10 @@ export function ImportDialog() {
 
   if (!open) return null;
   const close = () => dispatch({ type: "openImport", dataset: null });
+  const isJson = !!file && /\.json$/i.test(file.name);
+  const keyLabel = pkFields(SCHEMAS[dataset])
+    .map((k) => SCHEMAS[dataset].fields.find((f) => f.key === k)?.label ?? k)
+    .join("+");
 
   const readFile = async (f: File) => {
     setError(null);
@@ -63,7 +70,7 @@ export function ImportDialog() {
     dispatch({ type: "replaceData", dataset, rows: result.rows, source: file.name, mode });
     dispatch({
       type: "toast",
-      text: `${DATASET_LABEL[dataset]} ${result.rows.length}행을 ${mode === "replace" ? "교체" : "병합"}했습니다. 평가와 지표를 다시 계산했습니다.`,
+      text: `${DATASET_LABEL[dataset]} ${result.rows.length}행을 ${mode === "replace" ? "교체" : "병합"}했습니다. 지표를 다시 계산했고, 이 브라우저에 저장해 새로고침해도 유지됩니다.`,
     });
     close();
   };
@@ -74,13 +81,24 @@ export function ImportDialog() {
       schema.fields.map((f) => ({ key: f.key, label: f.label })),
       [],
     );
-    const r = await saveFile(`${dataset}_양식.csv`, csv, "text/csv;charset=utf-8");
+    const r = await saveFile(`${DATASET_LABEL[dataset].replace(/[()\s]/g, "")}_양식.csv`, csv, "text/csv;charset=utf-8");
     if (r === "unavailable") dispatch({ type: "toast", text: "이 화면에서는 파일 저장을 쓸 수 없습니다. 아래 필드 안내를 참고해 주세요.", tone: "warn" });
   };
 
   return (
     <div className="modal-backdrop" onMouseDown={(e) => e.target === e.currentTarget && close()}>
-      <div className="modal" role="dialog" aria-modal="true" aria-labelledby="import-title" tabIndex={-1} ref={dialogRef} onKeyDown={(e) => e.key === "Escape" && close()}>
+      <div
+        className="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="import-title"
+        tabIndex={-1}
+        ref={dialogRef}
+        onKeyDown={(e) => {
+          if (e.key === "Escape") close();
+          trapTab(e, dialogRef.current);
+        }}
+      >
         <div className="modal-head">
           <h2 id="import-title">데이터 불러오기</h2>
           <button type="button" className="icon-btn" onClick={close} aria-label="닫기">
@@ -91,11 +109,20 @@ export function ImportDialog() {
           <div className="field-row">
             <label htmlFor="import-dataset">데이터 종류</label>
             <select id="import-dataset" value={dataset} onChange={(e) => setDataset(e.target.value as DatasetKey)}>
-              {DATASETS.map((d) => (
-                <option key={d} value={d}>
-                  {DATASET_LABEL[d]}
-                </option>
-              ))}
+              <optgroup label="구매 기본 데이터">
+                {BASIC.map((d) => (
+                  <option key={d} value={d}>
+                    {DATASET_LABEL[d]}
+                  </option>
+                ))}
+              </optgroup>
+              <optgroup label="시세·인건비·동향">
+                {MARKET.map((d) => (
+                  <option key={d} value={d}>
+                    {DATASET_LABEL[d]}
+                  </option>
+                ))}
+              </optgroup>
             </select>
           </div>
 
@@ -144,20 +171,27 @@ export function ImportDialog() {
                 연결된 열: {result.mapped.map((m) => `${m.source}→${m.label}`).join(", ") || "없음"}
                 {result.unmapped.length ? ` · 사용하지 않는 열: ${result.unmapped.join(", ")}` : ""}
               </p>
+              {(result.errors.length > 0 || result.warnings.length > 0) && (
+                <p className="small muted">
+                  {isJson ? "번호는 JSON 배열의 몇 번째 항목인지입니다." : "행 번호는 파일을 엑셀로 열었을 때의 행 번호입니다 (1행 = 열 이름)."}
+                  {result.errors.length > 0 ? " 오류가 있는 행은 반영하지 않습니다." : ""}
+                </p>
+              )}
               {[...result.errors.slice(0, 6).map((i) => ({ ...i, t: "bad" })), ...result.warnings.slice(0, 4).map((i) => ({ ...i, t: "warn" }))].map((i, k) => (
                 <p key={k} className={`issue issue-${i.t}`}>
-                  {i.row ? `${i.row}행` : "파일"}
+                  {i.row ? (isJson ? `${i.row}번째 항목` : `${i.row + 1}행`) : "파일"}
                   {i.field ? ` · ${i.field}` : ""}: {i.message}
                 </p>
               ))}
-              {result.errors.length > 6 && <p className="small muted">오류 {result.errors.length - 6}건 더 있음 · 오류가 있는 행은 반영하지 않습니다.</p>}
-              <fieldset className="mode">
+              {result.errors.length > 6 && <p className="small muted">오류 {result.errors.length - 6}건 더 있음</p>}
+              <fieldset className="import-mode">
                 <legend>반영 방식</legend>
                 <label>
-                  <input type="radio" name="import-mode" id="mode-merge" checked={mode === "merge"} onChange={() => setMode("merge")} /> 병합 (같은 키는 덮어쓰기)
+                  <input type="radio" name="import-mode" id="mode-merge" checked={mode === "merge"} onChange={() => setMode("merge")} /> 병합 (같은 {keyLabel}
+                  {josa(keyLabel, "이면/면")} 새 값으로 바꾸고, 나머지 행은 그대로 둠)
                 </label>
                 <label>
-                  <input type="radio" name="import-mode" id="mode-replace" checked={mode === "replace"} onChange={() => setMode("replace")} /> 교체 (기존 {DATASET_LABEL[dataset]} 전체 바꾸기)
+                  <input type="radio" name="import-mode" id="mode-replace" checked={mode === "replace"} onChange={() => setMode("replace")} /> 교체 (기존 {DATASET_LABEL[dataset]} 전체를 이 파일 내용으로 바꿈)
                 </label>
               </fieldset>
             </div>
@@ -180,7 +214,7 @@ export function ImportDialog() {
                     <td>{f.label}</td>
                     <td className="code">{f.key}</td>
                     <td>
-                      {{ string: "문자", number: "숫자", date: "날짜(YYYY-MM-DD)", grade: "A~D", list: "목록(;)", boolean: "예/아니오", history: "연도:등급:점수;…" }[f.type]}
+                      {FIELD_TYPE_LABEL[f.type]}
                       {f.hint ? ` · ${f.hint}` : ""}
                     </td>
                     <td>{f.required ? "필수" : ""}</td>
@@ -188,7 +222,9 @@ export function ImportDialog() {
                 ))}
               </tbody>
             </table>
-            <p className="small muted">기본 키: {SCHEMAS[dataset].primaryKey} · 협력사는 업체ID, 품목은 품목코드로 다른 표와 연결됩니다.</p>
+            <p className="small muted">
+              한 행을 구분하는 열: {pkFields(SCHEMAS[dataset]).map((k) => SCHEMAS[dataset].fields.find((f) => f.key === k)?.label ?? k).join(" + ")} · 협력사는 업체ID, 품목은 품목코드로 다른 표와 연결됩니다.
+            </p>
           </details>
         </div>
         <div className="modal-foot">

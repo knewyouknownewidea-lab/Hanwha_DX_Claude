@@ -3,6 +3,7 @@
 import { useLayoutEffect, useRef, useState, type MouseEvent, type ReactNode } from "react";
 import type { ChartSpec } from "../../lib/analysisTypes";
 import { fmtInt, fmtNum } from "../../lib/format";
+import { ScrollX } from "../ScrollX";
 
 const SERIES = ["var(--series-1)", "var(--series-2)", "var(--series-3)", "var(--series-4)"];
 const colorOf = (spec: ChartSpec, i: number) => (spec.series.length === 1 ? "var(--series-single)" : SERIES[i % SERIES.length]);
@@ -34,7 +35,7 @@ export function fmtValue(v: number | null | undefined, unit: string, digits = 1)
 function axisFmt(v: number, unit: string) {
   if (unit === "원" && Math.abs(v) >= 10000) {
     const man = v / 10000;
-    return `${fmtNum(man, Number.isInteger(man) ? 0 : 1)}만`;
+    return `${fmtNum(man, Number.isInteger(man) || Math.abs(man) >= 100 ? 0 : 1)}만`;
   }
   if (Math.abs(v) >= 1000) return fmtInt(v);
   return fmtNum(v, Number.isInteger(v) ? 0 : 1);
@@ -65,7 +66,21 @@ function niceScale(lo: number, hi: number, ticks = 4, zero = false, unit = "") {
   return { min, max, ticks: out };
 }
 
-const truncate = (s: string, max: number) => (s.length > max ? s.slice(0, Math.max(1, max - 1)) + "…" : s);
+// 글자 폭: 한글 1, 영문·숫자·기호 0.6 으로 어림해 자른다
+const unitsOf = (ch: string) => (/[\u1100-\uffdc]/.test(ch) ? 1 : 0.6);
+const truncate = (s: string, max: number) => {
+  const chars = [...s];
+  const total = chars.reduce((a, c) => a + unitsOf(c), 0);
+  if (total <= max) return s;
+  let u = 0;
+  let out = "";
+  for (const c of chars) {
+    if (u + unitsOf(c) > max - 1) break;
+    u += unitsOf(c);
+    out += c;
+  }
+  return (out || chars[0]) + "…";
+};
 
 function Legend({ spec }: { spec: ChartSpec }) {
   const items: ReactNode[] = [];
@@ -103,7 +118,7 @@ function DataTable({ spec }: { spec: ChartSpec }) {
   return (
     <details className="chart-table">
       <summary>데이터 표</summary>
-      <div className="table-scroll">
+      <ScrollX>
         <table>
           <thead>
             <tr>
@@ -128,16 +143,16 @@ function DataTable({ spec }: { spec: ChartSpec }) {
             ))}
           </tbody>
         </table>
-      </div>
+      </ScrollX>
     </details>
   );
 }
 
-function BarChart({ spec }: { spec: ChartSpec }) {
+function BarChart({ spec, valueLabels }: { spec: ChartSpec; valueLabels: boolean }) {
   const [ref, W] = useWidth<HTMLDivElement>();
   const [hover, setHover] = useState<number | null>(null);
-  const H = 220;
-  const m = { t: 20, r: 12, b: 30, l: 46 };
+  const H = spec.xMarker ? 254 : 240;
+  const m = { t: spec.xMarker ? 36 : 22, r: 12, b: 32, l: 52 };
   const pw = Math.max(10, W - m.l - m.r);
   const ph = H - m.t - m.b;
   const vals = spec.series.flatMap((s) => s.values).filter((v): v is number => v !== null);
@@ -149,8 +164,8 @@ function BarChart({ spec }: { spec: ChartSpec }) {
   const k = spec.series.length;
   const bw = Math.min(40, (band * 0.62 - (k - 1) * 2) / k);
   const groupW = bw * k + (k - 1) * 2;
-  const showValues = n * k <= 10;
-  const maxChars = Math.max(2, Math.floor(band / 11));
+  const showValues = valueLabels && n * k <= 12;
+  const maxChars = Math.max(2, Math.floor(band / 12.5));
   const barPath = (x: number, top: number, w: number, bottom: number) => {
     const h = bottom - top;
     const r = Math.min(4, w / 2, h);
@@ -192,7 +207,7 @@ function BarChart({ spec }: { spec: ChartSpec }) {
                       </g>
                     );
                   })}
-                  <text x={m.l + band * ci + band / 2} y={H - m.b + 16} className="cat" textAnchor="middle">
+                  <text x={m.l + band * ci + band / 2} y={H - m.b + 18} className="cat" textAnchor="middle">
                     <title>{c}</title>
                     {truncate(c, maxChars)}
                   </text>
@@ -217,6 +232,14 @@ function BarChart({ spec }: { spec: ChartSpec }) {
                 <line x1={m.l} x2={m.l + pw} y1={y(spec.refLine.value)} y2={y(spec.refLine.value)} className="ref-line" />
               </g>
             )}
+            {spec.xMarker && (
+              <g pointerEvents="none">
+                <line x1={m.l + band * spec.xMarker.index} x2={m.l + band * spec.xMarker.index} y1={m.t - 20} y2={m.t + ph} className="x-marker-line" />
+                <text x={m.l + band * spec.xMarker.index + 5} y={m.t - 10} className="x-marker-label">
+                  {spec.xMarker.label}
+                </text>
+              </g>
+            )}
           </svg>
           {hover !== null && (
             <div className="tooltip" style={{ left: Math.min(Math.max(m.l + band * hover + band / 2, 70), W - 70), top: 4 }}>
@@ -236,7 +259,7 @@ function BarChart({ spec }: { spec: ChartSpec }) {
   );
 }
 
-function HBarChart({ spec }: { spec: ChartSpec }) {
+function HBarChart({ spec, valueLabels }: { spec: ChartSpec; valueLabels: boolean }) {
   const s = spec.series[0];
   const vals = s.values.filter((v): v is number => v !== null);
   const hi = Math.max(0, ...vals, spec.refLine?.value ?? 0);
@@ -256,7 +279,7 @@ function HBarChart({ spec }: { spec: ChartSpec }) {
                 {v !== null && <div className="hbar-fill" style={{ width: `${Math.max(0.5, pct(v))}%`, background: crit ? "var(--status-critical)" : "var(--series-single)" }} />}
                 {spec.refLine && <i className="hbar-ref" style={{ left: `${pct(spec.refLine.value)}%` }} />}
               </div>
-              <span className={`hbar-val ${crit ? "is-crit" : ""}`}>
+              <span className={`hbar-val ${crit ? "is-crit" : ""} ${valueLabels ? "" : "sr-only"}`}>
                 {crit && (
                   <b className="status-icon" aria-hidden>
                     !
@@ -280,9 +303,9 @@ function HBarChart({ spec }: { spec: ChartSpec }) {
 function LineChart({ spec }: { spec: ChartSpec }) {
   const [ref, W] = useWidth<HTMLDivElement>();
   const [hover, setHover] = useState<number | null>(null);
-  const H = 230;
+  const H = 250;
   const endLabels = spec.series.length >= 2 && spec.series.length <= 4;
-  const m = { t: 16, r: endLabels ? 70 : 16, b: 30, l: 50 };
+  const m = { t: 16, r: endLabels ? 84 : 16, b: 32, l: 56 };
   const pw = Math.max(10, W - m.l - m.r);
   const ph = H - m.t - m.b;
   const vals = spec.series.flatMap((s) => s.values).filter((v): v is number => v !== null);
@@ -297,7 +320,7 @@ function LineChart({ spec }: { spec: ChartSpec }) {
   const n = spec.categories.length;
   const x = (i: number) => m.l + (n <= 1 ? pw / 2 : (pw * i) / (n - 1));
   const y = (v: number) => m.t + ph - ((v - sc.min) / (sc.max - sc.min || 1)) * ph;
-  const every = Math.max(1, Math.ceil(n / Math.max(1, Math.floor(pw / 58))));
+  const every = Math.max(1, Math.ceil(n / Math.max(1, Math.floor(pw / 66))));
   const paths = spec.series.map((s) => {
     let d = "";
     let pen = false;
@@ -320,7 +343,7 @@ function LineChart({ spec }: { spec: ChartSpec }) {
     })
     .filter(Boolean) as { si: number; i: number; v: number; yy: number }[];
   ends.sort((a, b) => a.yy - b.yy);
-  for (let i = 1; i < ends.length; i++) if (ends[i].yy - ends[i - 1].yy < 13) ends[i].yy = ends[i - 1].yy + 13;
+  for (let i = 1; i < ends.length; i++) if (ends[i].yy - ends[i - 1].yy < 15) ends[i].yy = ends[i - 1].yy + 15;
   const onMove = (e: MouseEvent<SVGRectElement>) => {
     const rect = (e.currentTarget as SVGRectElement).getBoundingClientRect();
     const px = e.clientX - rect.left;
@@ -344,7 +367,7 @@ function LineChart({ spec }: { spec: ChartSpec }) {
             <line x1={m.l} x2={m.l + pw} y1={m.t + ph} y2={m.t + ph} className="axis-base" />
             {spec.categories.map((c, i) =>
               i % every === 0 || i === n - 1 ? (
-                <text key={c + i} x={x(i)} y={H - m.b + 16} className="cat" textAnchor="middle">
+                <text key={c + i} x={x(i)} y={H - m.b + 18} className="cat" textAnchor="middle">
                   {c}
                 </text>
               ) : null,
@@ -386,7 +409,8 @@ function LineChart({ spec }: { spec: ChartSpec }) {
   );
 }
 
-export function Chart({ spec }: { spec: ChartSpec }) {
+export function Chart({ spec: raw, valueLabels = true, refLine = true }: { spec: ChartSpec; valueLabels?: boolean; refLine?: boolean }) {
+  const spec = refLine ? raw : { ...raw, refLine: undefined };
   const hasData = spec.series.some((s) => s.values.some((v) => v !== null)) && spec.categories.length > 0;
   return (
     <figure className="chart-card">
@@ -394,11 +418,11 @@ export function Chart({ spec }: { spec: ChartSpec }) {
       {!hasData ? (
         <p className="muted small">표시할 데이터가 없습니다.</p>
       ) : spec.type === "hbar" ? (
-        <HBarChart spec={spec} />
+        <HBarChart spec={spec} valueLabels={valueLabels} />
       ) : spec.type === "line" ? (
         <LineChart spec={spec} />
       ) : (
-        <BarChart spec={spec} />
+        <BarChart spec={spec} valueLabels={valueLabels} />
       )}
       {spec.caption && <p className="chart-caption">{spec.caption}</p>}
       {hasData && <DataTable spec={spec} />}

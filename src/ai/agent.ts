@@ -43,7 +43,7 @@ export const SUGGESTIONS = [
   "A등급 협력사의 품질 실적을 정리해 줘.",
 ];
 
-export const STEPS = ["질문 의도 파악", "대상·데이터 확인", "계산 및 분석", "결과 형식 추천"];
+export const STEPS = ["질문 의도 파악", "대상·데이터 확인", "계산 및 분석", "결과 형식 추천·표시"];
 
 const catalogOf = (data: DataSet): Catalog => ({
   items: data.items.map((i) => ({ itemCode: i.itemCode, name: i.name })),
@@ -140,7 +140,7 @@ export async function answer(question: string, ctx: AgentContext, llm: LLMProvid
   });
 
   if (parsed.unknownItemRef) {
-    return { type: "message", text: [`${parsed.unknownItemRef} 품목을 현재 데이터에서 찾지 못했습니다. 품목코드를 확인하거나 A 영역에서 품목을 선택해 주세요.`], engine, engineNote: note };
+    return { type: "message", text: [`${parsed.unknownItemRef} 품목을 현재 데이터에서 찾지 못했습니다. 품목코드를 확인하거나 왼쪽 데이터 관리에서 품목을 선택해 주세요.`], engine, engineNote: note };
   }
 
   switch (parsed.kind) {
@@ -148,9 +148,9 @@ export async function answer(question: string, ctx: AgentContext, llm: LLMProvid
       let code = parsed.itemCode;
       if (!code && sel.itemCode) {
         code = sel.itemCode;
-        usedSelection = `A 영역에서 선택한 품목(${ctx.derived.itemsByCode.get(code)?.name ?? code})을 기준으로 분석했습니다.`;
+        usedSelection = `데이터 관리에서 선택한 품목(${ctx.derived.itemsByCode.get(code)?.name ?? code})을 기준으로 분석했습니다.`;
       }
-      if (!code) return clarify("item", "어느 품목을 비교할까요? A 영역에서 품목을 선택하거나 아래에서 골라 주세요.");
+      if (!code) return clarify("item", "어느 품목을 비교할까요? 왼쪽 데이터 관리에서 품목을 고르거나 아래에서 골라 주세요.");
       params = { kind: "item_candidates", itemCode: code, priority: parsed.priority ?? "balanced", periodMonths: parsed.periodMonths };
       break;
     }
@@ -161,7 +161,7 @@ export async function answer(question: string, ctx: AgentContext, llm: LLMProvid
         followup = true;
       } else if (sel.itemCode) {
         params = { kind: "item_candidates", itemCode: sel.itemCode, priority: parsed.priority ?? "balanced", periodMonths: parsed.periodMonths };
-        usedSelection = `직전 후보 비교가 없어 A 영역에서 선택한 품목(${ctx.derived.itemsByCode.get(sel.itemCode)?.name})으로 비교했습니다.`;
+        usedSelection = `직전 후보 비교가 없어 데이터 관리에서 선택한 품목(${ctx.derived.itemsByCode.get(sel.itemCode)?.name})으로 비교했습니다.`;
       } else {
         parsed = { ...parsed, kind: "item_candidates" };
         return clarify("item", `${PRIORITY[parsed.priority ?? "balanced"].label} 비교는 품목별 후보 업체 비교에 적용됩니다. 어느 품목을 볼까요?`);
@@ -172,7 +172,7 @@ export async function answer(question: string, ctx: AgentContext, llm: LLMProvid
       let id = parsed.supplierIds[0];
       if (!id && sel.supplierId) {
         id = sel.supplierId;
-        usedSelection = `A 영역에서 선택한 협력사(${ctx.derived.suppliersById.get(id)?.name ?? id})를 기준으로 정리했습니다.`;
+        usedSelection = `데이터 관리에서 선택한 협력사(${ctx.derived.suppliersById.get(id)?.name ?? id})를 기준으로 정리했습니다.`;
       }
       if (!id) return clarify("supplier", "어느 협력사의 평가를 볼까요?");
       params = { kind: "supplier_profile", supplierIds: [id] };
@@ -198,7 +198,7 @@ export async function answer(question: string, ctx: AgentContext, llm: LLMProvid
         type: "message",
         text: [
           "협력사·발주·계약·재고 데이터로 다음을 분석할 수 있습니다: 품목별 후보 업체 비교, 납기 준수율 저조 협력사, 단가 상승 품목, 등급별 품질 실적, 협력사 평가 근거, 재고·공급 위험.",
-          "질문하면 결과 형식(비교표·차트·카드·보고서)을 추천하고, 고르신 형식으로 오른쪽 C 영역에 결과를 보여 드립니다.",
+          "질문하면 알맞은 형식(협력사 비교표·데이터 시각화·종합 평가 카드·분석 보고서)으로 분석 결과창에 바로 보여 드리고, 결과창 상단에서 형식을 바꿀 수 있습니다.",
         ],
         suggestions: SUGGESTIONS,
         engine,
@@ -239,10 +239,10 @@ export async function answer(question: string, ctx: AgentContext, llm: LLMProvid
       `직전 분석 대상(${result.scope[0].value}, 업체 ${result.rows.length}곳)을 유지하고 ${w.label} 가중치(${weightText(result.params.priority ?? "balanced")})로 다시 비교했습니다.`,
       `검토 순서: ${ranked.map((r) => `${r.rank}) ${r.label} ${fmtNum(Number(r.values.score))}점`).join(" · ")}`,
       ...result.rows.filter((r) => r.excludedReason).map((r) => `순위 제외: ${r.label} — 비교 조건이 다릅니다(${r.excludedReason}).`),
-      "최종 선정은 담당자가 검토 후 확정합니다. 결과를 어떤 형식으로 볼까요?",
+      "최종 선정은 담당자가 검토 후 확정합니다.",
     ];
   } else {
-    text = [...leadText(result, usedSelection, ctx), "어떤 형식으로 결과를 보여드릴까요?"];
+    text = leadText(result, usedSelection, ctx);
   }
   return { type: "analysis", result, text, engine, engineNote: note, followup };
 }

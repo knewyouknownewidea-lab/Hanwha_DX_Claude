@@ -67,6 +67,7 @@ export interface ChartSpec {
   categories: string[];
   series: ChartSeries[];
   refLine?: { value: number; label: string };
+  xMarker?: { index: number; label: string }; // 막대 차트: 이 칸의 왼쪽 경계에 세로 점선 (예: 오늘·기준일)
   statusOf?: ("critical" | null)[]; // 단일 계열 막대의 상태 표시(기준 미달 등)
   statusLabel?: string;
   caption?: string;
@@ -89,6 +90,7 @@ export interface AnalysisResult {
   purpose: string;
   createdAt: string;
   dataVersion: number;
+  dataId: string;
   asOf: string;
   dataLabel: string;
   scope: { label: string; value: string }[];

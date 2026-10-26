@@ -6,7 +6,12 @@
     "category": "주조품",
     "unit": "EA",
     "criticality": "상",
-    "leadTimeDays": 75
+    "leadTimeDays": 75,
+    "materials": [
+      "선철",
+      "철스크랩",
+      "몰리브덴"
+    ]
   },
   {
     "itemCode": "ITM-1002",
@@ -15,7 +20,11 @@
     "category": "정밀가공품",
     "unit": "SET",
     "criticality": "상",
-    "leadTimeDays": 60
+    "leadTimeDays": 60,
+    "materials": [
+      "선철",
+      "크롬"
+    ]
   },
   {
     "itemCode": "ITM-1003",
@@ -24,7 +33,11 @@
     "category": "단조·가공품",
     "unit": "EA",
     "criticality": "상",
-    "leadTimeDays": 90
+    "leadTimeDays": 90,
+    "materials": [
+      "니켈",
+      "크롬"
+    ]
   },
   {
     "itemCode": "ITM-1004",
@@ -33,7 +46,12 @@
     "category": "정밀가공품",
     "unit": "EA",
     "criticality": "상",
-    "leadTimeDays": 45
+    "leadTimeDays": 45,
+    "materials": [
+      "크롬",
+      "몰리브덴",
+      "철스크랩"
+    ]
   },
   {
     "itemCode": "ITM-1005",
@@ -42,7 +60,12 @@
     "category": "정밀가공품",
     "unit": "SET",
     "criticality": "중",
-    "leadTimeDays": 60
+    "leadTimeDays": 60,
+    "materials": [
+      "주석",
+      "구리",
+      "철스크랩"
+    ]
   },
   {
     "itemCode": "ITM-1006",
@@ -51,7 +74,12 @@
     "category": "체결부품",
     "unit": "EA",
     "criticality": "중",
-    "leadTimeDays": 30
+    "leadTimeDays": 30,
+    "materials": [
+      "철스크랩",
+      "크롬",
+      "몰리브덴"
+    ]
   },
   {
     "itemCode": "ITM-1007",
@@ -60,7 +88,10 @@
     "category": "소모성 부품",
     "unit": "EA",
     "criticality": "하",
-    "leadTimeDays": 20
+    "leadTimeDays": 20,
+    "materials": [
+      "철스크랩"
+    ]
   },
   {
     "itemCode": "ITM-1008",
@@ -69,7 +100,11 @@
     "category": "주조품",
     "unit": "EA",
     "criticality": "중",
-    "leadTimeDays": 45
+    "leadTimeDays": 45,
+    "materials": [
+      "구리",
+      "주석"
+    ]
   },
   {
     "itemCode": "ITM-1009",
@@ -78,7 +113,12 @@
     "category": "배관 부품",
     "unit": "EA",
     "criticality": "중",
-    "leadTimeDays": 40
+    "leadTimeDays": 40,
+    "materials": [
+      "철스크랩",
+      "니켈",
+      "크롬"
+    ]
   },
   {
     "itemCode": "ITM-1010",
@@ -87,6 +127,10 @@
     "category": "정밀가공품",
     "unit": "EA",
     "criticality": "상",
-    "leadTimeDays": 90
+    "leadTimeDays": 90,
+    "materials": [
+      "크롬",
+      "니켈"
+    ]
   }
 ]

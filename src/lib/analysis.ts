@@ -56,6 +56,7 @@ function base(ctx: Ctx, params: AnalysisParams, partial: Partial<AnalysisResult>
     purpose: "",
     createdAt: new Date().toISOString(),
     dataVersion: ctx.meta.version,
+    dataId: ctx.meta.dataId,
     asOf: ctx.meta.asOf,
     dataLabel: ctx.meta.label,
     scope: [],

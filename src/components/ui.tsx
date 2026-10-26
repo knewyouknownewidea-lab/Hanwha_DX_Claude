@@ -21,6 +21,12 @@ const STATUS_TONE: Record<string, "ok" | "warn" | "bad" | "info" | "muted"> = {
   확인: "ok",
   누락: "bad",
   "표본 적음": "warn",
+  임박: "bad",
+  예정: "info",
+  이후: "muted",
+  "지급 확인 필요": "warn",
+  "조건 확인 필요": "warn",
+  "입고 대기": "muted",
 };
 
 export function StatusPill({ value }: { value: string | null | undefined }) {
