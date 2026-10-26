@@ -1,7 +1,9 @@
 import assert from "node:assert/strict";
 import { createServer } from "node:http";
+import { createHmac, webcrypto } from "node:crypto";
 import { test } from "node:test";
 import { createAppServer } from "../server/index.mjs";
+import { createRagFetchHandler } from "../server/rag-fetch.mjs";
 
 const TOKEN = "test-only-gateway-token-0123456789abcdef";
 const JOB = "cb87b92d-3822-4d2a-8d05-7cc553e803ba";
@@ -479,4 +481,175 @@ test("dataset uploads use existing redacted quota, redirect and timeout handling
   assert.equal(redirected.headers.get("location"), null);
   const delayed = await setup(t, () => {}, { timeoutMs: 30 });
   assert.equal((await upload(delayed.site)).status, 504);
+});
+
+function core(fetchImpl, options = {}) {
+  return createRagFetchHandler({ RAG_ORIGIN: "https://gateway.example", RAG_GATEWAY_TOKEN: TOKEN }, { fetchImpl, cryptoImpl: webcrypto, ...options });
+}
+
+function coreRequest(path, body, headers = {}, method = body === undefined ? "GET" : "POST") {
+  return new Request("https://site.example" + path, {
+    method, headers: { ...(body === undefined ? {} : { "content-type": "application/json" }), ...headers },
+    ...(body === undefined ? {} : { body: typeof body === "string" ? body : JSON.stringify(body) }),
+  });
+}
+
+function oldCookie(visitor) {
+  return "rag_visitor=" + visitor + "." + createHmac("sha256", TOKEN).update("hanwha-rag-visitor-v1:" + visitor).digest("base64url");
+}
+
+test("Fetch core returns Response for API and null for unrelated routes without network", async () => {
+  let requests = 0;
+  const handle = core(async () => { requests++; throw new Error("must not fetch"); });
+  assert.equal(await handle(coreRequest("/")), null);
+  assert.equal(await handle(coreRequest("/api/ai/status")), null);
+  const status = await handle(coreRequest("/api/rag/status"));
+  assert.ok(status instanceof Response);
+  assert.deepEqual(await status.json(), { enabled: true, models: ["qwen3:8b", "gemma3:4b", "llama3.1:8b"] });
+  assert.equal(status.headers.get("cache-control"), "no-store");
+  assert.equal(status.headers.get("set-cookie"), null);
+  const unavailable = createRagFetchHandler({}, { cryptoImpl: webcrypto });
+  assert.equal((await (await unavailable(coreRequest("/api/rag/status"))).json()).enabled, false);
+  assert.equal((await unavailable(coreRequest("/api/rag/jobs", QUESTION))).status, 503);
+  assert.equal(requests, 0);
+});
+
+test("Fetch core WebCrypto accepts existing Node cookies and preserves scoped HMAC bytes", async () => {
+  const visitor = "V".repeat(43);
+  const received = [];
+  const handle = core(async (url, init) => { received.push({ url, init }); return Response.json({ job_id: JOB, status: "running" }, { status: 202 }); });
+  const response = await handle(coreRequest("/api/rag/jobs", QUESTION, { cookie: oldCookie(visitor), "x-rag-session": SESSION, authorization: "Bearer browser", "x-rag-visitor": "X".repeat(43) }));
+  assert.equal(response.status, 202);
+  assert.equal(response.headers.get("set-cookie"), null);
+  const expected = createHmac("sha256", TOKEN).update("hanwha-rag-session-v1:" + visitor + ":" + SESSION).digest("base64url");
+  assert.equal(received[0].init.headers["x-rag-visitor"], expected);
+  assert.equal(received[0].init.headers.authorization, "Bearer " + TOKEN);
+  assert.equal(received[0].init.headers.cookie, undefined);
+  assert.equal(received[0].init.headers["x-rag-session"], undefined);
+  assert.equal(received[0].url, "https://gateway.example/jobs");
+  assert.equal(received[0].init.redirect, "manual");
+});
+
+test("Fetch core new cookies remain verifiable by Node with HTTPS-only Secure", async () => {
+  const handle = core(async () => Response.json({ job_id: JOB, status: "running" }, { status: 202 }));
+  const response = await handle(coreRequest("/api/rag/jobs", QUESTION));
+  const cookie = response.headers.get("set-cookie");
+  assert.match(cookie, /HttpOnly; SameSite=Lax; Max-Age=2592000; Secure$/);
+  const [visitor, signed] = cookie.split(";", 1)[0].slice("rag_visitor=".length).split(".");
+  assert.equal(signed, createHmac("sha256", TOKEN).update("hanwha-rag-visitor-v1:" + visitor).digest("base64url"));
+  const plain = new Request("http://localhost/api/rag/jobs", { method: "POST", headers: { "content-type": "application/json", "x-forwarded-proto": "https" }, body: JSON.stringify(QUESTION) });
+  assert.ok(!(await handle(plain)).headers.get("set-cookie").includes("; Secure"));
+});
+
+test("Fetch core rejects duplicate, tampered and noncanonical base64 signatures", async () => {
+  const visitor = "V".repeat(43);
+  const cookie = oldCookie(visitor);
+  const signed = cookie.split(".")[1];
+  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
+  const index = alphabet.indexOf(signed.at(-1));
+  const noncanonical = signed.slice(0, -1) + alphabet[index + 1];
+  // Same decoded signature bytes, different padding bits: the old Node string comparison rejected this too.
+  assert.deepEqual(Buffer.from(signed, "base64url"), Buffer.from(noncanonical, "base64url"));
+  const owners = [];
+  const handle = core(async (_url, init) => { owners.push(init.headers["x-rag-visitor"]); return Response.json({ job_id: JOB, status: "running" }, { status: 202 }); });
+  for (const invalid of [cookie + "; " + cookie, "rag_visitor=" + visitor + "." + noncanonical, cookie + ".extra"]) {
+    const response = await handle(coreRequest("/api/rag/jobs", QUESTION, { cookie: invalid }));
+    assert.equal(response.status, 202);
+    assert.ok(response.headers.get("set-cookie"));
+    assert.notEqual(owners.at(-1), visitor);
+  }
+});
+
+test("Fetch core keeps upload/status/job/poll/delete identity and session contracts", async () => {
+  const calls = [];
+  const handle = core(async (url, init) => {
+    calls.push({ path: new URL(url).pathname, method: init.method, owner: init.headers["x-rag-visitor"] });
+    if (init.method === "DELETE") return Response.json({ deleted: true });
+    if (url.endsWith("/datasets")) return Response.json(DATASET_STATUS, { status: 202 });
+    if (url.includes("/datasets/")) return Response.json({ ...DATASET_STATUS, status: "ready" });
+    if (init.method === "POST") return Response.json({ job_id: JOB, status: "running", dataset: DATASET }, { status: 202 });
+    return Response.json({ job_id: JOB, status: "succeeded", dataset: DATASET, result: { ...ANSWER, dataset: DATASET } });
+  });
+  const headers = { cookie: oldCookie("V".repeat(43)), "x-rag-session": SESSION };
+  const created = await handle(coreRequest("/api/rag/datasets", SNAPSHOT, headers));
+  assert.equal(created.status, 202);
+  assert.deepEqual(await created.json(), DATASET_STATUS);
+  assert.equal((await handle(coreRequest("/api/rag/datasets/" + DATASET_ID, undefined, headers))).status, 200);
+  const submitted = await handle(coreRequest("/api/rag/jobs", { question: "업체 이름", model: "qwen3:8b", dataset: DATASET }, headers));
+  assert.equal(submitted.status, 202);
+  const polled = await handle(coreRequest("/api/rag/jobs/" + JOB, undefined, headers));
+  assert.deepEqual((await polled.json()).result.dataset, DATASET);
+  const deleted = await handle(coreRequest("/api/rag/datasets/" + DATASET_ID, undefined, headers, "DELETE"));
+  assert.deepEqual(await deleted.json(), { deleted: true });
+  assert.equal(new Set(calls.map((call) => call.owner)).size, 1);
+  assert.deepEqual(calls.map((call) => call.path), ["/datasets", "/datasets/" + DATASET_ID, "/jobs", "/jobs/" + JOB, "/datasets/" + DATASET_ID]);
+});
+
+test("Fetch core enforces UTF-8 stream limits even when Content-Length claims less", async () => {
+  let requests = 0;
+  let cancelled = false;
+  const handle = core(async () => { requests++; return Response.json(DATASET_STATUS, { status: 202 }); });
+  const body = new ReadableStream({
+    start(controller) { controller.enqueue(new TextEncoder().encode("가".repeat(3000))); },
+    cancel() { cancelled = true; },
+  });
+  const oversized = new Request("https://site.example/api/rag/jobs", { method: "POST", headers: { "content-type": "application/json", "content-length": "1" }, body, duplex: "half" });
+  assert.equal((await handle(oversized)).status, 413);
+  assert.equal(cancelled, true);
+  const large = { ...SNAPSHOT, data: { ...SNAPSHOT.data, suppliers: [{ name: "가".repeat(4000) }] } };
+  assert.equal((await handle(coreRequest("/api/rag/datasets", large, { "x-rag-session": SESSION }))).status, 202);
+  const tooLarge = { ...SNAPSHOT, data: { ...SNAPSHOT.data, suppliers: [{ name: "가".repeat(710000) }] } };
+  assert.equal((await handle(coreRequest("/api/rag/datasets", tooLarge, { "x-rag-session": SESSION }))).status, 413);
+  assert.equal(requests, 1);
+});
+
+test("Fetch core bounds upstream response bytes and sanitizes redirect/error headers", async () => {
+  const large = core(async () => Response.json({ job_id: JOB, status: "running", hidden: "가".repeat(500) }, { status: 202 }), { maxResponseBytes: 1024 });
+  assert.equal((await large(coreRequest("/api/rag/jobs", QUESTION))).status, 502);
+  const redirect = core(async () => new Response(TOKEN, { status: 302, headers: { location: "https://private.example/" + TOKEN, "set-cookie": "gateway=" + TOKEN } }));
+  const rejected = await redirect(coreRequest("/api/rag/jobs", QUESTION));
+  assert.equal(rejected.status, 502);
+  assert.equal(rejected.headers.get("location"), null);
+  assert.ok(!rejected.headers.get("set-cookie").includes(TOKEN));
+  assert.ok(!(await rejected.text()).includes(TOKEN));
+  const quota = core(async () => Response.json({ message: TOKEN }, { status: 429, headers: { "retry-after": "999999" } }));
+  const limited = await quota(coreRequest("/api/rag/jobs", QUESTION));
+  assert.equal(limited.headers.get("retry-after"), "86400");
+  assert.ok(!(await limited.text()).includes(TOKEN));
+});
+
+test("Fetch core preserves request abort and timeout without leaking runtime exceptions", async () => {
+  const handle = core((_url, init) => new Promise((_resolve, reject) => init.signal.addEventListener("abort", () => reject(new Error(TOKEN + " private path")), { once: true })), { timeoutMs: 5 });
+  const response = await handle(coreRequest("/api/rag/jobs", QUESTION));
+  assert.equal(response.status, 504);
+  assert.ok(!(await response.text()).includes(TOKEN));
+  let requested = false;
+  const aborted = new AbortController();
+  aborted.abort();
+  const noFetch = core(async () => { requested = true; throw new Error(TOKEN); });
+  const request = new Request(coreRequest("/api/rag/jobs", QUESTION), { signal: aborted.signal });
+  assert.equal((await noFetch(request)).status, 504);
+  assert.equal(requested, false);
+  assert.throws(() => createRagFetchHandler({}, { cryptoImpl: null }), /Web Crypto/);
+});
+
+test("Fetch core error and unexpected-status responses do not wait for stalled stream cancellation", async () => {
+  for (const [status, expected] of [[503, 503], [200, 502]]) {
+    let cancelled = false;
+    const body = new ReadableStream({
+      start(controller) { controller.enqueue(new TextEncoder().encode(TOKEN)); },
+      cancel() { cancelled = true; return new Promise(() => {}); },
+    });
+    const handle = core(async () => new Response(body, { status }), { timeoutMs: 5 });
+    let timer;
+    try {
+      const response = await Promise.race([
+        handle(coreRequest("/api/rag/jobs", QUESTION)),
+        new Promise((_resolve, reject) => { timer = setTimeout(() => reject(new Error("stream cancellation blocked the response")), 200); }),
+      ]);
+      assert.equal(response.status, expected);
+      assert.equal(cancelled, true);
+      assert.ok(!(await response.text()).includes(TOKEN));
+    } finally { clearTimeout(timer); }
+  }
 });
